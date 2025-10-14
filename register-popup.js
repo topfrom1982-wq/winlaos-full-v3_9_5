@@ -8,7 +8,7 @@ console.log("✅ register-popup.js (JR x Top Premium Edition) loaded");
   const openBtn = document.getElementById("openSignup");
   const closeBtn = document.getElementById("closePopup");
 
-  const API_URL = "http://localhost:8080/register";
+  const API_URL = "https://winlaos-register-bridge.onrender.com/register";
   const WA_NUMBER = "8562076355481";
   const clickSound = new Audio("sounds/click.mp3");
   let lastSubmitTime = 0;
