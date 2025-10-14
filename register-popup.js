@@ -8,7 +8,7 @@ console.log("✅ register-popup.js (JR x Top Premium Edition) loaded");
   const openBtn = document.getElementById("openSignup");
   const closeBtn = document.getElementById("closePopup");
 
-  const API_URL = "https://script.google.com/macros/s/AKfycbwobt8KmY4r9vAyX1WBQnbdhmTmCyS8a2xHc-IFDkuW5UoZSylxZF9qrlipzLrMB_KY/exec";
+  const API_URL = "http://localhost:8080/register";
   const WA_NUMBER = "8562076355481";
   const clickSound = new Audio("sounds/click.mp3");
   let lastSubmitTime = 0;

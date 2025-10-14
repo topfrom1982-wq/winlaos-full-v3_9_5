@@ -3,18 +3,61 @@
 ============================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-  /* ✅ ປຸ່ມຄລິກຄັ້ງດຽວ + ສຽງ */
+  /* ✅ เสียงคลิกทุกปุ่ม + เมนู 3 ขีด (JR x Top Premium Touch) */
   const clickSound = new Audio("sounds/click.mp3");
+  clickSound.volume = 0.8;
+
+  // ป้องกัน error ถ้าไฟล์เสียงโหลดไม่ทัน
+  clickSound.addEventListener("error", () => {
+    console.warn("⚠️ ไม่พบไฟล์เสียง: sounds/click.mp3");
+  });
+
+  // ✅ เล่นเสียงเฉพาะเมื่อคลิกปุ่ม / ลิงก์ / เมนู
   document.addEventListener("click", e => {
-    if (e.target.matches("button, a")) {
+    const target = e.target;
+    if (target.matches("button, a, .menu-btn, .dropdown a")) {
+      try {
+        clickSound.currentTime = 0; // รีเซ็ตเสียงก่อนเล่นใหม่
+        const playPromise = clickSound.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {}); // ป้องกัน error autoplay
+        }
+      } catch (err) {
+        console.warn("Click sound error:", err);
+      }
+    }
+  
+
+
+  /* ✅ เมนู 3 ขีด */
+  const menuBtn = document.getElementById("menuBtn");
+  const dropdownMenu = document.getElementById("dropdownMenu");
+
+  if (menuBtn && dropdownMenu) {
+    menuBtn.addEventListener("click", () => {
+      // เปิด/ปิดเมนู
+      menuBtn.classList.toggle("active");
+      dropdownMenu.classList.toggle("show");
+
+      // เล่นเสียงคลิก
       try {
         clickSound.currentTime = 0;
         clickSound.play().catch(() => {});
       } catch {}
-    }
-  });
+    });
 
-  /* ✅ Jackpot + Online (ເຄື່ອນໄຫວບາງໆ) */
+    // ✅ ปิดเมนูเมื่อกดลิงก์ภายใน
+    dropdownMenu.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        menuBtn.classList.remove("active");
+        dropdownMenu.classList.remove("show");
+      });
+    });
+  }
+});
+
+
+  /* ✅ Jackpot + Online */
   const jackpotEl = document.getElementById("jackpotNumber");
   const onlineEl = document.getElementById("onlineNumber");
   function animateNumber(el, start, end, duration = 1200) {
@@ -34,6 +77,36 @@ document.addEventListener("DOMContentLoaded", () => {
     animateNumber(jackpotEl, jNow, jNow + Math.floor(Math.random() * 5000 + 2000));
     animateNumber(onlineEl, oNow, oNow + Math.floor(Math.random() * 30 - 10));
   }, 7000);
+
+  /* ✅ ฟีดผู้ชนะล่าสุด */
+  const winnerBox = document.getElementById("winnerTicker");
+  const winnerTicker = winnerBox ? winnerBox.querySelector(".scroll-text") : null;
+  if (winnerBox && winnerTicker) {
+    const winnerNames = ["ນ້ຳຝົນ", "ລິນດາລັດ", "ກີຕ້າ", "ຕຸກຕິກ", "ອາລີ້", "ຊ້າງນ້ອຍ"];
+    const winnerGames = ["PG SOFT", "PRAGMATIC PLAY", "SEXY BACCARAT", "SBO PLUS", "GOLD FISH"];
+
+    function generateWinnerFeed() {
+      let text = "";
+      for (let i = 0; i < 10; i++) {
+        const name = winnerNames[Math.floor(Math.random() * winnerNames.length)];
+        const game = winnerGames[Math.floor(Math.random() * winnerGames.length)];
+        const prize = (Math.floor(Math.random() * 1500000) + 50000).toLocaleString("lo-LA");
+        text += `💰 ${name} ຊະນະ ${game} ຈຳນວນ ${prize} ₭ — `;
+      }
+      winnerTicker.innerHTML = text;
+    }
+
+    function cycleWinnerFeed() {
+      winnerBox.classList.add("fade-out");
+      setTimeout(() => {
+        generateWinnerFeed();
+        winnerBox.classList.remove("fade-out");
+      }, 1200);
+    }
+
+    generateWinnerFeed();
+    setInterval(cycleWinnerFeed, 180000);
+  }
 
   /* ✅ ສະໄລດໂປຣໂມຊັ່ນ */
   const promoImgs = [
@@ -207,34 +280,6 @@ document.addEventListener("DOMContentLoaded", () => {
     memberVal += plus;
   }, 8000);
 
-  // ✅ ฟีดผู้ชนะล่าสุด (Ticker)
-  const winnerTicker = document.querySelector("#winnerTicker .scroll-text");
-  const winnerBox = document.getElementById("winnerTicker");
-
-  const winnerNames = ["ນ້ຳຝົນ", "ລິນດາລັດ", "ກີຕ້າ", "ຕຸກຕິກ", "ອາລີ້", "ຊ້າງນ້ອຍ"];
-  const winnerGames = ["PG SOFT", "PRAGMATIC PLAY", "SEXY BACCARAT", "SBO PLUS", "GOLD FISH"];
-
-  function generateWinnerFeed() {
-    let text = "";
-    for (let i = 0; i < 12; i++) {
-      const name = winnerNames[Math.floor(Math.random() * winnerNames.length)];
-      const game = winnerGames[Math.floor(Math.random() * winnerGames.length)];
-      const prize = (Math.floor(Math.random() * 1500000) + 50000).toLocaleString("lo-LA");
-      text += `💰 ${name} ຊະນະ ${game} ຈຳນວນ ${prize} ₭ — `;
-    }
-    winnerTicker.innerHTML = text + text;
-  }
-
-  function cycleWinnerFeed() {
-    winnerBox.classList.add("fade-out");
-    setTimeout(() => {
-      generateWinnerFeed();
-      winnerBox.classList.remove("fade-out");
-    }, 1200);
-  }
-
-  generateWinnerFeed();
-  setInterval(cycleWinnerFeed, 180000);
 
   /* ✅ โหลดบทความ */
   async function loadArticles() {
@@ -272,3 +317,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   loadArticles();
 });
+

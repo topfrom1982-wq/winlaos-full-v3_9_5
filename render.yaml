@@ -1,7 +1,9 @@
 services:
   - type: web
-    name: winlaos-full-v3_9_5
-    env: static
-    buildCommand: ""
-    staticPublishPath: .
-    pullRequestPreviewsEnabled: false
+    name: winlaos-register-bridge
+    env: node
+    rootDir: bridge
+    buildCommand: npm install
+    startCommand: node winlaos-register-bridge.js
+    plan: free
+    region: singapore

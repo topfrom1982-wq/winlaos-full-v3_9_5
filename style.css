@@ -489,14 +489,36 @@ body{
 .toast.warn { background: #fbbf24; color: #000; }
 .toast.error { background: #ef4444; }
 
-/* ✅ Fade / Zoom */
-.fade-in { animation: fadeIn 0.4s ease forwards; }
-.fade-out { animation: fadeOut 0.3s ease forwards; }
-.popup-hidden { opacity: 0; transform: scale(0.9); transition: all 0.3s ease; }
-#signupPopup { opacity: 1; transform: scale(1); transition: all 0.3s ease; }
+/* ✅ Fade / Zoom (Optimized by JR x Top 2025) */
+.fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
 
-@keyframes fadeIn { from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:translateY(0);} }
-@keyframes fadeOut { from{opacity:1;} to{opacity:0;} }
+.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+/* ✅ Animation keyframes (ลื่น ไม่มีซูมซ้อน) */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 
 /* ✅ Spinner */
 #loadingOverlay {
