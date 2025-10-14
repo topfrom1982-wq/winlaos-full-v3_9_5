@@ -1,0 +1,477 @@
+/* =============================================
+✨ Winlaos168 — Premium Glow V2 (Soft Gold Aura)
+By JR x Top | Inspired by Winlaos UI
+============================================= */
+
+/* 🌌 พื้นหลังรวม */
+body {
+  background: radial-gradient(1000px at 50% -10%, rgba(255, 210, 50, 0.12), transparent 70%),
+              linear-gradient(180deg, #070707 0%, #0b0a09 50%, #000000 100%);
+  font-family: 'Kanit', 'Noto Sans Lao', sans-serif;
+  overflow-x: hidden;
+  color: #fff;
+}
+
+/* 🌟 เอฟเฟกต์ทองเรืองแบบภาพ */
+@keyframes goldPulse {
+  0%, 100% { box-shadow: 0 0 18px rgba(255, 215, 0, 0.3); }
+  50% { box-shadow: 0 0 35px rgba(255, 215, 0, 0.9); }
+}
+
+@keyframes textShine {
+  0%, 100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.25); }
+  50% { text-shadow: 0 0 25px rgba(255, 215, 0, 0.85); }
+}
+
+/* ✨ เงาเรืองรอบกรอบปุ่ม */
+button, .popup-btn, .gold-btn {
+  position: relative;
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  background: linear-gradient(180deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.03));
+  color: #ffd700;
+  font-weight: 600;
+  border-radius: 14px;
+  padding: 12px 22px;
+  text-transform: uppercase;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.25), inset 0 0 10px rgba(255, 215, 0, 0.15);
+  animation: goldPulse 3s ease-in-out infinite;
+  transition: all 0.25s ease;
+}
+
+button:hover, .popup-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 35px rgba(255, 215, 0, 0.85);
+}
+
+/* 💫 เอฟเฟกต์เส้นทองวิ่งผ่าน (reflection move) */
+button::before, .popup-btn::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,200,0.4) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-25deg);
+  animation: reflectionMove 5s infinite;
+}
+
+@keyframes reflectionMove {
+  0% { left: -75%; }
+  100% { left: 125%; }
+}
+
+/* 🧱 กล่องข้อมูล / stat */
+.gbox, .stat-box {
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  background: linear-gradient(180deg, rgba(255, 215, 0, 0.05), rgba(255, 215, 0, 0.02));
+  box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.12), 0 0 30px rgba(255, 215, 0, 0.08);
+  border-radius: 16px;
+  animation: goldPulse 4s ease-in-out infinite;
+}
+
+/* 🔢 ตัวเลขหลัก ๆ */
+#jackpotNumber, #onlineNumber {
+  color: #ffd700;
+  font-weight: 800;
+  letter-spacing: 1px;
+  animation: textShine 3s ease-in-out infinite;
+}
+
+/* 🧩 โลโก้เรืองแสง */
+.logo-glow {
+  filter: drop-shadow(0 0 10px rgba(255,215,0,0.7))
+          drop-shadow(0 0 20px rgba(255,215,0,0.5));
+  animation: goldPulse 3s ease-in-out infinite;
+}
+
+/* 🌠 รูปโปรโมชัน */
+#promoTopImg, #promoBottomImg {
+  border-radius: 14px;
+  box-shadow: 0 0 20px rgba(255,215,0,0.15);
+  transition: all 0.4s ease;
+}
+#promoTopImg:hover, #promoBottomImg:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 40px rgba(255,215,0,0.6);
+}
+
+/* 💬 Toast แจ้งเตือน */
+.toast {
+  background: rgba(15, 15, 15, 0.95);
+  border: 1px solid rgba(255,215,0,0.5);
+  color: #FFD700;
+  box-shadow: 0 0 25px rgba(255,215,0,0.2);
+}
+
+/* 📱 Responsive */
+@media (max-width: 600px) {
+  button, .popup-btn {
+    font-size: 15px;
+    padding: 10px 18px;
+  }
+}
+/* ================================
+   🌟 Premium Glow Hamburger Menu
+================================ */
+.menu-btn {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  width: 34px;
+  height: 28px;
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.3));
+}
+
+.menu-btn:hover {
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+  transform: scale(1.05);
+}
+
+.menu-btn .bar {
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, #FFD700, #ffb300);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* เมื่อคลิกแล้วเป็นกากบาท */
+.menu-btn.active .bar:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+.menu-btn.active .bar:nth-child(2) {
+  opacity: 0;
+}
+.menu-btn.active .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* 🎯 Dropdown Menu — Premium Glow Edition */
+
+/* ✅ ปุ่มเมนู 3 ขีด */
+.menu-btn {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 1001; /* สูงกว่า .dropdown */
+  width: 34px;
+  height: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.35s ease;
+}
+
+.menu-btn .bar {
+  height: 4px;
+  background: linear-gradient(90deg, #FFD700, #ffb300);
+  border-radius: 3px;
+  transition: all 0.35s ease;
+  box-shadow: 0 0 8px rgba(255,215,0,0.6);
+}
+
+/* ✅ เอฟเฟกต์แสงทองเมื่อเปิดเมนู */
+.menu-btn.active .bar {
+  box-shadow: 0 0 14px rgba(255, 215, 0, 0.9);
+}
+
+/* ✅ แอนิเมชันเวลาเมนูเปิด */
+.menu-btn.active .bar:nth-child(1) {
+  transform: rotate(45deg) translateY(10px);
+}
+.menu-btn.active .bar:nth-child(2) {
+  opacity: 0;
+}
+.menu-btn.active .bar:nth-child(3) {
+  transform: rotate(-45deg) translateY(-10px);
+}
+
+/* ✅ เมนูดรอปดาวแบบพรีเมียม */
+.dropdown {
+  position: fixed;
+  top: 62px;
+  left: 16px;
+  background: rgba(10, 10, 15, 0.9);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  border-radius: 14px;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.1);
+  padding: 12px 0;
+  flex-direction: column;
+  width: 210px;
+  z-index: 999;
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: all 0.35s ease;
+}
+
+/* ✅ เมื่อเปิดเมนู */
+.dropdown.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+/* ✅ ลิงก์ในเมนู */
+.dropdown a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 18px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.12);
+  transition: background 0.25s ease, color 0.25s ease, text-shadow 0.25s ease, transform 0.25s ease;
+}
+
+/* ✅ ลิงก์สุดท้ายไม่มีเส้น */
+.dropdown a:last-child {
+  border-bottom: none;
+}
+
+/* ✅ เอฟเฟกต์ hover */
+.dropdown a:hover {
+  background: rgba(255, 215, 0, 0.15);
+  color: #FFD700;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.9);
+  transform: translateX(3px);
+}
+
+/* ✅ ปุ่มเมนู 3 ขีด */
+.menu-btn {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 1001;
+  width: 34px;
+  height: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.menu-btn .bar {
+  height: 4px;
+  background: linear-gradient(90deg, #FFD700, #ffb300);
+  border-radius: 3px;
+  transition: all 0.35s ease;
+  box-shadow: 0 0 8px rgba(255,215,0,0.6);
+}
+
+/* ✅ แอนิเมชันเวลาเมนูเปิด */
+.menu-btn.active .bar:nth-child(1) {
+  transform: rotate(45deg) translateY(10px);
+}
+.menu-btn.active .bar:nth-child(2) {
+  opacity: 0;
+}
+.menu-btn.active .bar:nth-child(3) {
+  transform: rotate(-45deg) translateY(-10px);
+}
+
+/* ✅ Responsive */
+@media (max-width: 480px) {
+  .menu-btn {
+    top: 12px;
+    left: 12px;
+    width: 30px;
+    height: 22px;
+  }
+  .dropdown {
+    top: 55px;
+    width: 180px;
+    backdrop-filter: blur(10px);
+  }
+  .dropdown a {
+    padding: 10px 14px;
+    font-size: 15px;
+  }
+}
+
+
+/* ✅ พรีวิวบทความในหน้าแรก */
+.article-preview {
+  background: rgba(255, 215, 0, 0.03);
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 40px;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.05);
+}
+
+.article-preview h2 {
+  color: #FFD700;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.article-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: #fff;
+  background: rgba(255, 215, 0, 0.05);
+  padding: 12px;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+  margin-bottom: 12px;
+}
+
+.article-card:hover {
+  background: rgba(255, 215, 0, 0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.25);
+}
+
+.article-card img {
+  width: 100px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.article-card .info h3 {
+  font-size: 16px;
+  color: #FFD700;
+  margin: 0 0 6px;
+}
+
+.article-card .info p {
+  font-size: 14px;
+  color: #ccc;
+  margin: 0;
+}
+
+.article-card .info .date {
+  font-size: 12px;
+  color: #aaa;
+}
+.article-body {
+  background: radial-gradient(1200px 600px at 50% -10%, rgba(255,215,0,.1), transparent 60%), linear-gradient(180deg,#0a0a0e,#050507 55%, #0b0a09);
+  color: #fff;
+  font-family: 'Noto Sans Lao','Kanit',sans-serif;
+}
+
+.article-body .wrap {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 15px;
+}
+
+.article-body h1 {
+  font-size: 26px;
+  color: #FFD700;
+  margin-bottom: 10px;
+}
+
+.article-body h2 {
+  font-size: 20px;
+  margin-top: 30px;
+  color: #ffcc33;
+}
+
+.article-body p, .article-body li {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #ddd;
+}
+
+.article-cover {
+  width: 100%;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.back-home {
+  display: inline-block;
+  margin-top: 25px;
+  background: linear-gradient(90deg,#FFD700,#ffb300);
+  color: #000;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: .25s;
+}
+
+.back-home:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(255,215,0,.6);
+}
+/* ✅ จัดปุ่มให้อยู่ตรงกลางทุกกรณี */
+.center {
+  text-align: center;
+}
+
+.center .gold-button {
+  display: inline-block;
+  margin: 0 auto;
+}
+/* ✅ ใช้กับ register-popup.js */
+.popup-hidden {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}
+.hidden {
+  display: none !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-10px); }
+}
+
+/* ✅ Popup Overlay Fix */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.7);
+  z-index: 9999;
+  transition: all 0.3s ease;
+}
+
+.popup-overlay.show {
+  display: flex;
+  opacity: 1;
+  pointer-events: all;
+}
+
+.popup-box {
+  background: #111;
+  border-radius: 16px;
+  padding: 20px;
+  width: 90%;
+  max-width: 420px;
+  color: #fff;
+  box-shadow: 0 0 25px rgba(255,215,0,0.3);
+  transform: scale(1);
+}
+
+

@@ -1,0 +1,686 @@
+:root{ --gold:#FFD700; --gold2:#ffb300; --bg:#050507; --card:#101115; --muted:#c9ced6; }
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  color:#fff;
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(255,215,0,.12), transparent 60%),
+    linear-gradient(180deg,#0a0a0e,#050507 55%, #0b0a09);
+  font-family:'Noto Sans Lao','Kanit',system-ui,Segoe UI,Roboto,Arial,sans-serif;
+  overflow-x:hidden;
+  display:flex;
+  justify-content:center;
+}
+.wrap{width:100%; max-width:980px; margin:24px auto 40px; padding:0 10px}
+
+/* ກ່ອງທອງ */
+.gbox{
+  position:relative;
+  background:linear-gradient(180deg,#14151a,#0e0f13);
+  border-radius:16px;
+  padding:16px;
+  margin:14px 0;
+  border:2px solid var(--gold);
+  box-shadow:0 0 0 1px rgba(255,215,0,.55) inset, 0 0 25px rgba(255,215,0,.55), 0 12px 40px rgba(0,0,0,.6);
+}
+.center{text-align:center}
+.title{margin:6px 0 12px; color:var(--gold); text-align:center}
+
+/* ໂລໂກ້ */
+.site-logo{
+  width:120px;height:120px;border-radius:50%;object-fit:cover;display:block;margin:6px auto;
+  box-shadow:0 0 40px rgba(255,215,0,.7), 0 0 0 2px rgba(255,215,0,.7);
+}
+
+/* ===== Jackpot + Online ===== */
+.kp-box{padding-top:12px}
+.jackpot-number{
+  font-size:44px;
+  font-weight:900;
+  letter-spacing:.5px;
+  color:#ffe382;
+  text-shadow:0 0 18px rgba(255,215,0,.7), 0 0 6px rgba(255,215,0,.5);
+  display:inline-block;
+  position:relative;
+  padding:8px 14px;
+  border-radius:12px;
+}
+.glow-ring::before{
+  content:"";
+  position:absolute;
+  inset:-6px;
+  border-radius:14px;
+  background:conic-gradient(from 0deg, rgba(255,215,0,0), rgba(255,215,0,.7), rgba(255,215,0,0));
+  filter:blur(12px);
+  animation:ringSpin 4.5s linear infinite;
+}
+@keyframes ringSpin{to{transform:rotate(360deg)}}
+.jackpot-label{margin-top:6px; color:#ffd700; font-weight:700; font-size:18px;}
+.online-line{
+  margin-top:6px;
+  font-weight:700;
+  color:#b9ffe1;
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:10px;
+  position:relative;
+  font-size:16px;
+}
+.online-value{font-size:19px;}
+.glow-bar::after{
+  content:"";
+  position:absolute;
+  left:-20%;
+  top:0;
+  bottom:0;
+  width:40%;
+  background:linear-gradient(90deg, rgba(0,255,163,0), rgba(0,255,163,.25), rgba(0,255,163,0));
+  filter:blur(8px);
+  animation:barRun 2.2s ease-in-out infinite;
+  border-radius:10px;
+}
+@keyframes barRun{
+  0%{transform:translateX(0)}
+  50%{transform:translateX(180%)}
+  100%{transform:translateX(360%)}
+}
+
+/* ===== ปุ่มหลักทั้งหมด ===== */
+.lock-section {
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 0 15px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.gold-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 14px 20px;
+  border-radius: 50px;
+  text-decoration: none;
+  width: 90%;
+  max-width: 350px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.6), inset 0 2px 8px rgba(255,255,255,0.3);
+  transition: all 0.3s ease;
+  font-family: "Noto Sans Lao", "Phetsarath OT", sans-serif;
+  position: relative;
+}
+.gold-button:hover {transform: scale(1.05);}
+.gold-button .icon {width: 28px; height: 28px;}
+.whatsapp {background: linear-gradient(145deg, #25D366, #128C7E); color:#fff; border:2px solid #25D366;}
+.messenger {background: linear-gradient(145deg, #FFD700, #b8860b); color:#000; border:2px solid #FFD700;}
+.line {background: linear-gradient(145deg, #06C755, #008a32); color:#fff; border:2px solid #06C755;}
+.entry {background: linear-gradient(145deg, #ffcc00, #ff9900); color:#000; border:2px solid #ffcc00;}
+.blink {animation: blink 1.5s infinite;}
+@keyframes blink {
+  0%{opacity:1;transform:scale(1);}
+  50%{opacity:.85;transform:scale(1.05);}
+  100%{opacity:1;transform:scale(1);}
+}
+
+/* ปุ่มสมัครสมาชิก */
+.signup-btn {
+  display: inline-block;
+  width: 90%;
+  max-width: 350px;
+  margin: 0 auto 10px;
+  background: linear-gradient(180deg, #FFD700 0%, #ffb300 100%);
+  color: #111;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 0;
+  font-size: 18px;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+  text-align: center;
+  cursor: pointer;
+  font-family: 'Noto Sans Lao','Kanit',sans-serif;
+  transition: all 0.3s ease;
+}
+.signup-btn:hover {transform: scale(1.05);}
+
+/* ສໄລດໂປຣ */
+.promo-slider{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:18px}
+.promo-frame{
+  width:100%;
+  border:2px solid var(--gold);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 0 25px rgba(255,215,0,.5);
+  background:#0b0c10;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:6px;
+}
+.promo-slide{
+  width:95vw;
+  max-width:720px;
+  height:auto;
+  max-height:480px;
+  object-fit:contain;
+  border-radius:12px;
+  transition:opacity .4s ease,transform .4s ease;
+}
+.promo-slide.fade-out{opacity:0;transform:scale(1.02)}
+.dots{display:flex;gap:6px;justify-content:center}
+.dot{width:7px;height:7px;border-radius:50%;background:#444;border:1px solid #777;transition:transform .2s ease,background .2s ease}
+.dot.active{background:var(--gold);transform:scale(1.2)}
+
+/* ແຈ້ງຖອນ */
+#notifications{display:flex;flex-direction:column;gap:10px;align-items:center}
+.notification{
+  position:relative;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding:12px 16px;
+  background:#0f1116;
+  border:2px solid var(--gold);
+  border-radius:12px;
+  box-shadow:0 0 20px rgba(255,215,0,0.35);
+  animation:bankIn .6s ease forwards,goldGlow 2.5s ease-in-out infinite;
+  opacity:0;
+  transform:translateY(20px);
+  width:100%;
+  max-width:600px;
+}
+@keyframes bankIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes goldGlow{
+  0%{box-shadow:0 0 10px rgba(255,215,0,.3)}
+  50%{box-shadow:0 0 25px rgba(255,215,0,.6)}
+  100%{box-shadow:0 0 10px rgba(255,215,0,.3)}
+}
+
+/* ✅ โลโก้ธนาคาร */
+.bank-logo {
+  width: 64px; height: 64px;
+  border-radius: 10px;
+  border: 1px solid var(--gold);
+  background: #1a1b1f;
+  object-fit: contain;
+  object-position: center;
+  padding: 6px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ວິຈານລູກຄ້າ */
+#review-list{max-width:650px;margin:10px auto 0;display:flex;flex-direction:column}
+.review-box{background:#111;border:1px solid gold;border-radius:10px;padding:12px 15px;display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.review-box img{width:55px;height:55px;border-radius:50%;border:2px solid var(--gold);object-fit:cover;flex-shrink:0;background-color:#222;}
+.review-stars{color:gold}
+
+/* ເກມ */
+.game-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.game-card{background:#0f1116;border:2px solid var(--gold);border-radius:12px;overflow:hidden;box-shadow:0 0 18px rgba(255,215,0,.35);transition:transform .25s ease,box-shadow .25s ease}
+.game-card .img{width:100%;height:160px;object-fit:cover;display:block;transition:transform .25s ease}
+.game-card:hover{transform:translateY(-4px);box-shadow:0 0 28px rgba(255,215,0,.7)}
+.game-card:hover .img{transform:scale(1.05)}
+.game-card .name{color:var(--gold);font-weight:700;padding:10px;text-align:center}
+
+/* ✅ Popup สมัคร (เวอร์ชันแก้ไขล่าสุด JR x Top) */
+.popup-overlay {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* ✅ ซ่อน popup ตอนยังไม่เปิด */
+.popup-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ✅ กล่อง popup */
+.popup-box {
+  background: #111;
+  border: 2px solid var(--gold);
+  border-radius: 14px;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 25px rgba(255, 215, 0, .6);
+  transform: scale(0.96);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.popup-box h2 {
+  text-align: center;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.popup-box label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.popup-box input,
+.popup-box select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 4px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  background: #222;
+  color: #fff;
+}
+
+/* ✅ ปุ่มใน popup */
+.popup-btn {
+  margin-top: 14px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(180deg, #FFD700 0%, #ffb300 100%);
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.popup-btn:hover {
+  transform: scale(1.05);
+}
+
+/* ✅ ปุ่มปิด (x) */
+.close-popup {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  font-size: 26px;
+  cursor: pointer;
+  color: #fff;
+}
+
+/* ✅ class ซ่อนในแต่ละ step */
+.hidden {
+  display: none;
+}
+
+
+/* ຟຸດເຕີ */
+.ft{opacity:.7;font-size:.9rem;text-align:center;padding:18px 0;border-top:1px solid #17181c;margin-top:18px}
+
+/* ✅ QR ธนาคารใน Popup */
+.qr-image { width: 100%; max-width: 320px; height: auto; object-fit: contain; border-radius: 12px; border: 2px solid var(--gold); box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); display: block; margin: 12px auto; background: #000; }
+
+/* ✅ ปรับขนาด QR Deposit */
+.qr-image { width: 100%; max-width: 320px; height: auto; display: block; margin: 0 auto 10px; border-radius: 10px; box-shadow: 0 0 8px rgba(255, 215, 0, 0.3); }
+.popup-box { max-height: 90vh; overflow-y: auto; padding-bottom: 20px; }
+
+/* ✅ Extra Stats */
+.extra-stats { margin-top: 10px; }
+.ticker { overflow: hidden; height: 26px; color: #FFD700; font-size: 15px; text-align: center; white-space: nowrap; animation: scrollText 15s linear infinite; }
+@keyframes scrollText { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+/* ✅ ผู้ชนะล่าสุด - วิ่งต่อเนื่องลื่น + เปลี่ยนชุดใหม่ทุก 3 นาที */
+#winnerTicker {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 34px;
+  line-height: 34px;
+  color: #FFD700;
+  font-weight: 600;
+  font-size: 15px;
+  white-space: nowrap;
+  box-sizing: border-box;
+  border-radius: 12px;
+  background: rgba(255, 215, 0, 0.05);
+  padding: 0 10px;
+  text-align: left;
+}
+
+/* ✅ ตัวข้อความที่วิ่ง */
+#winnerTicker .scroll-text {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: tickerLoop 40s linear infinite; /* ⚙️ ช้าลงครึ่งหนึ่ง */
+  will-change: transform, opacity;
+  transition: opacity 1.2s ease-in-out;
+  opacity: 1;
+}
+
+/* ✅ แอนิเมชันวิ่งต่อเนื่อง */
+@keyframes tickerLoop {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/* ✅ เอฟเฟกต์ fade ตอนเปลี่ยนชุดข้อความ */
+#winnerTicker.fade-out .scroll-text {
+  opacity: 0;
+}
+
+
+
+/* ✅ Responsive สี่กล่องยอดรวม */
+/* ========================== */
+.stat-box {
+  background: linear-gradient(180deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.03));
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  border-radius: 16px;
+  padding: 18px 12px;
+  margin: 10px 0;
+  text-align: center;
+  color: #FFD700;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.15);
+}
+
+.stat-box strong {
+  display: block;
+  font-size: clamp(20px, 5vw, 38px); /* ✅ responsive ตัวเลขใหญ่ */
+  font-weight: 800;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+}
+
+.stat-box p {
+  margin: 4px 0 0;
+  font-size: clamp(13px, 3.5vw, 18px); /* ✅ responsive คำอธิบาย */
+  color: #FFD700;
+  opacity: 0.85;
+}
+
+.stat-box small {
+  display: block;
+  margin-top: 4px;
+  color: #00ffa3;
+  font-size: clamp(12px, 3vw, 16px);
+}
+
+/* ✅ layout ปรับให้สมดุลในมือถือ */
+@media (max-width: 768px) {
+  .stat-box {
+    padding: 14px 8px;
+    border-radius: 12px;
+  }
+  .stat-box strong {
+    font-size: clamp(22px, 6vw, 32px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto;
+    row-gap: 16px;          /* ระยะห่างแนวตั้ง */
+    column-gap: 0;          /* ✅ ชิดกันแบบต่อเนื่อง */
+    justify-items: center;
+    align-items: start;
+  }
+
+  /* กล่องซ้าย = ฝากวันนี้ */
+  .stat-grid section:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+    border-top-right-radius: 0;  /* ✅ ลบมุมขวาให้ต่อเนื่อง */
+    border-bottom-right-radius: 0;
+  }
+
+  /* กล่องขวา = ถอนเดือนนี้ */
+  .stat-grid section:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+    border-top-left-radius: 0;   /* ✅ ลบมุมซ้ายให้ต่อเนื่อง */
+    border-bottom-left-radius: 0;
+    border-left: 0.5px solid rgba(255, 215, 0, 0.25); /* ✅ เส้นแบ่งกลางบางๆ */
+  }
+
+  /* กล่องล่าง = สมาชิกใหม่วันนี้ */
+  .stat-grid section:nth-child(3) {
+    grid-column: 1 / span 2; /* ครอบเต็ม 2 ช่อง */
+    grid-row: 2;
+    justify-self: center;
+    width: clamp(280px, 38%, 420px);
+    border-radius: 14px; /* ✅ มุมโค้งปกติ */
+  }
+}
+
+/* ✅ Toast */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(60px);
+  background: rgba(0,0,0,0.9);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 14px;
+  font-size: 15px;
+  opacity: 0;
+  transition: all 0.4s ease;
+  z-index: 9999;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.success { background: #16a34a; }
+.toast.warn { background: #fbbf24; color: #000; }
+.toast.error { background: #ef4444; }
+
+/* ✅ Fade / Zoom */
+.fade-in { animation: fadeIn 0.4s ease forwards; }
+.fade-out { animation: fadeOut 0.3s ease forwards; }
+.popup-hidden { opacity: 0; transform: scale(0.9); transition: all 0.3s ease; }
+#signupPopup { opacity: 1; transform: scale(1); transition: all 0.3s ease; }
+
+@keyframes fadeIn { from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:translateY(0);} }
+@keyframes fadeOut { from{opacity:1;} to{opacity:0;} }
+
+/* ✅ Spinner */
+#loadingOverlay {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  display:flex; justify-content:center; align-items:center;
+  background:rgba(0,0,0,0.6);
+  z-index:10000;
+}
+.spinner {
+  width: 60px; height: 60px;
+  border:5px solid rgba(255,255,255,0.2);
+  border-top-color:#FFD700;
+  border-radius:50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.dropdown {
+  pointer-events: none;
+}
+
+.dropdown.show {
+  pointer-events: auto;
+}
+.step { display: none; }
+.step.active { display: block; }
+.hidden { display: none; }
+
+/* ✅ ซ่อน step */
+.hidden {
+  display: none !important;
+}
+
+/* ✅ เอฟเฟกต์เปลี่ยน step */
+.fade-in {
+  animation: fadeIn 0.4s ease;
+}
+.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-10px); }
+}
+
+/* ✅ Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 999999;
+  transition: all 0.4s ease;
+}
+.toast.show {
+  opacity: 1;
+  bottom: 60px;
+}
+.toast.warn { background: #ffb300; color: #000; }
+.toast.success { background: #28c76f; }
+.toast.error { background: #e74c3c; }
+
+/* ✅ Loading Spinner Overlay */
+#loadingOverlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.7);
+  z-index: 99999;
+}
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255,255,255,0.2);
+  border-top: 5px solid #FFD700;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.qr-section {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.qr-title {
+  color: #FFD700;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 6px;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+}
+
+.qr-preview {
+  width: 180px;
+  max-width: 85%;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255,215,0,0.4);
+  animation: qrGlow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes qrGlow {
+  from { box-shadow: 0 0 8px rgba(255,215,0,0.2); }
+  to { box-shadow: 0 0 20px rgba(255,215,0,0.8); }
+}
+
+.upload-controls {
+  text-align: center;
+  margin: 10px 0 14px;
+}
+
+.popup-btn.gold {
+  background: linear-gradient(90deg, #FFD700, #ffb300);
+  color: #000;
+  font-weight: 600;
+}
+
+.popup-btn.silver {
+  background: linear-gradient(90deg, #aaa, #ddd);
+  color: #000;
+  font-weight: 600;
+}
+
+.slip-preview {
+  text-align: center;
+  margin: 10px 0 14px;
+}
+
+.slip-img {
+  width: 160px;
+  max-width: 80%;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255,215,0,0.25);
+}
+
+.hidden {
+  display: none !important;
+}
+/* ✅ ป้องกันคลิกทะลุ popup (JR x Top Verified 2025) */
+#signupPopup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: none; /* เริ่มต้นซ่อน */
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.75); /* ฉากดำโปร่ง */
+  backdrop-filter: blur(4px);
+  z-index: 9999; /* ✅ ครอบทุกปุ่มด้านหลัง */
+  pointer-events: auto; /* ✅ รับคลิกเอง */
+}
+
+#signupPopup.active,
+#signupPopup.show {
+  display: flex !important;
+}
+
+/* ✅ กล่องด้านใน */
+#signupPopup .popup-box {
+  background: rgba(10, 10, 10, 0.95);
+  border: 1px solid rgba(255,215,0,0.4);
+  border-radius: 16px;
+  padding: 24px 20px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 0 35px rgba(255,215,0,0.3);
+  z-index: 10000; /* ✅ อยู่บนสุด */
+  position: relative;
+}

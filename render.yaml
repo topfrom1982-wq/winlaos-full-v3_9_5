@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: winlaos-full-v3_9_5
+    env: static
+    buildCommand: ""
+    staticPublishPath: .
+    pullRequestPreviewsEnabled: false

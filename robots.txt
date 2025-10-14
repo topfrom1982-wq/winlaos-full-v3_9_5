@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Sitemap: https://winlaos168.com/sitemap.xml
+
+# Disallow folders not for indexing
+Disallow: /admin/
+Disallow: /scripts/
+Disallow: /private/
