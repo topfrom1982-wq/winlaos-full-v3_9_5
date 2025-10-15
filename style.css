@@ -721,3 +721,40 @@ html.popup-open {
   width: 100%;
   touch-action: none !important;
 }
+/* ✅ JR x Top Fix — ล็อกไม่ให้เลื่อนซ้ายขวา */
+html, body {
+  overflow-x: hidden !important;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+}
+
+/* ✅ กัน element ที่ทะลุขอบ viewport */
+* {
+  box-sizing: border-box;
+  max-width: 100vw;
+}
+
+/* ✅ ส่วน promo รูปภาพ — ไม่ให้ทะลุ */
+.promo-slide {
+  width: 100% !important;
+  max-width: 100%;
+}
+
+/* ✅ ปรับ flex หลักให้ไม่ดันออกข้าง */
+body {
+  display: block !important;
+}
+
+/* ✅ กัน scrollbar ซ้ายขวาที่เกิดจาก animation / glow */
+.wrap, .promo-slider, .game-grid, #notifications, #winnerTicker {
+  overflow-x: hidden !important;
+}
+
+/* ✅ กันการเลื่อนใน container พิเศษ (เฉพาะมือถือ) */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden !important;
+    overscroll-behavior-x: none; /* ป้องกันลากแรงจน bounce */
+  }
+}
