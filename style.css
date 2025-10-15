@@ -706,3 +706,18 @@ body{
   z-index: 10000; /* ✅ อยู่บนสุด */
   position: relative;
 }
+/* ✅ ล็อคการเลื่อนของหน้าเว็บเมื่อ popup เปิด */
+body.popup-open {
+  overflow: hidden;
+  height: 100vh;
+  touch-action: none; /* ป้องกัน scroll ในมือถือ */
+}
+/* ✅ ล็อคการเลื่อนเมื่อ popup เปิด */
+body.popup-open,
+html.popup-open {
+  overflow: hidden !important;
+  height: 100vh !important;
+  position: fixed !important;
+  width: 100%;
+  touch-action: none !important;
+}

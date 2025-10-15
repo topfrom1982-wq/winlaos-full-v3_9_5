@@ -26,32 +26,65 @@ console.log("✅ register-popup.js (JR x Top Premium Edition) loaded");
     }, 3000);
   }
 
-  /* ✅ Popup Animation (Zoom-in) */
-  if (popup && openBtn && closeBtn) {
-    popup.classList.add("popup-hidden");
-
-    openBtn.onclick = () => {
-  clickSound.currentTime = 0;
-  clickSound.play().catch(() => {});
-  popup.classList.add("show");       // ✅ เพิ่มบรรทัดนี้
-  popup.classList.remove("popup-hidden");
-};
-
-closeBtn.onclick = () => {
-  clickSound.currentTime = 0;
-  clickSound.play().catch(() => {});
-  popup.classList.remove("show");    // ✅ เพิ่มบรรทัดนี้
+ /* ✅ Popup Animation (Zoom-in + Absolute Scroll Lock) */
+if (popup && openBtn && closeBtn) {
   popup.classList.add("popup-hidden");
-};
+
+  // ✅ ฟังก์ชันล็อค/ปลดล็อคการ scroll ทั้งหมด
+  const preventScroll = (e) => e.preventDefault();
+
+  const lockScroll = () => {
+    document.body.classList.add("popup-open");
+    document.documentElement.classList.add("popup-open");
+
+    // ดักทุก event scroll และ touchmove
+    window.addEventListener("wheel", preventScroll, { passive: false });
+    window.addEventListener("touchmove", preventScroll, { passive: false });
+    window.addEventListener("scroll", preventScroll, { passive: false });
+  };
+
+  const unlockScroll = () => {
+    document.body.classList.remove("popup-open");
+    document.documentElement.classList.remove("popup-open");
+
+    // เอา event ดักออก
+    window.removeEventListener("wheel", preventScroll, { passive: false });
+    window.removeEventListener("touchmove", preventScroll, { passive: false });
+    window.removeEventListener("scroll", preventScroll, { passive: false });
+  };
+
+  openBtn.onclick = () => {
+    clickSound.currentTime = 0;
+    clickSound.play().catch(() => {});
+
+    popup.style.display = "flex";
+    popup.classList.add("show");
+    popup.classList.remove("popup-hidden");
+    lockScroll(); // ✅ ล็อคทุกการ scroll
+  };
+
+  closeBtn.onclick = () => {
+    clickSound.currentTime = 0;
+    clickSound.play().catch(() => {});
+
+    popup.classList.remove("show");
+    popup.classList.add("popup-hidden");
+    setTimeout(() => (popup.style.display = "none"), 250);
+    unlockScroll(); // ✅ ปลดล็อค scroll
+  };
+
+  // ✅ คลิคนอก popup ก็ปิดและปลดล็อค
+  window.onclick = (e) => {
+    if (e.target === popup) {
+      popup.classList.remove("show");
+      popup.classList.add("popup-hidden");
+      setTimeout(() => (popup.style.display = "none"), 250);
+      unlockScroll();
+    }
+  };
+}
 
 
-    window.onclick = (e) => {
-      if (e.target === popup) {
-        popup.classList.add("popup-hidden");
-        setTimeout(() => (popup.style.display = "none"), 300);
-      }
-    };
-  }
 
   /* ✅ โหลดค่าที่เคยกรอกจาก LocalStorage */
   ["fullname", "phone", "bankName", "bankNumber"].forEach((id) => {
