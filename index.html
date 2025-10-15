@@ -316,43 +316,6 @@
 
 <!-- 🔊 เสียงคลิก -->
 <audio id="clickSound" src="sounds/click.mp3" preload="auto"></audio>
-
-<!-- ✅ JS เมนู 3 ขีด Premium Glow (JR x Top) -->
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const clickSound = document.getElementById("clickSound");
-  const menuBtn = document.getElementById("menuBtn");
-  const dropdownMenu = document.getElementById("dropdownMenu");
-
-  if (!menuBtn || !dropdownMenu) {
-    console.warn("⚠️ menuBtn หรือ dropdownMenu ไม่เจอใน DOM");
-    return;
-  }
-
-  menuBtn.addEventListener("click", () => {
-    dropdownMenu.classList.toggle("show");
-    menuBtn.classList.toggle("active");
-
-    if (clickSound) {
-      try {
-        clickSound.currentTime = 0;
-        clickSound.play().catch(()=>{});
-      } catch {}
-    }
-  });
-
-  dropdownMenu.querySelectorAll("a").forEach(a => {
-    a.addEventListener("click", () => {
-      dropdownMenu.classList.remove("show");
-      menuBtn.classList.remove("active");
-      if (clickSound) {
-        clickSound.currentTime = 0;
-        clickSound.play().catch(()=>{});
-      }
-    });
-  });
-});
-</script>
 <script defer src="register-popup.js"></script>
 
 </body>

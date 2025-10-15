@@ -109,79 +109,39 @@ button::before, .popup-btn::before {
     padding: 10px 18px;
   }
 }
-/* ================================
-   🌟 Premium Glow Hamburger Menu
-================================ */
+/* 🌟 Premium Glow Hamburger Menu — FINAL FIX JR x Top */
 .menu-btn {
   position: fixed;
   top: 18px;
   left: 18px;
-  width: 34px;
-  height: 28px;
-  cursor: pointer;
-  z-index: 1000;
+  z-index: 2000; /* ✅ สูงสุดในหน้า */
+  width: 38px;
+  height: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: all 0.3s ease;
+  cursor: pointer;
+  transition: all 0.25s ease;
   filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.3));
+  touch-action: manipulation; /* ✅ ไม่มี delay */
+  -webkit-tap-highlight-color: transparent; /* ✅ ป้องกัน iOS blink */
 }
 
 .menu-btn:hover {
-  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
   transform: scale(1.05);
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
 }
 
 .menu-btn .bar {
   height: 4px;
   width: 100%;
   background: linear-gradient(90deg, #FFD700, #ffb300);
-  border-radius: 2px;
-  transition: all 0.3s ease;
-}
-
-/* เมื่อคลิกแล้วเป็นกากบาท */
-.menu-btn.active .bar:nth-child(1) {
-  transform: rotate(45deg) translate(6px, 6px);
-}
-.menu-btn.active .bar:nth-child(2) {
-  opacity: 0;
-}
-.menu-btn.active .bar:nth-child(3) {
-  transform: rotate(-45deg) translate(7px, -6px);
-}
-
-/* 🎯 Dropdown Menu — Premium Glow Edition */
-
-/* ✅ ปุ่มเมนู 3 ขีด */
-.menu-btn {
-  position: fixed;
-  top: 18px;
-  left: 18px;
-  z-index: 1001; /* สูงกว่า .dropdown */
-  width: 34px;
-  height: 28px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-  transition: all 0.35s ease;
-}
-
-.menu-btn .bar {
-  height: 4px;
-  background: linear-gradient(90deg, #FFD700, #ffb300);
   border-radius: 3px;
-  transition: all 0.35s ease;
-  box-shadow: 0 0 8px rgba(255,215,0,0.6);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
 }
 
-/* ✅ เอฟเฟกต์แสงทองเมื่อเปิดเมนู */
-.menu-btn.active .bar {
-  box-shadow: 0 0 14px rgba(255, 215, 0, 0.9);
-}
-
-/* ✅ แอนิเมชันเวลาเมนูเปิด */
+/* ✅ เอฟเฟกต์เปิด */
 .menu-btn.active .bar:nth-child(1) {
   transform: rotate(45deg) translateY(10px);
 }
@@ -192,7 +152,7 @@ button::before, .popup-btn::before {
   transform: rotate(-45deg) translateY(-10px);
 }
 
-/* ✅ เมนูดรอปดาวแบบพรีเมียม */
+/* ✅ Dropdown */
 .dropdown {
   position: fixed;
   top: 62px;
@@ -204,7 +164,7 @@ button::before, .popup-btn::before {
   padding: 12px 0;
   flex-direction: column;
   width: 210px;
-  z-index: 999;
+  z-index: 1500;
   backdrop-filter: blur(12px);
   opacity: 0;
   transform: translateY(-10px);
@@ -212,7 +172,6 @@ button::before, .popup-btn::before {
   transition: all 0.35s ease;
 }
 
-/* ✅ เมื่อเปิดเมนู */
 .dropdown.show {
   opacity: 1;
   transform: translateY(0);
@@ -228,53 +187,18 @@ button::before, .popup-btn::before {
   font-weight: 500;
   letter-spacing: 0.3px;
   border-bottom: 1px solid rgba(255, 215, 0, 0.12);
-  transition: background 0.25s ease, color 0.25s ease, text-shadow 0.25s ease, transform 0.25s ease;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
 }
 
-/* ✅ ลิงก์สุดท้ายไม่มีเส้น */
 .dropdown a:last-child {
   border-bottom: none;
 }
 
-/* ✅ เอฟเฟกต์ hover */
 .dropdown a:hover {
   background: rgba(255, 215, 0, 0.15);
   color: #FFD700;
   text-shadow: 0 0 8px rgba(255, 215, 0, 0.9);
   transform: translateX(3px);
-}
-
-/* ✅ ปุ่มเมนู 3 ขีด */
-.menu-btn {
-  position: fixed;
-  top: 18px;
-  left: 18px;
-  z-index: 1001;
-  width: 34px;
-  height: 28px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-}
-
-.menu-btn .bar {
-  height: 4px;
-  background: linear-gradient(90deg, #FFD700, #ffb300);
-  border-radius: 3px;
-  transition: all 0.35s ease;
-  box-shadow: 0 0 8px rgba(255,215,0,0.6);
-}
-
-/* ✅ แอนิเมชันเวลาเมนูเปิด */
-.menu-btn.active .bar:nth-child(1) {
-  transform: rotate(45deg) translateY(10px);
-}
-.menu-btn.active .bar:nth-child(2) {
-  opacity: 0;
-}
-.menu-btn.active .bar:nth-child(3) {
-  transform: rotate(-45deg) translateY(-10px);
 }
 
 /* ✅ Responsive */

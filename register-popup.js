@@ -54,9 +54,7 @@ if (popup && openBtn && closeBtn) {
   };
 
   openBtn.onclick = () => {
-    clickSound.currentTime = 0;
-    clickSound.play().catch(() => {});
-
+    
     popup.style.display = "flex";
     popup.classList.add("show");
     popup.classList.remove("popup-hidden");
@@ -64,9 +62,7 @@ if (popup && openBtn && closeBtn) {
   };
 
   closeBtn.onclick = () => {
-    clickSound.currentTime = 0;
-    clickSound.play().catch(() => {});
-
+    
     popup.classList.remove("show");
     popup.classList.add("popup-hidden");
     setTimeout(() => (popup.style.display = "none"), 250);

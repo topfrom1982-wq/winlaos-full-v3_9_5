@@ -1,63 +1,78 @@
 /* =============================================
 ✨ Winlaos168 — Premium Glow V2 (JR x Top)
 ============================================= */
-
 document.addEventListener("DOMContentLoaded", () => {
   /* ✅ เสียงคลิกทุกปุ่ม + เมนู 3 ขีด (JR x Top Premium Touch) */
   const clickSound = new Audio("sounds/click.mp3");
   clickSound.volume = 0.8;
 
-  // ป้องกัน error ถ้าไฟล์เสียงโหลดไม่ทัน
   clickSound.addEventListener("error", () => {
     console.warn("⚠️ ไม่พบไฟล์เสียง: sounds/click.mp3");
   });
 
   // ✅ เล่นเสียงเฉพาะเมื่อคลิกปุ่ม / ลิงก์ / เมนู
-  document.addEventListener("click", e => {
+  document.addEventListener("pointerup", (e) => {
     const target = e.target;
     if (target.matches("button, a, .menu-btn, .dropdown a")) {
       try {
-        clickSound.currentTime = 0; // รีเซ็ตเสียงก่อนเล่นใหม่
-        const playPromise = clickSound.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(() => {}); // ป้องกัน error autoplay
-        }
+        clickSound.currentTime = 0;
+        clickSound.play().catch(() => {});
       } catch (err) {
         console.warn("Click sound error:", err);
       }
     }
-  
+  });
 
-
-  /* ✅ เมนู 3 ขีด */
+  /* ✅ เมนู 3 ขีด (Pointer Edition) */
   const menuBtn = document.getElementById("menuBtn");
   const dropdownMenu = document.getElementById("dropdownMenu");
 
   if (menuBtn && dropdownMenu) {
-    menuBtn.addEventListener("click", () => {
-      // เปิด/ปิดเมนู
-      menuBtn.classList.toggle("active");
-      dropdownMenu.classList.toggle("show");
+    let isOpen = false;
+    let isLocked = false;
 
-      // เล่นเสียงคลิก
+    // ✅ เปิด / ปิด เมนู
+    menuBtn.addEventListener("pointerup", (e) => {
+      e.stopPropagation(); // กันคลิกทะลุ
+      if (isLocked) return;
+      isLocked = true;
+      setTimeout(() => (isLocked = false), 250);
+
+      isOpen = !isOpen;
+      menuBtn.classList.toggle("active", isOpen);
+      dropdownMenu.classList.toggle("show", isOpen);
+
       try {
         clickSound.currentTime = 0;
         clickSound.play().catch(() => {});
       } catch {}
     });
 
-    // ✅ ปิดเมนูเมื่อกดลิงก์ภายใน
-    dropdownMenu.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => {
+    // ✅ ปิดเมนูเมื่อกดลิงก์ในเมนู
+    dropdownMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("pointerup", () => {
         menuBtn.classList.remove("active");
         dropdownMenu.classList.remove("show");
+        isOpen = false;
+        try {
+          clickSound.currentTime = 0;
+          clickSound.play().catch(() => {});
+        } catch {}
       });
     });
+
+    // ✅ ปิดเมนูเมื่อคลิกนอกเมนู
+    document.addEventListener("pointerup", (e) => {
+      if (!menuBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+        menuBtn.classList.remove("active");
+        dropdownMenu.classList.remove("show");
+        isOpen = false;
+       }
+    });
   }
-});
 
 
-  /* ✅ Jackpot + Online */
+ /* ✅ Jackpot + Online */
   const jackpotEl = document.getElementById("jackpotNumber");
   const onlineEl = document.getElementById("onlineNumber");
   function animateNumber(el, start, end, duration = 1200) {
