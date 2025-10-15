@@ -1,5 +1,6 @@
 /* =============================================
 ✨ Winlaos168 — Premium Glow V2 (JR x Top)
+📱 รองรับมือถือ 100% — เมนูคลิกลิงก์แล้วไปได้แน่นอน
 ============================================= */
 document.addEventListener("DOMContentLoaded", () => {
   /* ✅ เสียงคลิกทุกปุ่ม + เมนู 3 ขีด (JR x Top Premium Touch) */
@@ -23,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  /* ✅ เมนู 3 ขีด (Pointer Edition) */
+  /* ✅ เมนู 3 ขีด (JR x Top – Navigation Fix for Mobile) */
   const menuBtn = document.getElementById("menuBtn");
   const dropdownMenu = document.getElementById("dropdownMenu");
 
@@ -33,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ✅ เปิด / ปิด เมนู
     menuBtn.addEventListener("pointerup", (e) => {
-      e.stopPropagation(); // กันคลิกทะลุ
+      e.stopPropagation();
       if (isLocked) return;
       isLocked = true;
       setTimeout(() => (isLocked = false), 250);
@@ -48,16 +49,19 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch {}
     });
 
-    // ✅ ปิดเมนูเมื่อกดลิงก์ในเมนู
+    // ✅ ปิดเมนูเมื่อกดลิงก์ในเมนู (Delay 150ms เพื่อให้ Browser เปิดลิงก์ทัน)
     dropdownMenu.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("pointerup", () => {
-        menuBtn.classList.remove("active");
-        dropdownMenu.classList.remove("show");
-        isOpen = false;
+      link.addEventListener("click", () => {
         try {
           clickSound.currentTime = 0;
           clickSound.play().catch(() => {});
         } catch {}
+
+        setTimeout(() => {
+          menuBtn.classList.remove("active");
+          dropdownMenu.classList.remove("show");
+          isOpen = false;
+        }, 150); // ✅ รอให้เบราว์เซอร์เปิดลิงก์ก่อน
       });
     });
 
@@ -67,10 +71,9 @@ document.addEventListener("DOMContentLoaded", () => {
         menuBtn.classList.remove("active");
         dropdownMenu.classList.remove("show");
         isOpen = false;
-       }
+      }
     });
   }
-  
 /* ✅ Jackpot + Online */
   const jackpotEl = document.getElementById("jackpotNumber");
   const onlineEl = document.getElementById("onlineNumber");
