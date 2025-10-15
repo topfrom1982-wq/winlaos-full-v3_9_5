@@ -70,6 +70,17 @@ document.addEventListener("DOMContentLoaded", () => {
        }
     });
   }
+  /* ✅ ปิดเมนูอัตโนมัติเมื่อคลิก link (เฉพาะมือถือ) */
+const menuLinks = document.querySelectorAll('#dropdownMenu a');
+menuLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    if (dropdownMenu.classList.contains('show')) {
+      dropdownMenu.classList.remove('show'); // ปิดเมนู
+    }
+  });
+});
+
 
 
  /* ✅ Jackpot + Online */
