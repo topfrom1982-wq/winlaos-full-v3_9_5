@@ -598,12 +598,15 @@ body{
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 .dropdown {
-  pointer-events: none;
+  display: none;
 }
 
 .dropdown.show {
+  display: block;
   pointer-events: auto;
+  z-index: 9999;
 }
+
 .step { display: none; }
 .step.active { display: block; }
 .hidden { display: none; }
