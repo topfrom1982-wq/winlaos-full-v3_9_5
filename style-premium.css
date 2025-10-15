@@ -516,3 +516,250 @@ button::before, .popup-btn::before {
   100% { transform: translateX(-100%); }
 }
 
+/* ✅ ปรับรีวิวลูกค้าให้ขนาดเล็กลง ~20% แบบพรีเมียม */
+#review-list .review-box {
+  background: linear-gradient(180deg, #0b0b0b 0%, #101010 100%);
+  border: 1px solid rgba(255, 215, 0, 0.22);
+  border-radius: 10px;
+  padding: 8px 12px; /* ↓ ลด padding ลง */
+  margin-bottom: 10px; /* ↓ ลดช่องว่างระหว่างกล่อง */
+  color: #fff;
+  box-shadow: 0 0 5px rgba(255, 215, 0, 0.04);
+  display: flex;
+  align-items: center;
+  gap: 8px; /* ↓ ลดระยะระหว่างรูปกับข้อความ */
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#review-list .review-box:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.12);
+}
+
+/* ✅ ลดขนาดรูปโปรไฟล์ลง ~20% */
+#review-list .review-box img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.2px solid #ffd700;
+}
+
+/* ✅ ปรับข้อความให้กระชับลง */
+#review-list .review-box p {
+  margin: 2px 0;
+  line-height: 1.25; /* ↓ ลด line height */
+  font-size: 13px; /* ↓ ลดขนาดฟอนต์ */
+  color: #d8d8d8;
+}
+
+#review-list .review-box strong,
+#review-list .review-box .name {
+  color: #FFD700;
+  font-weight: 600;
+  font-size: 13px; /* ↓ ลดขนาดฟอนต์ */
+}
+
+#review-list .review-box .stars {
+  color: #FFD700;
+  font-size: 12.5px; /* ↓ ลดขนาดดาว */
+}
+
+#review-list .review-box small {
+  color: #aaa;
+  font-size: 12px;
+}
+
+/* ✅ Responsive (มือถือ) */
+@media (max-width: 480px) {
+  #review-list .review-box {
+    padding: 7px 10px;
+    border-radius: 8px;
+    gap: 6px;
+  }
+  #review-list .review-box img {
+    width: 30px;
+    height: 30px;
+  }
+  #review-list .review-box p {
+    font-size: 12.5px;
+  }
+}
+/* ======================================================
+✨ Winlaos168 Premium Motion — Gold Button Glow
+By JR x Top | Safe Add-on (ไม่แตะส่วนเดิม)
+====================================================== */
+
+.gold-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
+}
+
+.gold-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 215, 0, 0.5),
+    rgba(255, 255, 255, 0.1)
+  );
+  transform: skewX(-25deg);
+  transition: all 0.7s ease;
+}
+
+.gold-button:hover::before {
+  left: 125%;
+}
+
+.gold-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+/* ======================================================
+✨ Winlaos168 Premium Motion — Dropdown Smooth
+By JR x Top | Add-on (ปลอดภัย ไม่แตะเมนูเดิม)
+====================================================== */
+
+#dropdownMenu {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: all 0.25s ease-in-out;
+}
+
+#dropdownMenu.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* ======================================================
+✨ Winlaos168 Premium Motion — Popup Zoom & Fade
+By JR x Top | Safe CSS Only (ไม่แตะ JS)
+====================================================== */
+
+/* เริ่มซ่อนด้วยเอฟเฟกต์จางและย่อเล็ก */
+#signupPopup {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+/* แสดงพร้อมซูมเบา ๆ และ fade in */
+#signupPopup.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* กล่องด้านในเคลื่อนไหวอิสระ */
+#signupPopup .popup-box {
+  animation: popupIn 0.4s ease forwards;
+}
+
+@keyframes popupIn {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ปรับปิดให้จางลง */
+#signupPopup.popup-hidden {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+/* ======================================================
+✨ Winlaos168 Premium Motion — Header Glow Pulse
+By JR x Top | Light Touch Effect
+====================================================== */
+
+header h1 {
+  background: linear-gradient(90deg, #FFD700, #fff4b3, #FFD700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: headerGlow 5s ease-in-out infinite;
+  font-weight: 700;
+}
+
+@keyframes headerGlow {
+  0%, 100% {
+    text-shadow: 0 0 6px rgba(255, 215, 0, 0.4),
+                 0 0 12px rgba(255, 215, 0, 0.2);
+  }
+  50% {
+    text-shadow: 0 0 14px rgba(255, 215, 0, 0.7),
+                 0 0 30px rgba(255, 255, 180, 0.4);
+  }
+}
+
+/* ✅ โลโก้กระพริบเงาทองเบา ๆ */
+.site-logo {
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
+  transition: filter 0.5s ease;
+}
+.site-logo:hover {
+  filter: drop-shadow(0 0 14px rgba(255, 215, 0, 0.6));
+}
+
+/* ✨ ปรับกล่องแจ้งถอนเงินให้ดูหรูขึ้น (JR x Top Premium Glow) */
+#notifications .notification {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 14px !important;
+  width: 100% !important;
+  max-width: 580px !important;
+  padding: 14px 18px !important;
+  background: radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.08), transparent 80%),
+              linear-gradient(180deg, #0b0b0b 0%, #111 100%) !important;
+  border: 1.5px solid rgba(255, 215, 0, 0.4) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.2), inset 0 0 10px rgba(255, 215, 0, 0.1) !important;
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+  transition: all 0.35s ease !important;
+}
+
+#notifications .notification:hover {
+  transform: translateY(-3px) scale(1.01) !important;
+  box-shadow: 0 0 24px rgba(255, 215, 0, 0.35), inset 0 0 12px rgba(255, 215, 0, 0.25) !important;
+}
+
+#notifications .notification img {
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 10px !important;
+  border: 1.5px solid #FFD700 !important;
+  background: rgba(255, 215, 0, 0.08) !important;
+  padding: 5px !important;
+  transition: transform 0.3s ease !important;
+}
+
+#notifications .notification img:hover {
+  transform: scale(1.07);
+}
+
+#notifications .notification p {
+  margin: 4px 0 !important;
+  font-size: 14.5px !important;
+  line-height: 1.4 !important;
+  color: #eee !important;
+}
+
+#notifications .notification strong {
+  color: #FFD700 !important;
+  font-weight: 600 !important;
+}

@@ -183,45 +183,105 @@ body{
 .dot{width:7px;height:7px;border-radius:50%;background:#444;border:1px solid #777;transition:transform .2s ease,background .2s ease}
 .dot.active{background:var(--gold);transform:scale(1.2)}
 
-/* ແຈ້ງຖອນ */
-#notifications{display:flex;flex-direction:column;gap:10px;align-items:center}
-.notification{
-  position:relative;
-  display:flex;
-  gap:12px;
-  align-items:center;
-  padding:12px 16px;
-  background:#0f1116;
-  border:2px solid var(--gold);
-  border-radius:12px;
-  box-shadow:0 0 20px rgba(255,215,0,0.35);
-  animation:bankIn .6s ease forwards,goldGlow 2.5s ease-in-out infinite;
-  opacity:0;
-  transform:translateY(20px);
-  width:100%;
-  max-width:600px;
-}
-@keyframes bankIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes goldGlow{
-  0%{box-shadow:0 0 10px rgba(255,215,0,.3)}
-  50%{box-shadow:0 0 25px rgba(255,215,0,.6)}
-  100%{box-shadow:0 0 10px rgba(255,215,0,.3)}
-}
-
-/* ✅ โลโก้ธนาคาร */
-.bank-logo {
-  width: 64px; height: 64px;
-  border-radius: 10px;
-  border: 1px solid var(--gold);
-  background: #1a1b1f;
-  object-fit: contain;
-  object-position: center;
-  padding: 6px;
-  box-sizing: border-box;
+/* 💸 ແຈ້ງຖອນ — JR x Top Refined Glow */
+#notifications {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
   align-items: center;
 }
+
+.notification {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 20px;
+  width: 100%;
+  max-width: 600px;
+
+  background: linear-gradient(180deg, #0e0e0e 0%, #151515 100%);
+  border: 1.5px solid rgba(255, 215, 0, 0.35);
+  border-radius: 14px;
+
+  box-shadow:
+    0 0 12px rgba(255, 215, 0, 0.15),
+    inset 0 0 12px rgba(255, 215, 0, 0.08);
+  transition: all 0.35s ease;
+}
+
+.notification:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow:
+    0 0 22px rgba(255, 215, 0, 0.3),
+    inset 0 0 16px rgba(255, 215, 0, 0.15);
+}
+
+/* 🟡 เส้นทองขอบเรือง */
+.notification::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  padding: 1.5px;
+  background: linear-gradient(90deg, #ffeb80, #ffd700, #ffb300, #ffeb80);
+  background-size: 200% 200%;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: destination-out;
+  animation: borderRun 6s linear infinite;
+  opacity: 0.2;
+}
+@keyframes borderRun {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* 🏦 โลโก้ธนาคาร */
+.bank-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  border: 1.5px solid #FFD700;
+  background: rgba(255, 215, 0, 0.08);
+  padding: 6px;
+  object-fit: contain;
+  box-shadow: inset 0 0 8px rgba(255, 215, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+.notification:hover .bank-logo {
+  transform: scale(1.07);
+}
+
+/* 💬 ข้อความ */
+.notification p {
+  margin: 3px 0;
+  color: #ddd;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.notification strong {
+  color: #FFD700;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* 📱 Responsive */
+@media (max-width: 480px) {
+  .notification {
+    padding: 12px 14px;
+    gap: 12px;
+  }
+  .bank-logo {
+    width: 52px;
+    height: 52px;
+  }
+  .notification p {
+    font-size: 13.5px;
+  }
+}
+
+
 
 /* ວິຈານລູກຄ້າ */
 #review-list{max-width:650px;margin:10px auto 0;display:flex;flex-direction:column}

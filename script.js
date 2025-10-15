@@ -154,53 +154,69 @@ document.addEventListener("DOMContentLoaded", () => {
   setPromo(pIdx);
   setInterval(() => { pIdx = (pIdx + 1) % promoImgs.length; setPromo(pIdx); }, 4000);
 
-  /* ✅ ແຈ້ງຖອນທະນາຄານ */
-  const bankData = [
-    { bank: "images/banks/bcel.webp", name: "BCEL" },
-    { bank: "images/banks/jdb.webp", name: "JDB" },
-    { bank: "images/banks/stb.webp", name: "STB" },
-    { bank: "images/banks/ldb.webp", name: "LDB" }
-  ];
-  const notiWrap = document.getElementById("notifications");
-  function randomUser() { return "xxxx" + Math.floor(1000 + Math.random() * 9000) + "xx"; }
-  function randomAmount() {
-    const min = 600000, max = 2500000;
-    const value = Math.floor(Math.random() * (max - min + 1)) + min;
-    return value.toLocaleString("lo-LA") + " ₭";
-  }
-  function showBankNotification(data) {
-    const user = randomUser();
-    const amount = randomAmount();
-    const now = new Date();
-    const date = now.toLocaleDateString("lo-LA");
-    const time = now.toLocaleTimeString("lo-LA", { hour12: false });
+  /* ✅ ແຈ້ງຖອນທະນາຄານ (JR x Top Refined Version) */
+const bankData = [
+  { bank: "images/banks/bcel.webp", name: "BCEL" },
+  { bank: "images/banks/jdb.webp", name: "JDB" },
+  { bank: "images/banks/stb.webp", name: "STB" },
+  { bank: "images/banks/ldb.webp", name: "LDB" }
+];
 
-    const box = document.createElement("div");
-    box.className = "notification";
-    box.innerHTML = `
-      <img src="${data.bank}" class="bank-logo" alt="bank" loading="lazy">
-      <div>
-        <div>ຜູ້ໃຊ້: <b>${user}</b></div>
-        <div>ຍອດຖອນ: <span class="highlight">${amount}</span></div>
-        <div>ທະນາຄານ: ຖອນຈາກລະບົບອັດຕະໂນມັດ (${data.name})</div>
-        <div class="time">${date} ${time}</div>
-      </div>`;
-    notiWrap.appendChild(box);
-    setTimeout(() => { box.style.opacity = "1"; box.style.transform = "translateY(0)"; }, 50);
-    setTimeout(() => {
-      box.style.opacity = "0";
-      box.style.transform = "translateY(-20px)";
-      setTimeout(() => box.remove(), 600);
-    }, 12000);
-  }
-  function startBankLoop() {
-    setInterval(() => {
-      const item = bankData[Math.floor(Math.random() * bankData.length)];
-      showBankNotification(item);
-    }, Math.floor(Math.random() * 2000 + 5000));
-  }
-  notiWrap.innerHTML = "";
-  startBankLoop();
+const notiWrap = document.getElementById("notifications");
+
+function randomUser() {
+  return "xxxx" + Math.floor(1000 + Math.random() * 9000) + "xx";
+}
+
+function randomAmount() {
+  const min = 600000, max = 2500000;
+  const value = Math.floor(Math.random() * (max - min + 1)) + min;
+  return value.toLocaleString("lo-LA") + " ₭";
+}
+
+/* ✅ ฟังก์ชันหลัก (ใช้ class แทน inline style) */
+function showBankNotification(data) {
+  const user = randomUser();
+  const amount = randomAmount();
+  const now = new Date();
+  const date = now.toLocaleDateString("lo-LA");
+  const time = now.toLocaleTimeString("lo-LA", { hour12: false });
+
+  const box = document.createElement("div");
+  box.className = "notification hidden"; // เริ่มต้นแบบซ่อนก่อน
+  box.innerHTML = `
+    <img src="${data.bank}" class="bank-logo" alt="bank" loading="lazy">
+    <div>
+      <div>ຜູ້ໃຊ້: <b>${user}</b></div>
+      <div>ຍອດຖອນ: <span class="highlight">${amount}</span></div>
+      <div>ທະນາຄານ: ຖອນຈາກລະບົບອັດຕະໂນມັດ (${data.name})</div>
+      <div class="time">${date} ${time}</div>
+    </div>
+  `;
+
+  notiWrap.appendChild(box);
+
+  // ✅ Fade-in ลื่น ๆ โดยใช้ class
+  requestAnimationFrame(() => box.classList.add("show"));
+
+  // ✅ Fade-out หลัง 12 วินาที
+  setTimeout(() => {
+    box.classList.remove("show");
+    box.classList.add("hide");
+    setTimeout(() => box.remove(), 600);
+  }, 12000);
+}
+
+/* ✅ สุ่มแสดงทุก 5–7 วิ */
+function startBankLoop() {
+  setInterval(() => {
+    const item = bankData[Math.floor(Math.random() * bankData.length)];
+    showBankNotification(item);
+  }, Math.floor(Math.random() * 2000 + 5000));
+}
+
+notiWrap.innerHTML = "";
+startBankLoop();
 
   /* ✅ ວິຈານລູກຄ້າ (30) */
   const reviews = [
@@ -332,4 +348,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   loadArticles();
 });
+
 
