@@ -11,30 +11,8 @@ console.log("✅ register-popup.js (JR x Top Premium Silent-Safe Edition) loaded
   const API_URL = "https://winlaos-register-bridge.onrender.com/register";
   const WA_NUMBER = "8562076355481";
 
- /* ✅ ระบบเสียงคลิกแบบ Silent-Safe (ไม่หยุด YouTube หรือเสียงอื่น) */
-const clickSound = new Audio("sounds/click.mp3");
-clickSound.volume = 0.6;
-clickSound.preload = "auto";
-clickSound.setAttribute("playsinline", "true");
-clickSound.muted = true;               // ✅ preload ได้โดยไม่ trigger session
-clickSound.load();                     // โหลดไว้ล่วงหน้า
 
-function playClickSound() {
-  try {
-    const clone = clickSound.cloneNode();
-    clone.volume = 0.6;
-    clone.muted = false;               // ✅ เปิดเสียงตอนเล่นจริง
-    clone.defaultMuted = true;         // ✅ Safari มองว่าเป็น UI-sound
-    clone.autoplay = true;
-    clone.setAttribute("playsinline", "true");
-    clone.play().catch(() => {});
-  } catch (err) {
-    console.warn("Silent-Safe Click error:", err);
-  }
-}
-
-
-  let lastSubmitTime = 0;
+let lastSubmitTime = 0;
 
   /* ✅ Toast แจ้งเตือน */
   function showToast(msg, type = "info") {
