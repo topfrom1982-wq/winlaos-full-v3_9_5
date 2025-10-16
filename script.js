@@ -1,19 +1,23 @@
 /* =============================================
-✨ Winlaos168 — Premium Glow V2 (JR x Top Silent-Safe Fixed Edition)
+✨ Winlaos168 — Premium Glow V2 (JR x Top Silent-Safe Ultra Edition)
 📱 รองรับมือถือ 100% | 🔇 ไม่หยุดเพลง / ไม่บล็อกคลิป / เมนูทำงานครบ
 ============================================= */
 document.addEventListener("DOMContentLoaded", () => {
-  /* ✅ ระบบเสียงคลิกแบบไม่รบกวนเสียงอื่น */
+  /* ✅ ระบบเสียงคลิกแบบไม่รบกวนเสียงอื่น (Silent-Safe) */
   const clickSound = new Audio("sounds/click.mp3");
   clickSound.volume = 0.6;
   clickSound.preload = "auto";
   clickSound.setAttribute("playsinline", "true"); // ไม่เปิด AudioSession ใหม่
 
-  // ✅ ฟังก์ชันเล่นเสียง (ใช้ clone เพื่อไม่แย่ง focus เสียง)
+  // ✅ ฟังก์ชันเล่นเสียงแบบ Clone ปลอดภัย (ไม่แย่ง Focus จาก YouTube / Spotify)
   function playClickSound() {
     try {
       const clone = clickSound.cloneNode();
       clone.volume = 0.6;
+      clone.muted = false;
+      clone.defaultMuted = true;
+      clone.autoplay = true;
+      clone.setAttribute("playsinline", "true");
       clone.play().catch(() => {});
     } catch (err) {
       console.warn("Click sound error:", err);
@@ -55,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
       playClickSound();
     });
 
-    // ✅ ปิดเมนูเมื่อกดลิงก์ในเมนู (Delay 150ms เพื่อให้ Browser เปิดลิงก์ทัน)
+    // ✅ ปิดเมนูเมื่อกดลิงก์ในเมนู (Delay 150 ms เพื่อให้ Browser เปิดลิงก์ทัน)
     dropdownMenu.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
         playClickSound();
@@ -77,8 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  console.log("✅ JR x Top Silent-Safe Click System Loaded");
-
+  console.log("✅ JR x Top Silent-Safe Ultra Click System Loaded");
 
 
 /* ✅ Jackpot + Online (JR x Top Realistic Persistent Edition) */
