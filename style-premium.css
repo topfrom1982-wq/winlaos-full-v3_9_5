@@ -763,3 +763,332 @@ header h1 {
   color: #FFD700 !important;
   font-weight: 600 !important;
 }
+/* ===========================================================
+🍏 JR x Top — Apple Smooth UX Layer (non-destructive)
+Version: 2025.10.17
+=========================================================== */
+
+/* ✅ ปรับ motion & interaction ทั้งเว็บให้ลื่นระดับ macOS */
+:root {
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.25);
+  --glow-gold: 0 0 18px rgba(255, 215, 0, 0.35);
+}
+
+/* ✅ ให้ทุก element เคลื่อนไหวอย่างนุ่มนวล */
+* {
+  transition:
+    background-color 0.45s var(--ease-smooth),
+    color 0.45s var(--ease-smooth),
+    box-shadow 0.45s var(--ease-smooth),
+    transform 0.45s var(--ease-smooth);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ✅ ปรับ motion ของ hover ให้เหมือน macOS */
+button:hover, a:hover, .gold-button:hover, .review-box:hover, .game-card:hover {
+  transform: translateY(-3px) scale(1.015);
+  filter: brightness(1.05);
+}
+
+/* ✅ Shadow / Glow แสงแบบ Apple (Soft Layer) */
+.gold-button,
+.review-box,
+.game-card,
+.notification,
+.popup-box {
+  box-shadow: var(--shadow-soft);
+  will-change: transform, box-shadow;
+}
+.gold-button:hover,
+.review-box:hover,
+.game-card:hover {
+  box-shadow: 0 12px 32px rgba(255, 215, 0, 0.4);
+}
+
+/* ✅ ปรับ motion popup ให้เข้าออกลื่นขึ้น */
+.popup-box.show {
+  animation: popupSmoothIn 0.45s var(--ease-smooth);
+}
+.popup-hidden {
+  animation: popupSmoothOut 0.35s var(--ease-smooth);
+}
+
+@keyframes popupSmoothIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(10px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes popupSmoothOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.94) translateY(-12px);
+    filter: blur(4px);
+  }
+}
+
+/* ✅ ปรับการ scroll / touch ให้ลื่นเหมือน iPhone */
+html, body {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* ✅ ภาพและโลโก้จะเคลื่อนไหวแบบลื่น (GPU optimize) */
+img, .bank-logo, .game-card .img {
+  will-change: transform, opacity;
+  transition: transform 0.45s var(--ease-smooth), opacity 0.45s var(--ease-smooth);
+}
+img:hover {
+  transform: scale(1.03);
+}
+
+/* ✅ เอฟเฟกต์พิเศษเฉพาะบนจอ Retina / OLED */
+@supports (backdrop-filter: blur(10px)) {
+  .popup-box, .review-box, .notification {
+    backdrop-filter: blur(14px) saturate(140%);
+    background: rgba(10, 10, 10, 0.82);
+  }
+}
+
+/* ✅ เพิ่มความรู้สึก depth ระหว่าง section */
+section {
+  perspective: 1200px;
+}
+
+/* ===========================================================
+⚡ JR x Top — Dynamic Gold Flow Button (Apple Motion Premium)
+=========================================================== */
+#signupPopup .popup-box button {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255, 215, 0, 0.25), rgba(255, 190, 0, 0.08));
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  color: #ffde66;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+  font-weight: 600;
+}
+
+/* 🌟 เอฟเฟกต์แสงทองไหลผ่านกลางปุ่ม */
+#signupPopup .popup-box button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 200, 0.3) 45%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 200, 0.3) 55%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* 🪩 เปิด motion ตอน hover */
+#signupPopup .popup-box button:hover::before {
+  opacity: 1;
+  animation: goldLightMove 2.2s ease-in-out infinite;
+}
+
+/* 💫 แสงทองเคลื่อนไหวลื่น */
+@keyframes goldLightMove {
+  0% { left: -150%; }
+  50% { left: 100%; }
+  100% { left: 150%; }
+}
+
+/* 🪶 ปุ่มตอบสนองนุ่มมือ */
+#signupPopup .popup-box button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(255, 215, 0, 0.25);
+  color: #fff3b0;
+}
+
+/* 👆 เอฟเฟกต์ตอนกด */
+#signupPopup .popup-box button:active {
+  transform: scale(0.97);
+  box-shadow: 0 1px 5px rgba(255, 215, 0, 0.2);
+}
+
+
+/* ===========================================================
+🎨 JR x Top Gold Harmony Text Tone
+(ปรับฟ้อนต์ popup ให้กลืนกับปุ่มทอง)
+=========================================================== */
+
+
+
+/* สีหัวข้อหลัก */
+#signupPopup h2 {
+  color: #ffd700;
+  text-shadow: 0 0 6px rgba(255, 215, 0, 0.35);
+}
+
+/* label และข้อความหัวข้อ */
+#signupPopup label {
+  color: #ffd700;
+  font-weight: 600;
+  text-shadow: 0 0 4px rgba(255, 215, 0, 0.25);
+}
+
+/* placeholder ภายใน input */
+#signupPopup input::placeholder {
+  color: rgba(255, 215, 0, 0.5);
+}
+
+/* ข้อความธรรมดาใน popup (รวมถึง text ต่าง ๆ) */
+#signupPopup p,
+#signupPopup span,
+#signupPopup select,
+#signupPopup option {
+  color: #ffe07a;
+}
+
+/* highlight เล็ก ๆ ตอน hover ปุ่ม */
+#signupPopup .popup-box button:hover {
+  color: #fff8d6;
+}
+/* 🚫 ปิดเอฟเฟกต์ปุ่ม Close */
+#signupPopup #closePopup {
+  background: rgba(255,255,255,0.08) !important;  /* พื้นเทาเรียบ */
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  color: #ccc !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+#signupPopup #closePopup::before {
+  display: none !important; /* ตัดแสงทองไหลออก */
+}
+
+#signupPopup #closePopup:hover {
+  transform: none !important;
+  background: rgba(255,255,255,0.12) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+/*เพอิ่มสมูท*/
+@keyframes popupFadeUp {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(16px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+#signupPopup .popup-box {
+  animation: popupFadeUp 0.45s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+
+/* ===========================================================
+🌌 JR x Top — Cinematic Smooth UX Pack (Final Apple Edition)
+Version: 2025.10.17
+=========================================================== */
+
+/* ✅ Motion Response เพิ่มความนุ่ม + Inertia Effect */
+* {
+  transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  backface-visibility: hidden;
+}
+
+/* ✅ ปรับ hover ทุก element ให้มี inertia */
+button:hover, 
+a:hover, 
+.gold-button:hover, 
+.review-box:hover, 
+.game-card:hover, 
+.notification:hover {
+  transform: translateY(-4px) scale(1.02);
+  filter: brightness(1.07) saturate(110%);
+  transition-duration: 0.5s;
+}
+
+/* ✅ เอฟเฟกต์ Fade+Slide สำหรับทุก element ที่เข้าหน้า (entry animation) */
+@keyframes elementEnter {
+  from { opacity: 0; transform: translateY(22px) scale(0.98); filter: blur(6px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+section, .wrap, .review-box, .game-card, .notification {
+  animation: elementEnter 0.8s ease forwards;
+  animation-delay: 0.1s;
+}
+
+/* ✅ Scroll-Depth Parallax เบาๆ เหมือนเว็บ Apple */
+[data-depth] {
+  transform-style: preserve-3d;
+  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-depth]:hover {
+  transform: perspective(800px) rotateX(2deg) rotateY(-2deg) translateZ(6px);
+}
+
+/* ✅ Smooth Blur Transition เวลา popup ขึ้น */
+.popup-box {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: drop-shadow(0 12px 24px rgba(0,0,0,0.45));
+}
+.popup-box.show {
+  backdrop-filter: blur(16px) saturate(160%);
+  transform: scale(1.02);
+}
+.popup-hidden {
+  backdrop-filter: blur(0);
+  transform: scale(0.98);
+  opacity: 0.8;
+}
+
+/* ✅ แสงทองเคลื่อนไหวแบบไหล (Subtle Gold Flow) */
+@keyframes goldFlow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+.gold-button, .review-stars, .highlight {
+  background: linear-gradient(90deg, #fff2b5, #ffd700, #ffb300, #fff2b5);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: goldFlow 5s linear infinite;
+}
+
+/* ✅ ปรับแสงเงาและ depth ให้นุ่มแบบ OLED Display */
+body {
+  background-color: #060606;
+  background-image: radial-gradient(800px at 50% -20%, rgba(255,215,0,0.1), transparent 70%),
+                    linear-gradient(180deg, #0a0a0e, #050505 60%, #080808);
+  transition: background 1.2s ease;
+}
+
+/* ✅ GPU Accelerate เพิ่ม frame rate การ render */
+#notifications, .popup-box, .review-box, .game-card {
+  will-change: transform, opacity, filter;
+  transform: translateZ(0);
+}

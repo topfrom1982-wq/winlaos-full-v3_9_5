@@ -183,38 +183,48 @@ body{
 .dot{width:7px;height:7px;border-radius:50%;background:#444;border:1px solid #777;transition:transform .2s ease,background .2s ease}
 .dot.active{background:var(--gold);transform:scale(1.2)}
 
-/* 💸 ແຈ້ງຖອນ — JR x Top Refined Glow */
+/* 💸 JR x Top — Premium Withdraw Notification (Fade Edition) */
 #notifications {
   display: flex;
   flex-direction: column;
-  gap: 16px;
   align-items: center;
+  gap: 18px;
+  width: 100%;
+  perspective: 800px;
 }
 
+/* 🪙 กล่องหลัก */
 .notification {
   position: relative;
   display: flex;
   align-items: flex-start;
-  gap: 16px;
-  padding: 16px 20px;
+  gap: 18px;
+  padding: 18px 22px;
   width: 100%;
-  max-width: 600px;
-
-  background: linear-gradient(180deg, #0e0e0e 0%, #151515 100%);
-  border: 1.5px solid rgba(255, 215, 0, 0.35);
-  border-radius: 14px;
-
+  max-width: 620px;
+  color: #f9f9f9;
+  font-family: 'Kanit', 'Noto Sans Lao', sans-serif;
+  background: radial-gradient(circle at 0% 0%, rgba(255,215,0,0.12), transparent 70%),
+              linear-gradient(180deg, #0b0b0b 0%, #161616 100%);
+  border: 1.5px solid rgba(255,215,0,0.3);
+  border-radius: 16px;
   box-shadow:
-    0 0 12px rgba(255, 215, 0, 0.15),
-    inset 0 0 12px rgba(255, 215, 0, 0.08);
-  transition: all 0.35s ease;
+    0 0 18px rgba(255,215,0,0.18),
+    inset 0 0 16px rgba(255,215,0,0.08);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transform: translateY(20px) scale(0.97);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.notification:hover {
-  transform: translateY(-3px) scale(1.01);
-  box-shadow:
-    0 0 22px rgba(255, 215, 0, 0.3),
-    inset 0 0 16px rgba(255, 215, 0, 0.15);
+.notification.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.notification.hide {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.96);
 }
 
 /* 🟡 เส้นทองขอบเรือง */
@@ -222,48 +232,58 @@ body{
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 14px;
-  padding: 1.5px;
-  background: linear-gradient(90deg, #ffeb80, #ffd700, #ffb300, #ffeb80);
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(120deg,#ffeb80,#ffd700,#ffb300,#ffeb80);
   background-size: 200% 200%;
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask-composite: exclude;
   -webkit-mask-composite: destination-out;
-  animation: borderRun 6s linear infinite;
-  opacity: 0.2;
+  animation: borderGlow 5s linear infinite;
+  opacity: 0.3;
+  pointer-events: none;
 }
-@keyframes borderRun {
+@keyframes borderGlow {
   0% { background-position: 0% 50%; }
   100% { background-position: 200% 50%; }
 }
 
 /* 🏦 โลโก้ธนาคาร */
 .bank-logo {
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
-  border: 1.5px solid #FFD700;
-  background: rgba(255, 215, 0, 0.08);
+  width: 66px;
+  height: 66px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(255,215,0,0.7);
+  background: rgba(255,215,0,0.06);
   padding: 6px;
   object-fit: contain;
-  box-shadow: inset 0 0 8px rgba(255, 215, 0, 0.15);
-  transition: transform 0.3s ease;
+  box-shadow: inset 0 0 10px rgba(255,215,0,0.15);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 .notification:hover .bank-logo {
-  transform: scale(1.07);
+  transform: scale(1.08);
+  box-shadow: 0 0 12px rgba(255,215,0,0.5);
 }
 
-/* 💬 ข้อความ */
-.notification p {
-  margin: 3px 0;
-  color: #ddd;
-  font-size: 15px;
-  line-height: 1.5;
+/* 💬 เนื้อความ */
+.notification div {
+  font-size: 15.5px;
+  line-height: 1.55;
 }
-.notification strong {
-  color: #FFD700;
+.notification b {
+  color: #ffe36e;
   font-weight: 600;
-  font-size: 15px;
+}
+.highlight {
+  color: #ffea91;
+  font-weight: 700;
+  font-size: 16px;
+  text-shadow: 0 0 8px rgba(255,215,0,0.4);
+}
+.time {
+  color: #999;
+  font-size: 13.5px;
+  margin-top: 2px;
 }
 
 /* 📱 Responsive */
@@ -271,23 +291,108 @@ body{
   .notification {
     padding: 12px 14px;
     gap: 12px;
+    max-width: 92%;
   }
   .bank-logo {
-    width: 52px;
-    height: 52px;
+    width: 54px;
+    height: 54px;
   }
-  .notification p {
-    font-size: 13.5px;
+  .notification div {
+    font-size: 14px;
+  }
+  .highlight {
+    font-size: 15px;
   }
 }
 
+/* 💬 ວິຈານລູກຄ້າ — JR x Top Smooth Fade Edition */
+#review-list {
+  max-width: 650px;
+  margin: 10px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
+/* กล่องรีวิว */
+.review-box {
+  background: #111;
+  border: 1px solid gold;
+  border-radius: 10px;
+  padding: 12px 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
 
-/* ວິຈານລູກຄ້າ */
-#review-list{max-width:650px;margin:10px auto 0;display:flex;flex-direction:column}
-.review-box{background:#111;border:1px solid gold;border-radius:10px;padding:12px 15px;display:flex;align-items:center;gap:12px;margin-bottom:10px;}
-.review-box img{width:55px;height:55px;border-radius:50%;border:2px solid var(--gold);object-fit:cover;flex-shrink:0;background-color:#222;}
-.review-stars{color:gold}
+  /* 🔥 เอฟเฟกต์เข้า */
+  opacity: 0;
+  transform: translateY(15px);
+  animation: fadeInUp 0.8s ease forwards;
+  animation-delay: calc(var(--i, 0) * 0.12s);
+  box-shadow: 0 0 12px rgba(255,215,0,0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* เอฟเฟกต์ Hover */
+.review-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 18px rgba(255,215,0,0.3);
+}
+
+/* รูปโปรไฟล์ลูกค้า */
+.review-box img {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  object-fit: cover;
+  flex-shrink: 0;
+  background-color: #222;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.review-box:hover img {
+  transform: scale(1.08);
+  box-shadow: 0 0 10px rgba(255,215,0,0.3);
+}
+
+/* ดาว */
+.review-stars {
+  color: gold;
+}
+
+/* ✨ Keyframe Animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* ✅ Review fade in/out */
+.review-box.fade-in {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: rvIn .75s ease forwards;
+}
+.review-box.fade-out {
+  opacity: 1;
+  transform: translateY(0);
+  animation: rvOut .75s ease forwards;
+}
+@keyframes rvIn {
+  from { opacity:0; transform:translateY(18px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes rvOut {
+  from { opacity:1; transform:translateY(0); }
+  to   { opacity:0; transform:translateY(-14px); }
+}
+
 
 /* ເກມ */
 .game-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
@@ -820,4 +925,77 @@ body {
     overflow-x: hidden !important;
     overscroll-behavior-x: none; /* ป้องกันลากแรงจน bounce */
   }
+}
+
+/* ===========================================================
+🚀 JR x Top GPU Safe Boost Pack — Popup-Safe Edition (2025)
+=========================================================== */
+
+/* ✅ 1. ส่วนหลักที่เคลื่อนไหวบ่อย (ใช้ GPU render) */
+.popup-overlay,
+.popup-box,
+.menu-btn,
+.dropdown,
+.gold-button,
+.review-box,
+.bank-logo,
+.game-card,
+#jackpotNumber,
+#onlineNumber,
+#notifications {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* ✅ 2. ปุ่ม / hover / เมนู / การเคลื่อนไหว ให้ GPU ช่วย */
+button,
+a,
+.gold-button,
+.menu-btn,
+.blink {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* ✅ 3. ปรับ animation ที่ใช้บ่อย ให้ใช้ GPU โดยตรง */
+@keyframes fadeInSmooth {
+  from { opacity: 0; transform: translate3d(0, 20px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes fadeOutSmooth {
+  from { opacity: 1; transform: translate3d(0, 0, 0); }
+  to   { opacity: 0; transform: translate3d(0, -15px, 0); }
+}
+
+/* ✅ 4. ปิดการ render ซ้ำของ layer ที่ไม่จำเป็น */
+img, video, canvas {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* ✅ 5. Scroll ลื่น */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
+  transform: translateZ(0);
+}
+
+/* ✅ 6. Glow / Shadow ให้ GPU render */
+.glow, .gold-button, .review-box, .game-card {
+  will-change: box-shadow, transform, opacity;
+  transform: translateZ(0);
+}
+
+/* ✅ 7. Safe-Contain Optimization (ไม่พัง popup) */
+main,
+section,
+header,
+footer,
+.wrap,
+.container {
+  contain: layout paint style;
 }

@@ -1,4 +1,4 @@
-console.log("✅ register-popup.js (JR x Top Premium Edition) loaded");
+console.log("✅ register-popup.js (JR x Top Premium Silent-Safe Edition) loaded");
 
 (() => {
   const popup = document.getElementById("signupPopup");
@@ -10,7 +10,26 @@ console.log("✅ register-popup.js (JR x Top Premium Edition) loaded");
 
   const API_URL = "https://winlaos-register-bridge.onrender.com/register";
   const WA_NUMBER = "8562076355481";
+
+  /* ✅ ระบบเสียงคลิกแบบ Silent-Safe (ไม่หยุด YouTube หรือเสียงอื่น) */
   const clickSound = new Audio("sounds/click.mp3");
+  clickSound.volume = 0.6;
+  clickSound.preload = "auto";
+  clickSound.setAttribute("playsinline", "true");
+  clickSound.setAttribute("muted", "muted"); // ป้องกัน preload ถูก block ใน iOS
+  clickSound.load();
+
+  function playClickSound() {
+    try {
+      const clone = clickSound.cloneNode();
+      clone.volume = 0.6;
+      clone.removeAttribute("muted");
+      clone.play().catch(() => {});
+    } catch (err) {
+      console.warn("Silent-Safe Click error:", err);
+    }
+  }
+
   let lastSubmitTime = 0;
 
   /* ✅ Toast แจ้งเตือน */
@@ -54,7 +73,7 @@ if (popup && openBtn && closeBtn) {
   };
 
   openBtn.onclick = () => {
-    
+    playClickSound();
     popup.style.display = "flex";
     popup.classList.add("show");
     popup.classList.remove("popup-hidden");
@@ -62,7 +81,7 @@ if (popup && openBtn && closeBtn) {
   };
 
   closeBtn.onclick = () => {
-    
+    playClickSound();
     popup.classList.remove("show");
     popup.classList.add("popup-hidden");
     setTimeout(() => (popup.style.display = "none"), 250);
@@ -72,6 +91,7 @@ if (popup && openBtn && closeBtn) {
   // ✅ คลิคนอก popup ก็ปิดและปลดล็อค
   window.onclick = (e) => {
     if (e.target === popup) {
+      playClickSound();
       popup.classList.remove("show");
       popup.classList.add("popup-hidden");
       setTimeout(() => (popup.style.display = "none"), 250);
@@ -130,8 +150,7 @@ if (popup && openBtn && closeBtn) {
   const nextBtn = document.getElementById("nextStep");
   if (nextBtn) {
     nextBtn.onclick = () => {
-      clickSound.currentTime = 0;
-      clickSound.play().catch(() => {});
+      playClickSound();
 
       const fullname = document.getElementById("fullname").value.trim();
       const phone = document.getElementById("phone").value.trim();
@@ -168,8 +187,7 @@ if (popup && openBtn && closeBtn) {
   const submitBtn = document.getElementById("submitAll");
   if (submitBtn) {
     submitBtn.onclick = async () => {
-      clickSound.currentTime = 0;
-      clickSound.play().catch(() => {});
+      playClickSound();
 
       const now = Date.now();
       if (now - lastSubmitTime < 4000) {
@@ -255,6 +273,7 @@ if (popup && openBtn && closeBtn) {
     };
   }
 })();
+
 /* ✅ Preview Slip + Change Button */
 const slipInput = document.getElementById("slipUpload");
 const chooseBtn = document.getElementById("chooseSlip");

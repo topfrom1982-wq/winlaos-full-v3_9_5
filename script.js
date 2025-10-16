@@ -1,26 +1,35 @@
 /* =============================================
-✨ Winlaos168 — Premium Glow V2 (JR x Top)
-📱 รองรับมือถือ 100% — เมนูคลิกลิงก์แล้วไปได้แน่นอน
+✨ Winlaos168 — Premium Glow V2 (JR x Top Silent-Safe Fixed Edition)
+📱 รองรับมือถือ 100% | 🔇 ไม่หยุดเพลง / ไม่บล็อกคลิป / เมนูทำงานครบ
 ============================================= */
 document.addEventListener("DOMContentLoaded", () => {
-  /* ✅ เสียงคลิกทุกปุ่ม + เมนู 3 ขีด (JR x Top Premium Touch) */
+  /* ✅ ระบบเสียงคลิกแบบไม่รบกวนเสียงอื่น */
   const clickSound = new Audio("sounds/click.mp3");
-  clickSound.volume = 0.8;
+  clickSound.volume = 0.6;
+  clickSound.preload = "auto";
+  clickSound.setAttribute("playsinline", "true"); // ไม่เปิด AudioSession ใหม่
+
+  // ✅ ฟังก์ชันเล่นเสียง (ใช้ clone เพื่อไม่แย่ง focus เสียง)
+  function playClickSound() {
+    try {
+      const clone = clickSound.cloneNode();
+      clone.volume = 0.6;
+      clone.play().catch(() => {});
+    } catch (err) {
+      console.warn("Click sound error:", err);
+    }
+  }
 
   clickSound.addEventListener("error", () => {
     console.warn("⚠️ ไม่พบไฟล์เสียง: sounds/click.mp3");
   });
 
-  // ✅ เล่นเสียงเฉพาะเมื่อคลิกปุ่ม / ลิงก์ / เมนู
+  // ✅ เล่นเสียงเฉพาะเมื่อคลิกปุ่ม / ลิงก์ / เมนู (ยกเว้น video หรือ iframe)
   document.addEventListener("pointerup", (e) => {
     const target = e.target;
+    if (target.closest("video") || target.closest("iframe")) return;
     if (target.matches("button, a, .menu-btn, .dropdown a")) {
-      try {
-        clickSound.currentTime = 0;
-        clickSound.play().catch(() => {});
-      } catch (err) {
-        console.warn("Click sound error:", err);
-      }
+      playClickSound();
     }
   });
 
@@ -43,25 +52,18 @@ document.addEventListener("DOMContentLoaded", () => {
       menuBtn.classList.toggle("active", isOpen);
       dropdownMenu.classList.toggle("show", isOpen);
 
-      try {
-        clickSound.currentTime = 0;
-        clickSound.play().catch(() => {});
-      } catch {}
+      playClickSound();
     });
 
     // ✅ ปิดเมนูเมื่อกดลิงก์ในเมนู (Delay 150ms เพื่อให้ Browser เปิดลิงก์ทัน)
     dropdownMenu.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
-        try {
-          clickSound.currentTime = 0;
-          clickSound.play().catch(() => {});
-        } catch {}
-
+        playClickSound();
         setTimeout(() => {
           menuBtn.classList.remove("active");
           dropdownMenu.classList.remove("show");
           isOpen = false;
-        }, 150); // ✅ รอให้เบราว์เซอร์เปิดลิงก์ก่อน
+        }, 150);
       });
     });
 
@@ -74,26 +76,63 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-/* ✅ Jackpot + Online */
-  const jackpotEl = document.getElementById("jackpotNumber");
-  const onlineEl = document.getElementById("onlineNumber");
-  function animateNumber(el, start, end, duration = 1200) {
-    const diff = end - start;
-    const t0 = performance.now();
-    function tick(t) {
-      const p = Math.min((t - t0) / duration, 1);
-      const val = Math.floor(start + diff * (0.5 - Math.cos(p * Math.PI) / 2));
-      el.textContent = val.toLocaleString();
-      if (p < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
+
+  console.log("✅ JR x Top Silent-Safe Click System Loaded");
+
+
+
+/* ✅ Jackpot + Online (JR x Top Realistic Persistent Edition) */
+const jackpotEl = document.getElementById("jackpotNumber");
+const onlineEl = document.getElementById("onlineNumber");
+
+function easeOutQuad(t) { return t * (2 - t); }
+
+function animateNumber(el, start, end, duration = 1500) {
+  const diff = end - start;
+  const startTime = performance.now();
+  function tick(now) {
+    const progress = Math.min((now - startTime) / duration, 1);
+    const eased = easeOutQuad(progress);
+    const val = Math.floor(start + diff * eased);
+    el.textContent = val.toLocaleString();
+    if (progress < 1) requestAnimationFrame(tick);
   }
-  setInterval(() => {
-    const jNow = parseInt((jackpotEl.textContent || "0").replace(/,/g, "")) || 12345678;
-    const oNow = parseInt((onlineEl.textContent || "0").replace(/,/g, "")) || 1234;
-    animateNumber(jackpotEl, jNow, jNow + Math.floor(Math.random() * 5000 + 2000));
-    animateNumber(onlineEl, oNow, oNow + Math.floor(Math.random() * 30 - 10));
-  }, 7000);
+  requestAnimationFrame(tick);
+}
+
+/* ✅ โหลดค่าจาก localStorage */
+let jackpotVal = parseInt(localStorage.getItem("jackpotVal")) || Math.floor(12000000 + Math.random() * 3000000);
+let onlineVal  = parseInt(localStorage.getItem("onlineVal"))  || Math.floor(1000 + Math.random() * 800);
+
+jackpotEl.textContent = jackpotVal.toLocaleString();
+onlineEl.textContent  = onlineVal.toLocaleString();
+
+/* ✅ Timestamp ล่าสุดที่อัปเดต (กัน refresh แล้วเลขหยุดนิ่งเกินไป) */
+const lastUpdate = parseInt(localStorage.getItem("jackpotTime")) || Date.now();
+const timeDiff = (Date.now() - lastUpdate) / 1000; // วินาที
+if (timeDiff > 10) {
+  // ถ้าปิดหน้าไว้หลายชั่วโมง ให้ขยับ jackpot ตามเวลาที่ผ่าน
+  const offlineGain = Math.floor(timeDiff * (Math.random() * 5 + 2)); // โตช้าแต่ต่อเนื่อง
+  jackpotVal += offlineGain;
+}
+
+/* ✅ ฟังก์ชันอัปเดตต่อเนื่อง */
+setInterval(() => {
+  const jNext = jackpotVal + Math.floor(Math.random() * 2000 + 800); // ขึ้น ~800–2800
+  let oNext   = onlineVal + Math.floor(Math.random() * 20 - 5);
+  if (oNext < 900) oNext = 900;
+
+  animateNumber(jackpotEl, jackpotVal, jNext, 1800);
+  animateNumber(onlineEl, onlineVal, oNext, 1200);
+
+  jackpotVal = jNext;
+  onlineVal = oNext;
+
+  // ✅ เก็บค่าล่าสุดไว้ใน localStorage
+  localStorage.setItem("jackpotVal", jackpotVal);
+  localStorage.setItem("onlineVal", onlineVal);
+  localStorage.setItem("jackpotTime", Date.now());
+}, 8000);
 
   /* ✅ ฟีดผู้ชนะล่าสุด */
   const winnerBox = document.getElementById("winnerTicker");
@@ -156,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setPromo(pIdx);
   setInterval(() => { pIdx = (pIdx + 1) % promoImgs.length; setPromo(pIdx); }, 4000);
 
-  /* ✅ ແຈ້ງຖອນທະນາຄານ (JR x Top Refined Version) */
+  /* ✅ ແຈ້ງຖອນທະນາຄານ (JR x Top Refined+Real Edition) */
 const bankData = [
   { bank: "images/banks/bcel.webp", name: "BCEL" },
   { bank: "images/banks/jdb.webp", name: "JDB" },
@@ -167,41 +206,56 @@ const bankData = [
 const notiWrap = document.getElementById("notifications");
 
 function randomUser() {
-  return "xxxx" + Math.floor(1000 + Math.random() * 9000) + "xx";
+  const letters = "abcdefghijklmnopqrstuvwxyz";
+  const prefix = letters[Math.floor(Math.random() * letters.length)];
+  return prefix + "***" + Math.floor(1000 + Math.random() * 9000);
 }
 
 function randomAmount() {
-  const min = 600000, max = 2500000;
+  const r = Math.random();
+  let min, max;
+  if (r < 0.7) { min = 600000; max = 1200000; }  // ถอนเล็ก
+  else { min = 1200000; max = 2500000; }         // ถอนใหญ่
   const value = Math.floor(Math.random() * (max - min + 1)) + min;
   return value.toLocaleString("lo-LA") + " ₭";
 }
 
-/* ✅ ฟังก์ชันหลัก (ใช้ class แทน inline style) */
+function getTimeNow() {
+  const d = new Date();
+  const h = String(d.getHours()).padStart(2, "0");
+  const m = String(d.getMinutes()).padStart(2, "0");
+  const day = d.getDate();
+  const month = d.getMonth() + 1;
+  return `${day}/${month} ${h}:${m}`;
+}
+
+/* ✅ ฟังก์ชันหลัก */
 function showBankNotification(data) {
   const user = randomUser();
   const amount = randomAmount();
-  const now = new Date();
-  const date = now.toLocaleDateString("lo-LA");
-  const time = now.toLocaleTimeString("lo-LA", { hour12: false });
+  const time = getTimeNow();
 
   const box = document.createElement("div");
-  box.className = "notification hidden"; // เริ่มต้นแบบซ่อนก่อน
+  box.className = "notification";
   box.innerHTML = `
     <img src="${data.bank}" class="bank-logo" alt="bank" loading="lazy">
     <div>
       <div>ຜູ້ໃຊ້: <b>${user}</b></div>
       <div>ຍອດຖອນ: <span class="highlight">${amount}</span></div>
       <div>ທະນາຄານ: ຖອນຈາກລະບົບອັດຕະໂນມັດ (${data.name})</div>
-      <div class="time">${date} ${time}</div>
+      <div class="time">${time}</div>
     </div>
   `;
 
-  notiWrap.appendChild(box);
-
-  // ✅ Fade-in ลื่น ๆ โดยใช้ class
+  notiWrap.prepend(box); // ดันอันใหม่ไว้บนสุด
   requestAnimationFrame(() => box.classList.add("show"));
 
-  // ✅ Fade-out หลัง 12 วินาที
+  // จำกัดไม่ให้เกิน 3 กล่อง
+  if (notiWrap.children.length > 3) {
+    notiWrap.lastElementChild.remove();
+  }
+
+  // ลบหลัง 12 วิ
   setTimeout(() => {
     box.classList.remove("show");
     box.classList.add("hide");
@@ -209,16 +263,19 @@ function showBankNotification(data) {
   }, 12000);
 }
 
-/* ✅ สุ่มแสดงทุก 5–7 วิ */
+/* ✅ สุ่มแสดงแบบไม่ fix interval */
 function startBankLoop() {
-  setInterval(() => {
+  const delay = Math.floor(Math.random() * 3000 + 5000); // 5–8 วิ
+  setTimeout(() => {
     const item = bankData[Math.floor(Math.random() * bankData.length)];
     showBankNotification(item);
-  }, Math.floor(Math.random() * 2000 + 5000));
+    startBankLoop(); // เรียกซ้ำแบบ recursive เพื่อสุ่ม delay ใหม่
+  }, delay);
 }
 
 notiWrap.innerHTML = "";
 startBankLoop();
+
 
   /* ✅ ວິຈານລູກຄ້າ (30) */
   const reviews = [
@@ -254,65 +311,112 @@ startBankLoop();
     {name:"ຄຳແພງ", text:"ສະດວກວ່ອງໄວ ບໍ່ມີສະດຸດ", avatar:"https://img5.pic.in.th/file/secure-sv1/68832647_2653568178001350_4867734543932588032_n.jpg"}
   ];
 
-  const reviewWrap = document.getElementById("review-list");
-  function randomStars(){return "⭐⭐⭐⭐⭐";}
-  function randomTime(){return Math.floor(Math.random()*5+1)+" ຊົ່ວໂມງຜ່ານມາ";}
-  function addReview(r){
-    let item = document.createElement("div");
-    item.className = "review-box";
-    item.innerHTML = `
-      <img src="${r.avatar}" alt="">
-      <div><p>“ ${r.text} ”</p><p style="color:#00ffa3;">- ${r.name}</p><p style="color:#FFD700;">${randomStars()}</p><p style="color:#aaa;">${randomTime()}</p></div>`;
-    reviewWrap.appendChild(item);
+const reviewWrap = document.getElementById("review-list");
+function randomStars(){ return "⭐⭐⭐⭐⭐"; }
+function randomTime(){ return Math.floor(Math.random()*5+1)+" ຊົ່ວໂມງຜ່ານມາ"; }
+
+function addReview(r, fade=true){
+  const item = document.createElement("div");
+  item.className = "review-box";
+  if (fade) item.classList.add("fade-in");
+  item.innerHTML = `
+    <img src="${r.avatar}" alt="" referrerpolicy="no-referrer">
+    <div>
+      <p>“ ${r.text} ”</p>
+      <p style="color:#00ffa3;">- ${r.name}</p>
+      <p style="color:#FFD700;">${randomStars()}</p>
+      <p style="color:#aaa;">${randomTime()}</p>
+    </div>`;
+  reviewWrap.appendChild(item);
+}
+
+/* โหลด 5 อันแรก */
+for (let i = 0; i < 5; i++) addReview(reviews[i], true);
+
+/* สุ่มเปลี่ยนทุก 4 วิ + กันซ้ำติดกัน */
+let lastIdx = -1;
+function getRandomIndexExcept(except){
+  let idx;
+  do { idx = Math.floor(Math.random()*reviews.length); } while (idx === except);
+  return idx;
+}
+
+setInterval(() => {
+  const first = reviewWrap.firstElementChild;
+  if (!first) return;
+
+  first.classList.add("fade-out");
+  setTimeout(() => {
+    first.remove();
+    const idx = getRandomIndexExcept(lastIdx);
+    lastIdx = idx;
+    addReview(reviews[idx], true);
+  }, 750); // ตรงกับระยะอนิเมชั่น
+}, 4000);
+
+
+  /* ✅ ยอดเคลื่อนไหวเพิ่มเติม (JR x Top Persistent Stats Edition) */
+function animateStat(el, start, end, duration = 2000) {
+  const diff = end - start;
+  const startTime = performance.now();
+  function update(t) {
+    const p = Math.min((t - startTime) / duration, 1);
+    const val = Math.floor(start + diff * p);
+    el.textContent = val.toLocaleString("lo-LA");
+    if (p < 1) requestAnimationFrame(update);
   }
-  for(let i=0;i<5;i++) addReview(reviews[i]);
-  setInterval(()=>{
-    reviewWrap.firstChild.remove();
-    addReview(reviews[Math.floor(Math.random()*reviews.length)]);
-  },4000);
+  requestAnimationFrame(update);
+}
 
+/* ✅ ฟังก์ชันโหลดค่าจาก localStorage */
+function getStoredValue(key, fallback) {
+  const v = localStorage.getItem(key);
+  return v ? parseInt(v) : fallback;
+}
 
+/* ✅ ฟังก์ชันบันทึกค่ากลับ localStorage */
+function storeValue(key, value) {
+  localStorage.setItem(key, value);
+}
 
-  /* ✅ ยอดเคลื่อนไหวเพิ่มเติม */
-  function animateStat(el, start, end, duration = 2000) {
-    const diff = end - start;
-    const startTime = performance.now();
-    function update(t) {
-      const p = Math.min((t - startTime) / duration, 1);
-      const val = Math.floor(start + diff * p);
-      el.textContent = val.toLocaleString("lo-LA");
-      if (p < 1) requestAnimationFrame(update);
-    }
-    requestAnimationFrame(update);
-  }
+/* 🔹 ยอดฝากวันนี้ */
+const depositTodayEl = document.getElementById("depositToday");
+let depositVal = getStoredValue("depositTodayVal", 500000); // ค่าตั้งต้นครั้งแรก
+depositTodayEl.textContent = depositVal.toLocaleString("lo-LA");
 
-  // 🔹 ยอดฝากวันนี้
-  const depositTodayEl = document.getElementById("depositToday");
-  let depositVal = parseInt(depositTodayEl.textContent.replace(/,/g, ""));
-  setInterval(() => {
-    const plus = Math.floor(Math.random() * 10000 + 5000);
-    animateStat(depositTodayEl, depositVal, depositVal + plus);
-    depositVal += plus;
-  }, 5000);
+setInterval(() => {
+  const plus = Math.floor(Math.random() * 10000 + 5000);
+  const newVal = depositVal + plus;
+  animateStat(depositTodayEl, depositVal, newVal);
+  depositVal = newVal;
+  storeValue("depositTodayVal", depositVal);
+}, 5000);
 
-  // 🔹 ยอดถอนเดือนนี้
-  const withdrawEl = document.getElementById("monthlyWithdraw");
-  let withdrawVal = parseInt(withdrawEl.textContent.replace(/,/g, ""));
-  setInterval(() => {
-    const plus = Math.floor(Math.random() * 50000 + 10000);
-    animateStat(withdrawEl, withdrawVal, withdrawVal + plus);
-    withdrawVal += plus;
-  }, 7000);
+/* 🔹 ยอดถอนเดือนนี้ */
+const withdrawEl = document.getElementById("monthlyWithdraw");
+let withdrawVal = getStoredValue("withdrawVal", 35000000);
+withdrawEl.textContent = withdrawVal.toLocaleString("lo-LA");
 
-  // 🔹 สมาชิกใหม่วันนี้
-  const memberEl = document.getElementById("newMembers");
-  let memberVal = parseInt(memberEl.textContent.replace(/,/g, ""));
-  setInterval(() => {
-    const plus = Math.floor(Math.random() * 3 + 1);
-    animateStat(memberEl, memberVal, memberVal + plus);
-    memberVal += plus;
-  }, 8000);
+setInterval(() => {
+  const plus = Math.floor(Math.random() * 50000 + 10000);
+  const newVal = withdrawVal + plus;
+  animateStat(withdrawEl, withdrawVal, newVal);
+  withdrawVal = newVal;
+  storeValue("withdrawVal", withdrawVal);
+}, 7000);
 
+/* 🔹 สมาชิกใหม่วันนี้ */
+const memberEl = document.getElementById("newMembers");
+let memberVal = getStoredValue("memberVal", 135);
+memberEl.textContent = memberVal.toLocaleString("lo-LA");
+
+setInterval(() => {
+  const plus = Math.floor(Math.random() * 3 + 1);
+  const newVal = memberVal + plus;
+  animateStat(memberEl, memberVal, newVal);
+  memberVal = newVal;
+  storeValue("memberVal", memberVal);
+}, 8000);
 
   /* ✅ โหลดบทความ */
   async function loadArticles() {
