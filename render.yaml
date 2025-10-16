@@ -7,3 +7,13 @@ services:
     startCommand: node winlaos-register-bridge.js
     plan: free
     region: singapore
+
+  - type: web
+    name: winlaos-full-v3_9_5
+    env: static
+    staticPublishPath: .
+    routes:
+      - type: redirect
+        source: /index.html
+        destination: /
+        status: 301
