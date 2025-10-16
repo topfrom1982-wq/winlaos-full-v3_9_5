@@ -128,6 +128,56 @@ setInterval(() => {
     generateWinnerFeed();
     setInterval(cycleWinnerFeed, 180000);
   }
+/* ===========================================================
+🍔 JR x Top — Premium Glow Hamburger Menu (Fix 2025)
+=========================================================== */
+const menuBtn = document.getElementById("menuBtn");
+const dropdownMenu = document.getElementById("dropdownMenu");
+
+if (menuBtn && dropdownMenu) {
+  let isOpen = false;
+  let isLocked = false;
+
+  // ✅ เปิด / ปิด เมนู
+  menuBtn.addEventListener("pointerup", (e) => {
+    e.stopPropagation();
+    if (isLocked) return;
+    isLocked = true;
+    setTimeout(() => (isLocked = false), 250);
+
+    isOpen = !isOpen;
+    menuBtn.classList.toggle("active", isOpen);
+    dropdownMenu.classList.toggle("show", isOpen);
+
+    // ✅ เล่นเสียงคลิก
+    if (window.playClickSound) playClickSound();
+  });
+
+  // ✅ ปิดเมนูเมื่อกดลิงก์ใน dropdown
+  dropdownMenu.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("pointerup", () => {
+      if (window.playClickSound) playClickSound();
+      setTimeout(() => {
+        menuBtn.classList.remove("active");
+        dropdownMenu.classList.remove("show");
+        isOpen = false;
+      }, 150);
+    });
+  });
+
+  // ✅ ปิดเมนูเมื่อคลิกนอก
+  document.addEventListener("pointerup", (e) => {
+    if (!menuBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+      menuBtn.classList.remove("active");
+      dropdownMenu.classList.remove("show");
+      isOpen = false;
+    }
+  });
+
+  console.log("✅ JR x Top Menu System Active");
+} else {
+  console.warn("⚠️ ไม่พบ #menuBtn หรือ #dropdownMenu");
+}
 
   /* ✅ ສະໄລດໂປຣໂມຊັ່ນ */
   const promoImgs = [
