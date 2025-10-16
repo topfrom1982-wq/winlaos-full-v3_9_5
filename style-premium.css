@@ -299,6 +299,7 @@ button::before, .popup-btn::before {
   margin-bottom: 10px;
 }
 
+
 .article-body h2 {
   font-size: 20px;
   margin-top: 30px;
@@ -693,6 +694,16 @@ header h1 {
   animation: headerGlow 5s ease-in-out infinite;
   font-weight: 700;
 }
+
+@media (max-width: 480px) {
+  header h1 .brand {
+    font-size: 1.4rem;
+  }
+  header h1 .tagline {
+    font-size: 1rem;
+  }
+}
+
 
 @keyframes headerGlow {
   0%, 100% {
@@ -1092,3 +1103,50 @@ body {
   will-change: transform, opacity, filter;
   transform: translateZ(0);
 }
+header h1 {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: max-content; /* ให้กว้างเท่าข้อความ ไม่ขยายเต็ม */
+}
+/* 🌙 Winlaos168 — Premium Live Glow (Dark Mode Boost) */
+header h1 .brand {
+  position: relative;
+  background: linear-gradient(90deg, #a67c00, #FFD700, #fff4b3, #FFD700, #a67c00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 300%;
+  animation:
+    goldShine 14s linear infinite,   /* วิ่งช้า ลื่น */
+    goldPulse 8s ease-in-out infinite; /* หายใจเรือง */
+  text-shadow:
+    0 0 10px rgba(255, 220, 100, 0.7),
+    0 0 22px rgba(255, 215, 0, 0.5),
+    0 0 40px rgba(255, 215, 0, 0.3);  /* เพิ่มคอนทราสต์เรืองรอบตัวอักษร */
+  font-weight: 800;
+}
+
+/* ✨ แสงทองวิ่ง */
+@keyframes goldShine {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* 💛 หายใจเรืองแสง */
+@keyframes goldPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 10px rgba(255, 220, 100, 0.7),
+      0 0 22px rgba(255, 215, 0, 0.5),
+      0 0 40px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    text-shadow:
+      0 0 16px rgba(255, 240, 160, 0.9),
+      0 0 35px rgba(255, 230, 120, 0.7),
+      0 0 55px rgba(255, 215, 0, 0.5);
+  }
+}
+
+
