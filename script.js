@@ -1,87 +1,49 @@
-/* =============================================
-✨ Winlaos168 — Premium Glow V2 (JR x Top Silent-Safe Ultra Edition)
-📱 รองรับมือถือ 100% | 🔇 ไม่หยุดเพลง / ไม่บล็อกคลิป / เมนูทำงานครบ
-============================================= */
+/* ===========================================================
+🔇 JR x Top — Silent-Safe Global Click System (2025 Edition)
+✨ ระบบเสียงคลิกกลาง ไม่หยุดเพลง / YouTube / TikTok
+=========================================================== */
 document.addEventListener("DOMContentLoaded", () => {
-  /* ✅ ระบบเสียงคลิกแบบไม่รบกวนเสียงอื่น (Silent-Safe) */
-  const clickSound = new Audio("sounds/click.mp3");
-  clickSound.volume = 0.6;
-  clickSound.preload = "auto";
-  clickSound.setAttribute("playsinline", "true"); // ไม่เปิด AudioSession ใหม่
+  let audioCtx = null;
+  let clickBuffer = null;
 
-  // ✅ ฟังก์ชันเล่นเสียงแบบ Clone ปลอดภัย (ไม่แย่ง Focus จาก YouTube / Spotify)
-  function playClickSound() {
+  // ✅ โหลดเสียงคลิกครั้งเดียว (ไม่รบกวนเสียงอื่น)
+  async function loadClickSound() {
     try {
-      const clone = clickSound.cloneNode();
-      clone.volume = 0.6;
-      clone.muted = false;
-      clone.defaultMuted = true;
-      clone.autoplay = true;
-      clone.setAttribute("playsinline", "true");
-      clone.play().catch(() => {});
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const response = await fetch("sounds/click.mp3");
+      const arrayBuffer = await response.arrayBuffer();
+      clickBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+      console.log("✅ JR Silent-Safe Sound Loaded");
     } catch (err) {
-      console.warn("Click sound error:", err);
+      console.warn("⚠️ Load sound error:", err);
     }
   }
 
-  clickSound.addEventListener("error", () => {
-    console.warn("⚠️ ไม่พบไฟล์เสียง: sounds/click.mp3");
-  });
+  // ✅ เล่นเสียงคลิก โดยไม่เปิด AudioSession ใหม่
+  function playClickSound() {
+    if (!audioCtx || !clickBuffer) return;
+    const source = audioCtx.createBufferSource();
+    source.buffer = clickBuffer;
+    source.connect(audioCtx.destination);
+    source.start(0);
+  }
 
-  // ✅ เล่นเสียงเฉพาะเมื่อคลิกปุ่ม / ลิงก์ / เมนู (ยกเว้น video หรือ iframe)
+  // ✅ เริ่มโหลดหลังจาก user แตะครั้งแรก (เพื่อผ่าน policy iOS)
+  document.addEventListener("pointerdown", () => {
+    if (!audioCtx) loadClickSound();
+  }, { once: true });
+
+  // ✅ ให้ทุกที่ในเว็บใช้เสียงเดียวกัน (global)
+  window.playClickSound = playClickSound;
+
+  // ✅ คลิกปุ่ม / ลิงก์ / เมนู ใด ๆ ก็เล่นเสียงเดียวกัน
   document.addEventListener("pointerup", (e) => {
-    const target = e.target;
-    if (target.closest("video") || target.closest("iframe")) return;
-    if (target.matches("button, a, .menu-btn, .dropdown a")) {
-      playClickSound();
-    }
+    const t = e.target;
+    if (t.closest("video") || t.closest("iframe")) return;
+    if (t.matches("button, a, .menu-btn, .dropdown a")) playClickSound();
   });
 
-  /* ✅ เมนู 3 ขีด (JR x Top – Navigation Fix for Mobile) */
-  const menuBtn = document.getElementById("menuBtn");
-  const dropdownMenu = document.getElementById("dropdownMenu");
-
-  if (menuBtn && dropdownMenu) {
-    let isOpen = false;
-    let isLocked = false;
-
-    // ✅ เปิด / ปิด เมนู
-    menuBtn.addEventListener("pointerup", (e) => {
-      e.stopPropagation();
-      if (isLocked) return;
-      isLocked = true;
-      setTimeout(() => (isLocked = false), 250);
-
-      isOpen = !isOpen;
-      menuBtn.classList.toggle("active", isOpen);
-      dropdownMenu.classList.toggle("show", isOpen);
-
-      playClickSound();
-    });
-
-    // ✅ ปิดเมนูเมื่อกดลิงก์ในเมนู (Delay 150 ms เพื่อให้ Browser เปิดลิงก์ทัน)
-    dropdownMenu.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        playClickSound();
-        setTimeout(() => {
-          menuBtn.classList.remove("active");
-          dropdownMenu.classList.remove("show");
-          isOpen = false;
-        }, 150);
-      });
-    });
-
-    // ✅ ปิดเมนูเมื่อคลิกนอกเมนู
-    document.addEventListener("pointerup", (e) => {
-      if (!menuBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
-        menuBtn.classList.remove("active");
-        dropdownMenu.classList.remove("show");
-        isOpen = false;
-      }
-    });
-  }
-
-  console.log("✅ JR x Top Silent-Safe Ultra Click System Loaded");
+  console.log("✅ JR x Top Silent-Safe Global Sound System Active");
 
 
 /* ✅ Jackpot + Online (JR x Top Realistic Persistent Edition) */
