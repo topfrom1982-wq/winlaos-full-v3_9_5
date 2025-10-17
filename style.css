@@ -1064,3 +1064,6 @@ footer,
   }
 }
 
+@media (max-width: 600px) {
+  body { background-attachment: fixed; transition: none; }
+}

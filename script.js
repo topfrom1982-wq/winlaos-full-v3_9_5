@@ -469,5 +469,3 @@ setInterval(() => {
   }
   loadArticles();
 });
-
-
