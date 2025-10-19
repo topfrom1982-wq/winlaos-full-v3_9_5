@@ -12,6 +12,11 @@ services:
     name: winlaos-full-v3_9_5
     env: static
     staticPublishPath: .
+    buildCommand: ""
+    plan: free
+    region: singapore
+    publish:
+      includeRedirects: true
     routes:
       - type: redirect
         source: /index.html
