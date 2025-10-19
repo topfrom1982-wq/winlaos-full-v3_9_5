@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Winlaos168 | ຮັບໂບນັສພິເສດ</title>
+
+<!-- ✅ Facebook Pixel -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1337520494718059'); fbq('track','PageView');
+</script>
+
+<style>
+body {
+  margin:0;font-family:'Noto Sans Lao','Kanit',sans-serif;
+  background:radial-gradient(circle at top,#1a1a1a,#000);
+  color:#fff;text-align:center;overflow-x:hidden;
+  animation:fadeIn 1s ease;
+}
+.container{max-width:420px;margin:0 auto;padding:20px;}
+.logo{width:180px;margin-top:40px;animation:fadeDown 1s ease;}
+h1{color:#FFD700;font-size:1.5rem;margin-top:15px;text-shadow:0 0 10px #ffb30080;}
+.bonus-banner{
+  width:100%;
+  max-width:360px;
+  margin:10px auto 0;
+  display:block;
+  border-radius:12px;
+  animation:fadeUp 1.2s ease;
+}
+.button-group{display:flex;flex-direction:column;gap:12px;margin-top:25px;}
+button{
+  position:relative;font-size:1.1rem;padding:12px;
+  border-radius:12px;border:none;font-weight:600;cursor:pointer;
+  transition:transform .25s ease;overflow:hidden;
+}
+button:hover{transform:scale(1.05);}
+.btn-wa{
+  background:linear-gradient(90deg,#25D366,#128C7E);color:#fff;
+}
+.btn-wa::before{
+  content:"";position:absolute;top:-20%;left:-20%;right:-20%;bottom:-20%;
+  border-radius:50%;background:radial-gradient(circle,rgba(37,211,102,0.8) 0%,rgba(37,211,102,0) 70%);
+  animation:whapulse 1.8s ease-in-out infinite;z-index:0;
+}
+.btn-wa span{position:relative;z-index:1;}
+.btn-fb{background:linear-gradient(90deg,#1877F2,#0e5dc7);color:#fff;}
+.btn-line{background:linear-gradient(90deg,#00b900,#007a00);color:#fff;}
+
+@keyframes whapulse{
+  0%{opacity:0.3;transform:scale(0.9);}
+  50%{opacity:1;transform:scale(1.15);}
+  100%{opacity:0.3;transform:scale(0.9);}
+}
+
+.deposit-box,.review-box{
+  background:rgba(255,215,0,0.08);
+  border:1px solid rgba(255,215,0,0.25);
+  border-radius:14px;padding:14px;margin-top:30px;
+  animation:fadeUp 1.2s ease;
+}
+.deposit-line{
+  display:flex;align-items:center;justify-content:space-between;
+  margin:5px 0;font-size:0.95rem;color:#ffd700;opacity:0.9;
+}
+.deposit-line img{width:28px;height:28px;border-radius:4px;margin-right:8px;}
+.bank-left{display:flex;align-items:center;}
+.review{margin:8px 0;font-size:0.95rem;color:#ccc;}
+.review strong{color:#FFD700;}
+footer{margin:40px 0 20px;font-size:0.8rem;color:#777;}
+
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+<div class="container">
+  <img src="images/logo.webp" alt="Winlaos168" class="logo">
+  <h1>ຮັບໂບນັສພິເສດ 50,000 KIP ສໍາລັບສະມາຊິກໃໝ່!</h1>
+  <img src="images/promotions/bottom/bonus4.webp" alt="โบนัส Winlaos168" class="bonus-banner">
+
+  <div class="button-group">
+    <button class="btn-wa" onclick="go('wa')"><span>💬 WhatsApp ສະມັກທັນທີ</span></button>
+    <button class="btn-fb" onclick="go('fb')">📘 Messenger ສອບຖາມ</button>
+    <button class="btn-line" onclick="go('line')">💚 LINE ຕິດຕໍ່ແອດມິນ</button>
+  </div>
+
+  <div class="deposit-box">
+    <h3 style="color:#FFD700;margin-bottom:10px;">💰 ລ່າສຸດມີການຝາກເຂົ້າ</h3>
+    <div id="depositList"></div>
+  </div>
+
+  <div class="review-box">
+    <h3 style="color:#FFD700;margin-bottom:10px;">⭐ ລູກຄ້າກ່າວເຖິງ Winlaos168</h3>
+    <div id="reviewSlide"></div>
+  </div>
+
+  <footer>© 2025 Winlaos168. All rights reserved.</footer>
+</div>
+
+<script>
+// ✅ เสียงคลิก
+const clickSound = new Audio("sounds/click.mp3");
+clickSound.preload="auto";
+function playSound(){
+  const c=clickSound.cloneNode();c.volume=0.8;c.play().catch(()=>{});
+}
+
+// ✅ ปุ่มลิงก์
+function go(type){
+  playSound(); fbq('track','Lead');
+  if(type==='wa') location.href="https://wa.me/8562076398502?text="+encodeURIComponent("ສົນໃຈສະມັກ Winlaos168 💸");
+  if(type==='fb') location.href="https://m.me/262413013632590";
+  if(type==='line') location.href="https://line.me/R/ti/p/@winlaos168";
+}
+
+// ✅ ธนาคาร (มีโลโก้)
+const banks=[
+  {n:"BCEL",img:"images/banks/bcel.webp"},
+  {n:"JDB",img:"images/banks/jdb.webp"},
+  {n:"LDB",img:"images/banks/ldb.webp"},
+  {n:"STB",img:"images/banks/stb.webp"}
+];
+function randomDeposit(){
+  const amt=(Math.floor(Math.random()*50)+10)*1000;
+  const b=banks[Math.floor(Math.random()*banks.length)];
+  return `<div class="deposit-line">
+    <div class="bank-left"><img src="${b.img}" alt="${b.n}"><span>${b.n}</span></div>
+    <span>+${amt.toLocaleString()} ₭</span>
+  </div>`;
+}
+function updateDeposits(){
+  const box=document.getElementById('depositList');
+  let h='';for(let i=0;i<5;i++)h+=randomDeposit();
+  box.innerHTML=h;
+}
+updateDeposits(); setInterval(updateDeposits,4000);
+
+// ✅ รีวิวลูกค้า
+const rv=[
+  "⭐ “ຖອນໄວ ບໍລິການດີຫຼາຍ!” – <strong>ສົມພອນ</strong>",
+  "🔥 “ໂບນັສເຂົ້າທຸກມື້ ມັ່ນໃຈໃນລະບົບ” – <strong>ຈັນທະລັດ</strong>",
+  "💎 “ເກມງ່າຍ ໄດ້ເງິນໄວ!” – <strong>ວິໄລສອນ</strong>",
+  "🎰 “ສຸດຍອດ ສະຫວັນໃຈຫຼາຍ” – <strong>ນາງສຸກຈັນ</strong>"
+];
+let i=0;
+function showReview(){
+  document.getElementById('reviewSlide').innerHTML=`<div class="review">${rv[i]}</div>`;
+  i=(i+1)%rv.length;
+}
+showReview(); setInterval(showReview,4000);
+</script>
+</body>
+</html>
