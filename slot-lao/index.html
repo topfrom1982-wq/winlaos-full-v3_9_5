@@ -22,7 +22,6 @@
   <link rel="icon" type="image/webp" href="../images/logo.webp" />
   <link rel="stylesheet" href="../style.css" />
   <link rel="stylesheet" href="../style-premium.css" />
-  <link rel="preload" href="../sounds/click.mp3" as="audio" />
 </head>
 
 <body>
@@ -78,14 +77,13 @@
 
     <!-- ✅ ปุ่มสมัคร -->
     <section class="center" style="margin-top:25px;">
-  <a href="https://www.facebook.com/winlaosv2/" 
-     class="gold-button entry blink" 
-     target="_blank" 
-     rel="noopener noreferrer">
-     💬 ຕິດຕໍ່ແອັດມິນ
-  </a>
-</section>
-
+      <a href="https://www.facebook.com/winlaosv2/" 
+         class="gold-button entry blink" 
+         target="_blank" 
+         rel="noopener noreferrer">
+         💬 ຕິດຕໍ່ແອັດມິນ
+      </a>
+    </section>
 
     <!-- Footer -->
     <footer class="ft">
@@ -111,23 +109,23 @@
     <a href="/about.html">💰 About Us</a>
   </nav>
 
-  <!-- ✅ Sound -->
-  <audio id="clickSound" src="../sounds/click.mp3" preload="auto"></audio>
+  <!-- ✅ เรียกใช้ script หลัก -->
+  <script src="../script.js"></script>
 
+  <!-- ✅ สคริปต์เมนู -->
   <script>
     const menuBtn = document.getElementById('menuBtn');
     const dropdownMenu = document.getElementById('dropdownMenu');
-    const clickSound = document.getElementById('clickSound');
 
     menuBtn.addEventListener('click', () => {
-      clickSound.currentTime = 0; clickSound.play().catch(()=>{});
+      playClickSound(); // ✅ ใช้เสียงจาก script.js
       menuBtn.classList.toggle('active');
       dropdownMenu.classList.toggle('show');
     });
 
-    dropdownMenu.querySelectorAll('a').forEach(a=>{
-      a.addEventListener('click',()=>{
-        clickSound.currentTime=0; clickSound.play().catch(()=>{});
+    dropdownMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        playClickSound(); // ✅ ใช้เสียงจาก script.js
         menuBtn.classList.remove('active');
         dropdownMenu.classList.remove('show');
       });
