@@ -3,160 +3,292 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Winlaos168 | ຮັບໂບນັສພິເສດ</title>
-
-<!-- ✅ Facebook Pixel -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window,document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','1337520494718059'); fbq('track','PageView');
-</script>
-
+<title>Winlaos168 | ທາງເຂົ້າຫຼິ້ນ</title>
 <style>
 body {
-  margin:0;font-family:'Noto Sans Lao','Kanit',sans-serif;
-  background:radial-gradient(circle at top,#1a1a1a,#000);
-  color:#fff;text-align:center;overflow-x:hidden;
-  animation:fadeIn 1s ease;
+  margin: 0;
+  font-family: 'Noto Sans Lao', 'Kanit', sans-serif;
+  background: radial-gradient(circle at top, #0a0a0a, #000);
+  color: #fff;
+  text-align: center;
+  overflow-x: hidden;
 }
-.container{max-width:420px;margin:0 auto;padding:20px;}
-.logo{width:180px;margin-top:40px;animation:fadeDown 1s ease;}
-h1{color:#FFD700;font-size:1.5rem;margin-top:15px;text-shadow:0 0 10px #ffb30080;}
-.bonus-banner{
-  width:100%;
-  max-width:360px;
-  margin:10px auto 0;
-  display:block;
-  border-radius:12px;
-  animation:fadeUp 1.2s ease;
+.container {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 20px;
 }
-.button-group{display:flex;flex-direction:column;gap:12px;margin-top:25px;}
-button{
-  position:relative;font-size:1.1rem;padding:12px;
-  border-radius:12px;border:none;font-weight:600;cursor:pointer;
-  transition:transform .25s ease;overflow:hidden;
+.logo {
+  width: 180px;
+  margin-top: 50px;
+  animation: fadeDown 1s ease;
 }
-button:hover{transform:scale(1.05);}
-.btn-wa{
-  background:linear-gradient(90deg,#25D366,#128C7E);color:#fff;
+h1 {
+  color: #FFD700;
+  font-size: 1.4rem;
+  margin-top: 15px;
+  text-shadow: 0 0 15px #ffb30080;
 }
-.btn-wa::before{
-  content:"";position:absolute;top:-20%;left:-20%;right:-20%;bottom:-20%;
-  border-radius:50%;background:radial-gradient(circle,rgba(37,211,102,0.8) 0%,rgba(37,211,102,0) 70%);
-  animation:whapulse 1.8s ease-in-out infinite;z-index:0;
+button {
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  padding: 16px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 25px;
+  transition: all 0.25s ease;
 }
-.btn-wa span{position:relative;z-index:1;}
-.btn-fb{background:linear-gradient(90deg,#1877F2,#0e5dc7);color:#fff;}
-.btn-line{background:linear-gradient(90deg,#00b900,#007a00);color:#fff;}
+#enterBtn {
+  background: linear-gradient(90deg, #FFD700, #E6B800);
+  color: #000;
+  box-shadow: 0 0 20px #FFD70080;
+}
+#enterBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 40px #FFD700aa;
+}
+#contactBtn {
+  background: linear-gradient(90deg, #1877F2, #0e5dc7);
+  color: #fff;
+  box-shadow: 0 0 20px #1877F260;
+}
+#contactBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 40px #1b8affaa;
+}
+footer {
+  margin: 40px 0 20px;
+  font-size: 0.8rem;
+  color: #777;
+}
 
-@keyframes whapulse{
-  0%{opacity:0.3;transform:scale(0.9);}
-  50%{opacity:1;transform:scale(1.15);}
-  100%{opacity:0.3;transform:scale(0.9);}
+/* 🔥 Popup */
+.popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(4px);
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
 }
-
-.deposit-box,.review-box{
-  background:rgba(255,215,0,0.08);
-  border:1px solid rgba(255,215,0,0.25);
-  border-radius:14px;padding:14px;margin-top:30px;
-  animation:fadeUp 1.2s ease;
+.popup {
+  background: radial-gradient(circle at top, #1a1a1a, #000);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 16px;
+  padding: 25px 20px;
+  width: 85%;
+  max-width: 360px;
+  box-shadow: 0 0 30px #FFD70040, inset 0 0 25px #FFD70015;
+  text-align: center;
+  animation: fadeUp 0.5s ease;
 }
-.deposit-line{
-  display:flex;align-items:center;justify-content:space-between;
-  margin:5px 0;font-size:0.95rem;color:#ffd700;opacity:0.9;
+.popup h2 {
+  color: #FFD700;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
 }
-.deposit-line img{width:28px;height:28px;border-radius:4px;margin-right:8px;}
-.bank-left{display:flex;align-items:center;}
-.review{margin:8px 0;font-size:0.95rem;color:#ccc;}
-.review strong{color:#FFD700;}
-footer{margin:40px 0 20px;font-size:0.8rem;color:#777;}
-
-@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-@keyframes fadeDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.popup input {
+  width: 85%;
+  padding: 10px;
+  border: 1px solid #FFD70090;
+  border-radius: 10px;
+  font-size: 1rem;
+  text-align: center;
+  background: #111;
+  color: #fff;
+  outline: none;
+  margin-bottom: 15px;
+}
+.popup input:focus {
+  border-color: #FFD700;
+  box-shadow: 0 0 10px #FFD70060;
+}
+.popup button {
+  width: 80%;
+  background: linear-gradient(90deg, #FFD700, #E6B800);
+  color: #000;
+  font-weight: bold;
+  box-shadow: 0 0 20px #FFD70060;
+  margin-top: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+}
+#closePopup {
+  background: #333;
+  color: #fff;
+  box-shadow: none;
+}
+@keyframes fadeDown { from {opacity:0;transform:translateY(-20px);} to {opacity:1;transform:translateY(0);} }
+@keyframes fadeUp { from {opacity:0;transform:translateY(20px);} to {opacity:1;transform:translateY(0);} }
 </style>
 </head>
 <body>
 <div class="container">
   <img src="images/logo.webp" alt="Winlaos168" class="logo">
-  <h1>ຮັບໂບນັສພິເສດ 50,000 KIP ສໍາລັບສະມາຊິກໃໝ່!</h1>
-  <img src="images/promotions/bottom/bonus4.webp" alt="โบนัส Winlaos168" class="bonus-banner">
+  <h1>ຍິນດີຕ້ອນຮັບສູ່ Winlaos168 🎰<br>ລູກຄ້າທີ່ຝາກແລ້ວກົດເຂົ້າເລີຍ!</h1>
 
-  <div class="button-group">
-    <button class="btn-wa" onclick="go('wa')"><span>💬 WhatsApp ສະມັກທັນທີ</span></button>
-    <button class="btn-fb" onclick="go('fb')">📘 Messenger ສອບຖາມ</button>
-    <button class="btn-line" onclick="go('line')">💚 LINE ຕິດຕໍ່ແອດມິນ</button>
-  </div>
-
-  <div class="deposit-box">
-    <h3 style="color:#FFD700;margin-bottom:10px;">💰 ລ່າສຸດມີການຝາກເຂົ້າ</h3>
-    <div id="depositList"></div>
-  </div>
-
-  <div class="review-box">
-    <h3 style="color:#FFD700;margin-bottom:10px;">⭐ ລູກຄ້າກ່າວເຖິງ Winlaos168</h3>
-    <div id="reviewSlide"></div>
-  </div>
+  <button id="enterBtn" data-click-sound>🎰 ທາງເຂົ້າຫຼິ້ນ</button>
+  <button id="contactBtn" data-click-sound>💬 ຕິດຕໍ່ແອດມິນ</button>
 
   <footer>© 2025 Winlaos168. All rights reserved.</footer>
 </div>
 
+<!-- 🔥 Popup -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup">
+    <h2>ໃສ່ເບີໂທຂອງທ່ານເພື່ອເຂົ້າຫຼິ້ນ</h2>
+    <input type="tel" id="phoneInput" value="020" maxlength="11">
+    <button id="confirmBtn" data-click-sound>ຢືນຢັນ</button>
+    <button id="closePopup" data-click-sound>ປິດ</button>
+  </div>
+</div>
+
 <script>
-// ✅ เสียงคลิก
-const clickSound = new Audio("sounds/click.mp3");
-clickSound.preload="auto";
-function playSound(){
-  const c=clickSound.cloneNode();c.volume=0.8;c.play().catch(()=>{});
+/* ✅ Global Click Sound System (JR x Top) */
+let audioCtx, clickBuffer;
+
+async function loadClickSound() {
+  try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const response = await fetch("sounds/click.mp3");
+    const arrayBuffer = await response.arrayBuffer();
+    clickBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+    console.log("✅ Sound loaded");
+  } catch (err) {
+    console.warn("⚠️ Load sound error:", err);
+  }
 }
 
-// ✅ ปุ่มลิงก์
-function go(type){
-  playSound(); fbq('track','Lead');
-  if(type==='wa') location.href="https://wa.me/8562076398502?text="+encodeURIComponent("ສົນໃຈສະມັກ Winlaos168 💸");
-  if(type==='fb') location.href="https://m.me/262413013632590";
-  if(type==='line') location.href="https://line.me/R/ti/p/@winlaos168";
+function playClickSound() {
+  if (!audioCtx || !clickBuffer) return;
+  const src = audioCtx.createBufferSource();
+  src.buffer = clickBuffer;
+  src.connect(audioCtx.destination);
+  src.start(0);
 }
 
-// ✅ ธนาคาร (มีโลโก้)
-const banks=[
-  {n:"BCEL",img:"images/banks/bcel.webp"},
-  {n:"JDB",img:"images/banks/jdb.webp"},
-  {n:"LDB",img:"images/banks/ldb.webp"},
-  {n:"STB",img:"images/banks/stb.webp"}
-];
-function randomDeposit(){
-  const amt=(Math.floor(Math.random()*50)+10)*1000;
-  const b=banks[Math.floor(Math.random()*banks.length)];
-  return `<div class="deposit-line">
-    <div class="bank-left"><img src="${b.img}" alt="${b.n}"><span>${b.n}</span></div>
-    <span>+${amt.toLocaleString()} ₭</span>
-  </div>`;
-}
-function updateDeposits(){
-  const box=document.getElementById('depositList');
-  let h='';for(let i=0;i<5;i++)h+=randomDeposit();
-  box.innerHTML=h;
-}
-updateDeposits(); setInterval(updateDeposits,4000);
+// โหลดเสียงหลังจาก user แตะครั้งแรก (ผ่าน policy iOS)
+document.addEventListener("pointerdown", () => {
+  if (!audioCtx) loadClickSound();
+}, { once: true });
 
-// ✅ รีวิวลูกค้า
-const rv=[
-  "⭐ “ຖອນໄວ ບໍລິການດີຫຼາຍ!” – <strong>ສົມພອນ</strong>",
-  "🔥 “ໂບນັສເຂົ້າທຸກມື້ ມັ່ນໃຈໃນລະບົບ” – <strong>ຈັນທະລັດ</strong>",
-  "💎 “ເກມງ່າຍ ໄດ້ເງິນໄວ!” – <strong>ວິໄລສອນ</strong>",
-  "🎰 “ສຸດຍອດ ສະຫວັນໃຈຫຼາຍ” – <strong>ນາງສຸກຈັນ</strong>"
-];
-let i=0;
-function showReview(){
-  document.getElementById('reviewSlide').innerHTML=`<div class="review">${rv[i]}</div>`;
-  i=(i+1)%rv.length;
+// คลิกใดๆ ที่มี data-click-sound → เล่นเสียง
+document.addEventListener("click", (e) => {
+  if (e.target.closest("[data-click-sound]")) playClickSound();
+});
+
+// ✅ ใช้ได้ทั่วทั้งหน้า
+window.playClickSound = playClickSound;
+
+
+/* ✅ Meta Pixel: ลูกค้าฝากเงินจริง */
+const PIXEL_ID = "1337520494718059";
+const ACCESS_TOKEN = "EAAP0Y2nQyVgBPyOxFbKEv6PZCqj8cktOpfVa4p9xIUB3MpJB76hlDXCUUK68YoxWPZA3c9eZCNfx1kEBmIP8NsoZC0QtHnxhYEzhwAIKftf0W7zQxlYhorlJYL7GN4eI7YiBg7Jx0ZBkRCCbC4RWbyXlR4ubiqZAV0bNPknrTjjQio7ehK6DD1IW5ay1ZBmGuy0LwZDZD";
+
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+  return match ? match[2] : null;
 }
-showReview(); setInterval(showReview,4000);
+const fbc = getCookie("_fbc");
+const fbp = getCookie("_fbp");
+
+async function sha256(message) {
+  const msgBuffer = new TextEncoder().encode(message);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+async function sendMetaEvent(phone) {
+  const eventTime = Math.floor(Date.now() / 1000);
+  const userData = {
+    ph: phone ? await sha256(phone.trim().toLowerCase()) : undefined,
+    fbc: fbc || undefined,
+    fbp: fbp || undefined,
+    country: "LA"
+  };
+
+  const payload = {
+    data: [{
+      event_name: "Purchase",
+      event_time: eventTime,
+      action_source: "website",
+      event_source_url: window.location.href,
+      user_data: userData,
+      custom_data: { 
+        value: 1,
+        currency: "LAK",
+        status: "deposit_confirmed"
+      }
+    }]
+  };
+
+  try {
+    const res = await fetch(`https://graph.facebook.com/v18.0/${PIXEL_ID}/events?access_token=${ACCESS_TOKEN}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    console.log("✅ Deposit Event Sent:", await res.json());
+  } catch (err) {
+    console.error("❌ Error sending event:", err);
+  }
+}
+
+
+/* ✅ Logic หลัก */
+document.addEventListener("DOMContentLoaded", () => {
+  const enterBtn = document.getElementById("enterBtn");
+  const contactBtn = document.getElementById("contactBtn");
+  const popup = document.getElementById("popupOverlay");
+  const confirmBtn = document.getElementById("confirmBtn");
+  const closePopup = document.getElementById("closePopup");
+  const phoneInput = document.getElementById("phoneInput");
+
+  const savedPhone = localStorage.getItem("winlaos_phone");
+
+  // ไม่มี redirect อัตโนมัติ
+  enterBtn.addEventListener("click", () => {
+    if (savedPhone) {
+      window.open("https://mvpatm.pro", "_blank");
+    } else {
+      popup.style.display = "flex";
+      setTimeout(() => {
+        phoneInput.focus();
+        phoneInput.setSelectionRange(phoneInput.value.length, phoneInput.value.length);
+      }, 100);
+    }
+  });
+
+  confirmBtn.addEventListener("click", async () => {
+    let phone = phoneInput.value.trim();
+    if (!phone.startsWith("020")) phone = "020" + phone.replace(/^0+/, "");
+    if (!phone.match(/^020[0-9]{6,8}$/)) {
+      alert("ກະລຸນາໃສ່ເບີໂທໃຫ້ຖືກຕ້ອງ");
+      return;
+    }
+
+    localStorage.setItem("winlaos_phone", phone);
+    popup.style.display = "none";
+    await sendMetaEvent(phone);
+    alert("✅ ບັນທຶກເບີສຳເລັດ! ກົດປຸ່ມທາງເຂົ້າຫຼິ້ນເພື່ອເຂົ້າໄດ້ເລີຍ");
+  });
+
+  closePopup.addEventListener("click", () => {
+    popup.style.display = "none";
+  });
+
+  contactBtn.addEventListener("click", () => {
+    window.open("https://m.me/262413013632590", "_blank");
+  });
+});
 </script>
 </body>
 </html>
