@@ -24,25 +24,85 @@ fbq('track', 'PageView');
 <!-- ✅ End Pixel -->
 
 <style>
-body {margin:0;font-family:'Noto Sans Lao','Kanit',sans-serif;background:radial-gradient(circle at top,#0a0a0a,#000);color:#fff;text-align:center;}
-.container{max-width:420px;margin:0 auto;padding:20px;}
-.logo{width:180px;margin-top:50px;animation:fadeDown 1s ease;}
-h1{color:#FFD700;font-size:1.4rem;margin-top:15px;text-shadow:0 0 15px #ffb30080;}
-button{width:100%;border:none;border-radius:14px;padding:16px;font-size:1.2rem;font-weight:600;cursor:pointer;margin-top:25px;transition:all 0.25s ease;}
-#enterBtn{background:linear-gradient(90deg,#FFD700,#E6B800);color:#000;box-shadow:0 0 20px #FFD70080;}
-#enterBtn:hover{transform:scale(1.05);box-shadow:0 0 40px #FFD700aa;}
-#contactBtn{background:linear-gradient(90deg,#1877F2,#0e5dc7);color:#fff;box-shadow:0 0 20px #1877F260;}
-#contactBtn:hover{transform:scale(1.05);box-shadow:0 0 40px #1b8affaa;}
-footer{margin:40px 0 20px;font-size:0.8rem;color:#777;}
-.popup-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(4px);justify-content:center;align-items:center;z-index:10;}
-.popup{background:radial-gradient(circle at top,#1a1a1a,#000);border:1px solid rgba(255,215,0,0.3);border-radius:16px;padding:25px 20px;width:85%;max-width:360px;box-shadow:0 0 30px #FFD70040,inset 0 0 25px #FFD70015;text-align:center;animation:fadeUp 0.4s ease;}
-.popup h2{color:#FFD700;font-size:1.1rem;margin-bottom:15px;}
-.popup input{width:85%;padding:10px;border:1px solid #FFD70090;border-radius:10px;font-size:1rem;text-align:center;background:#111;color:#fff;outline:none;margin-bottom:15px;}
-.popup input:focus{border-color:#FFD700;box-shadow:0 0 10px #FFD70060;}
-.popup button{width:80%;background:linear-gradient(90deg,#FFD700,#E6B800);color:#000;font-weight:bold;box-shadow:0 0 20px #FFD70060;margin-top:10px;border:none;border-radius:10px;padding:12px;cursor:pointer;}
-#closePopup{background:#333;color:#fff;box-shadow:none;}
-@keyframes fadeDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+body {
+  margin: 0;
+  font-family: 'Noto Sans Lao', 'Kanit', sans-serif;
+  background: radial-gradient(circle at top, #0a0a0a, #000);
+  color: #fff;
+  text-align: center;
+}
+.container {max-width:420px;margin:0 auto;padding:20px;}
+.logo {width:180px;margin-top:50px;animation:fadeDown 1s ease;}
+h1 {color:#FFD700;font-size:1.4rem;margin-top:15px;text-shadow:0 0 15px #ffb30080;}
+button {
+  width:100%;
+  border:none;
+  border-radius:14px;
+  padding:16px;
+  font-size:1.2rem;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:25px;
+  transition:all 0.25s ease;
+}
+#enterBtn {
+  background:linear-gradient(90deg,#FFD700,#E6B800);
+  color:#000;
+  box-shadow:0 0 20px #FFD70080;
+}
+#enterBtn:hover {transform:scale(1.05);box-shadow:0 0 40px #FFD700aa;}
+#contactBtn {
+  background:linear-gradient(90deg,#1877F2,#0e5dc7);
+  color:#fff;
+  box-shadow:0 0 20px #1877F260;
+}
+#contactBtn:hover {transform:scale(1.05);box-shadow:0 0 40px #1b8affaa;}
+footer {margin:40px 0 20px;font-size:0.8rem;color:#777;}
+.popup-overlay {
+  display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.85);backdrop-filter:blur(4px);
+  justify-content:center;align-items:center;z-index:10;
+}
+.popup {
+  background:radial-gradient(circle at top,#1a1a1a,#000);
+  border:1px solid rgba(255,215,0,0.3);
+  border-radius:16px;
+  padding:25px 20px;
+  width:85%;
+  max-width:360px;
+  box-shadow:0 0 30px #FFD70040,inset 0 0 25px #FFD70015;
+  text-align:center;
+  animation:fadeUp 0.4s ease;
+}
+.popup h2 {color:#FFD700;font-size:1.1rem;margin-bottom:15px;}
+.popup input {
+  width:85%;
+  padding:10px;
+  border:1px solid #FFD70090;
+  border-radius:10px;
+  font-size:1rem;
+  text-align:center;
+  background:#111;
+  color:#fff;
+  outline:none;
+  margin-bottom:15px;
+}
+.popup input:focus {border-color:#FFD700;box-shadow:0 0 10px #FFD70060;}
+.popup button {
+  width:80%;
+  background:linear-gradient(90deg,#FFD700,#E6B800);
+  color:#000;
+  font-weight:bold;
+  box-shadow:0 0 20px #FFD70060;
+  margin-top:10px;
+  border:none;
+  border-radius:10px;
+  padding:12px;
+  cursor:pointer;
+}
+#closePopup {background:#333;color:#fff;box-shadow:none;}
+@keyframes fadeDown {from {opacity:0;transform:translateY(-20px);} to {opacity:1;transform:translateY(0);}}
+@keyframes fadeUp {from {opacity:0;transform:translateY(20px);} to {opacity:1;transform:translateY(0);}}
 </style>
 </head>
 <body>
@@ -54,6 +114,7 @@ footer{margin:40px 0 20px;font-size:0.8rem;color:#777;}
   <footer>© 2025 Winlaos168. All rights reserved.</footer>
 </div>
 
+<!-- ✅ Popup -->
 <div class="popup-overlay" id="popupOverlay">
   <div class="popup">
     <h2>ໃສ່ເບີໂທຂອງທ່ານເພື່ອເຂົ້າຫຼິ້ນ</h2>
@@ -75,7 +136,7 @@ footer{margin:40px 0 20px;font-size:0.8rem;color:#777;}
 
   enterBtn.onclick = () => {
     if (savedPhone) {
-      fbq('track', 'Purchase', {value: 1, currency: 'LAK', status: 'deposit_confirmed'});
+      fbq('track', 'Purchase', {value: 1, currency: 'USD', status: 'deposit_confirmed'});
       console.log("🎯 Pixel ยิง Purchase สำเร็จ (browser)");
       setTimeout(() => window.location.href = REDIRECT_URL, 800);
     } else popup.style.display = "flex";
@@ -86,7 +147,7 @@ footer{margin:40px 0 20px;font-size:0.8rem;color:#777;}
     if (!phone.startsWith("020")) phone = "020" + phone.replace(/^0+/, "");
     if (!phone.match(/^020[0-9]{6,8}$/)) return alert("⚠️ ກະລຸນາໃສ່ເບີໃຫ້ຖືກຕ້ອງ");
     localStorage.setItem("winlaos_phone", phone);
-    fbq('track', 'Purchase', {value: 1, currency: 'LAK', status: 'deposit_confirmed'});
+    fbq('track', 'Purchase', {value: 1, currency: 'USD', status: 'deposit_confirmed'});
     console.log("🎯 Pixel ยิง Purchase สำเร็จ (browser)");
     popup.style.display = "none";
     alert("✅ ບັນທຶກເບີສຳເລັດ! ກຳລັງເຂົ້າ...");
