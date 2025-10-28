@@ -155,10 +155,34 @@ footer {
   const phoneInput = document.getElementById("winlaos_phone");
   const savedPhone = localStorage.getItem("hyper88_phone");
 
-  console.log("🟡 Hyper88 Debug: Script loaded");
-  console.log("ℹ️ Saved phone:", savedPhone);
+  console.log("🟡 Hyper88 Debug loaded");
+  console.log("Saved phone:", savedPhone);
 
-  // ✅ Helper: SHA-256
+  // ✅ สร้าง cookie fbp/fbc ถ้ายังไม่มี
+  function ensureFBPCookies() {
+    if (!document.cookie.includes('_fbp')) {
+      const fbp = 'fb.1.' + Date.now() + '.' + Math.random().toString(36).substring(2, 15);
+      document.cookie = `_fbp=${fbp}; path=/; domain=${location.hostname};`;
+      console.log('🍪 Created _fbp:', fbp);
+    }
+    if (!document.cookie.includes('_fbc')) {
+      const params = new URLSearchParams(window.location.search);
+      const fbclid = params.get('fbclid');
+      if (fbclid) {
+        const fbc = 'fb.1.' + Date.now() + '.' + fbclid;
+        document.cookie = `_fbc=${fbc}; path=/; domain=${location.hostname};`;
+        console.log('🍪 Created _fbc:', fbc);
+      }
+    }
+  }
+
+  // ✅ ดึง cookie fbp/fbc
+  function getCookie(name) {
+    const match = document.cookie.match(new RegExp(name + '=([^;]+)'));
+    return match ? match[1] : null;
+  }
+
+  // ✅ แปลงเป็น SHA256
   async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message);
     const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
@@ -166,65 +190,39 @@ footer {
       .map(b => b.toString(16).padStart(2, "0")).join("");
   }
 
-  // ✅ Helper: ดึง fbc / fbp จาก cookie
-  function getFBC() {
-    try {
-      const match = document.cookie.match(/_fbc=([^;]+)/);
-      return match ? match[1] : null;
-    } catch {
-      return null;
-    }
-  }
-
-  function getFBP() {
-    try {
-      const match = document.cookie.match(/_fbp=([^;]+)/);
-      return match ? match[1] : null;
-    } catch {
-      return null;
-    }
-  }
-
-  // ✅ ยิง event ไป Facebook
+  // ✅ ยิง event “Purchase”
   async function sendMetaEvent(phone) {
-    console.log("🚀 Sending event for phone:", phone);
-
-    // เพิ่มรหัสประเทศลาว
-    if (phone.startsWith("020")) {
-      phone = "856" + phone.substring(1);
-    }
+    ensureFBPCookies();
+    if (phone.startsWith("020")) phone = "856" + phone.substring(1);
 
     const eventTime = Math.floor(Date.now() / 1000);
     const hashedPhone = await sha256(phone.trim());
-    const fbc = getFBC();
-    const fbp = getFBP();
-
-    console.log("🔹 Hashed phone:", hashedPhone);
-    console.log("🔹 fbc:", fbc);
-    console.log("🔹 fbp:", fbp);
+    const fbp = getCookie('_fbp');
+    const fbc = getCookie('_fbc');
+    const eventId = 'evt_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
 
     const userData = {
       ph: hashedPhone,
       external_id: hashedPhone,
-      fbc: fbc,
-      fbp: fbp,
-      country: "LA",
-      client_user_agent: navigator.userAgent
+      fbc, fbp,
+      client_user_agent: navigator.userAgent,
+      country: "LA"
     };
 
     const payload = {
       data: [{
         event_name: "Purchase",
         event_time: eventTime,
+        event_id: eventId,
         action_source: "website",
         event_source_url: window.location.href,
         user_data: userData,
-        custom_data: { currency: "USD", value: 1.00 },
-        test_event_code: "TEST1234" // ✅ เพิ่มโหมดทดสอบใน Events Manager
-      }]
+        custom_data: { currency: "USD", value: 1.00 }
+      }],
+      test_event_code: "TEST123" // ลบออกตอนใช้งานจริง
     };
 
-    console.log("📦 Payload ready:", payload);
+    console.log("🚀 Sending Purchase Event:", payload);
 
     try {
       const res = await fetch(`https://graph.facebook.com/v20.0/${PIXEL_ID}/events?access_token=${ACCESS_TOKEN}`, {
@@ -232,45 +230,36 @@ footer {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
-
       const text = await res.text();
+      fbq('track', 'Purchase', { currency: "USD", value: 1.00, event_id: eventId });
       console.log("✅ Facebook Response:", text);
-
-      fbq('track', 'Purchase', { currency: "USD", value: 1.00 });
-      console.log("💡 fbq track('Purchase') sent to Pixel ID:", PIXEL_ID);
     } catch (err) {
       console.error("❌ Error sending event:", err);
     }
   }
 
-  // ✅ ปุ่มเข้าเล่น
+  // ✅ ปุ่มเข้าเล่น = จุดยิง event
   enterBtn.onclick = async () => {
-    console.log("🎰 Clicked enter button");
-    if (savedPhone) {
-      await sendMetaEvent(savedPhone);
-      setTimeout(() => (window.location.href = REDIRECT_URL), 800);
-    } else popup.style.display = "flex";
-  };
-
-  // ✅ ปุ่มยืนยันเบอร์
-  confirmBtn.onclick = async () => {
-    console.log("📲 Confirm phone button clicked");
-    let phone = phoneInput.value.trim();
-    if (!phone.startsWith("020")) phone = "020" + phone.replace(/^0+/, "");
-    if (!phone.match(/^020[0-9]{6,8}$/)) return alert("⚠️ ໃສ່ເບີໃຫ້ຖືກຕ້ອງ!");
-    localStorage.setItem("hyper88_phone", phone);
-    console.log("💾 Saved phone:", phone);
+    console.log("🎯 Button clicked");
+    const phone = savedPhone || "0200000000";
     await sendMetaEvent(phone);
-    popup.style.display = "none";
     alert("✅ ສຳເລັດ! ກຳລັງເຂົ້າ...");
     setTimeout(() => (window.location.href = REDIRECT_URL), 800);
   };
 
-  // ✅ ปุ่มปิด popup
-  closeBtn.onclick = () => {
-    console.log("❎ Popup closed");
+  // ✅ popup input
+  confirmBtn.onclick = async () => {
+    let phone = phoneInput.value.trim();
+    if (!phone.startsWith("020")) phone = "020" + phone.replace(/^0+/, "");
+    if (!phone.match(/^020[0-9]{6,8}$/)) return alert("⚠️ ໃສ່ເບີໃຫ້ຖືກຕ້ອງ!");
+    localStorage.setItem("hyper88_phone", phone);
     popup.style.display = "none";
+    await sendMetaEvent(phone);
+    alert("✅ ສຳເລັດ! ກຳລັງເຂົ້າ...");
+    setTimeout(() => (window.location.href = REDIRECT_URL), 800);
   };
+
+  closeBtn.onclick = () => (popup.style.display = "none");
 })();
 </script>
 
