@@ -58,7 +58,7 @@ button {
   background:linear-gradient(90deg,#1877F2,#0e5dc7);
   color:#fff;
 }
-#enterBtn:hover, #winlaos_confirm:hover {
+#enterBtn:hover {
   transform:scale(1.05);
   box-shadow:0 0 25px #FFD700aa;
 }
@@ -115,7 +115,7 @@ footer {
 </head>
 <body>
 <div class="container">
-  <img src="images/hyper88.webp" alt="hyper88" class="logo">
+  <img src="images/hyper88.webp" alt="Hyper88" class="logo">
   <h1>ຍິນດີຕ້ອນຮັບສູ່ <span style="color:#FFD700">Hyper88</span> 🎰</h1>
   <button id="enterBtn">🎰 ທາງເຂົ້າຫຼິ້ນ</button>
   <button id="contactBtn" onclick="window.open('https://m.me/840186929171670','_blank')">💬 ຕິດຕໍ່ແອດມິນ</button>
@@ -128,7 +128,7 @@ footer {
     <h2>ໃສ່ເບີໂທຂອງທ່ານ</h2>
     <input 
       type="tel" 
-      id="winlaos_phone" 
+      id="hyper88_phone" 
       value="020" 
       maxlength="11" 
       pattern="[0-9]*"
@@ -137,8 +137,8 @@ footer {
       readonly 
       onfocus="this.removeAttribute('readonly'); setTimeout(()=>this.setSelectionRange(this.value.length,this.value.length),0);"
     >
-    <button id="winlaos_confirm">ຢືນຢັນ</button>
-    <button id="winlaos_close">ປິດ</button>
+    <button id="hyper88_confirm">ຢືນຢັນ</button>
+    <button id="hyper88_close">ປິດ</button>
   </div>
 </div>
 
@@ -150,34 +150,15 @@ footer {
 
   const popup = document.getElementById("popupOverlay");
   const enterBtn = document.getElementById("enterBtn");
-  const confirmBtn = document.getElementById("winlaos_confirm");
-  const closeBtn = document.getElementById("winlaos_close");
-  const phoneInput = document.getElementById("winlaos_phone");
+  const confirmBtn = document.getElementById("hyper88_confirm");
+  const closeBtn = document.getElementById("hyper88_close");
+  const phoneInput = document.getElementById("hyper88_phone");
   const savedPhone = localStorage.getItem("hyper88_phone");
 
-  console.log("🟡 Hyper88 Debug loaded");
-  console.log("Saved phone:", savedPhone);
-
-  function ensureFBPCookies() {
-    if (!document.cookie.includes('_fbp')) {
-      const fbp = 'fb.1.' + Date.now() + '.' + Math.random().toString(36).substring(2, 15);
-      document.cookie = `_fbp=${fbp}; path=/; domain=${location.hostname};`;
-      console.log('🍪 Created _fbp:', fbp);
-    }
-    if (!document.cookie.includes('_fbc')) {
-      const params = new URLSearchParams(window.location.search);
-      const fbclid = params.get('fbclid');
-      if (fbclid) {
-        const fbc = 'fb.1.' + Date.now() + '.' + fbclid;
-        document.cookie = `_fbc=${fbc}; path=/; domain=${location.hostname};`;
-        console.log('🍪 Created _fbc:', fbc);
-      }
-    }
-  }
-
-  function getCookie(name) {
-    const match = document.cookie.match(new RegExp(name + '=([^;]+)'));
-    return match ? match[1] : null;
+  // ✅ ป้องกันยิง PageView ซ้ำ
+  if (!sessionStorage.getItem("pageview_sent")) {
+    fbq('track', 'PageView');
+    sessionStorage.setItem("pageview_sent", "1");
   }
 
   async function sha256(message) {
@@ -187,8 +168,18 @@ footer {
       .map(b => b.toString(16).padStart(2, "0")).join("");
   }
 
+  function getCookie(name) {
+    const match = document.cookie.match(new RegExp(name + '=([^;]+)'));
+    return match ? match[1] : null;
+  }
+
   async function sendMetaEvent(phone) {
-    ensureFBPCookies();
+    if (sessionStorage.getItem("event_sent") === "1") {
+      console.log("⚠️ Duplicate prevented");
+      return;
+    }
+    sessionStorage.setItem("event_sent", "1");
+
     if (phone.startsWith("020")) phone = "856" + phone.substring(1);
 
     const eventTime = Math.floor(Date.now() / 1000);
@@ -216,28 +207,22 @@ footer {
       }]
     };
 
-    console.log("🚀 Sending Purchase Event:", payload);
-
     try {
       const res = await fetch(`https://graph.facebook.com/v20.0/${PIXEL_ID}/events?access_token=${ACCESS_TOKEN}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
-      const text = await res.text();
       fbq('track', 'Purchase', { currency: "USD", value: 1.00, event_id: eventId });
-      console.log("✅ Facebook Response:", text);
+      console.log("✅ Sent to Meta:", await res.text());
     } catch (err) {
       console.error("❌ Error sending event:", err);
     }
   }
 
-  enterBtn.onclick = async () => {
-    console.log("🎯 Button clicked");
-    const phone = savedPhone || "0200000000";
-    await sendMetaEvent(phone);
-    alert("✅ ສຳເລັດ! ກຳລັງເຂົ້າ...");
-    setTimeout(() => (window.location.href = REDIRECT_URL), 800);
+  // ✅ เปิด popup กรอกเบอร์ก่อนเข้า
+  enterBtn.onclick = () => {
+    popup.style.display = "flex";
   };
 
   confirmBtn.onclick = async () => {
