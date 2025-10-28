@@ -14,7 +14,7 @@ if(!f._fbq)n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1119119273700263');
+fbq('init', '1119119273700263'); // ✅ Pixel ID ของ Top
 fbq('track', 'PageView');
 </script>
 <noscript>
@@ -65,10 +65,7 @@ footer{margin:40px 0 20px;font-size:0.8rem;color:#777;}
 
 <script>
 (() => {
-  const PIXEL_ID = "1119119273700263";
-  const ACCESS_TOKEN = "EAAP0Y2nQyVgBP0e1TeZBYgFydKOzWteWbOoVUHmoASUrSMSrCwFLxkxS26qn3UiM4oeZADTWMTpZBXyuda8CUZAyqUEwZBtrHXVZABAoDJHKmG5PKTTPSlvO9JHyEZC3BYqZB3N61kxwHujL1SIVKxkY1URe9ZCHHb8Hslo4qVnPPWWagpgIWXXcSPuB1FJwdEFkr7AZDZD";
   const REDIRECT_URL = "https://mvpatm.pro";
-
   const popup = document.getElementById("popupOverlay");
   const confirmBtn = document.getElementById("winlaos_confirm");
   const closeBtn = document.getElementById("winlaos_close");
@@ -76,63 +73,21 @@ footer{margin:40px 0 20px;font-size:0.8rem;color:#777;}
   const phoneInput = document.getElementById("winlaos_phone");
   const savedPhone = localStorage.getItem("winlaos_phone");
 
-  function getCookie(name) {
-    const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
-    return match ? match[2] : null;
-  }
-
-  async function sha256(message) {
-    const msgBuffer = new TextEncoder().encode(message);
-    const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
-    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, "0")).join("");
-  }
-
-  async function sendMetaEvent(phone) {
-    const eventTime = Math.floor(Date.now() / 1000);
-    const userData = {
-      ph: await sha256(phone.trim().toLowerCase()),
-      fbc: getCookie("_fbc") || undefined,
-      fbp: getCookie("_fbp") || undefined,
-      country: "LA"
-    };
-    const payload = {
-      data: [{
-        event_name: "Purchase",
-        event_time: eventTime,
-        action_source: "website",
-        event_source_url: window.location.href,
-        user_data: userData,
-        custom_data: { value: 1, currency: "LAK", status: "deposit_confirmed" }
-      }]
-    };
-
-    try {
-      const res = await fetch(`https://graph.facebook.com/v18.0/${PIXEL_ID}/events?access_token=${ACCESS_TOKEN}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-      const data = await res.json();
-      console.log("✅ ส่ง Pixel สำเร็จ:", data);
-      if (data.events_received === 1) console.log("🎯 Facebook รับข้อมูลเรียบร้อยแล้ว!");
-    } catch (err) {
-      console.error("❌ ส่งไม่สำเร็จ:", err);
-    }
-  }
-
-  enterBtn.onclick = async () => {
+  enterBtn.onclick = () => {
     if (savedPhone) {
-      await sendMetaEvent(savedPhone);
+      fbq('track', 'Purchase', {value: 1, currency: 'LAK', status: 'deposit_confirmed'});
+      console.log("🎯 Pixel ยิง Purchase สำเร็จ (browser)");
       setTimeout(() => window.location.href = REDIRECT_URL, 800);
     } else popup.style.display = "flex";
   };
 
-  confirmBtn.onclick = async () => {
+  confirmBtn.onclick = () => {
     let phone = phoneInput.value.trim();
     if (!phone.startsWith("020")) phone = "020" + phone.replace(/^0+/, "");
     if (!phone.match(/^020[0-9]{6,8}$/)) return alert("⚠️ ກະລຸນາໃສ່ເບີໃຫ້ຖືກຕ້ອງ");
     localStorage.setItem("winlaos_phone", phone);
-    await sendMetaEvent(phone);
+    fbq('track', 'Purchase', {value: 1, currency: 'LAK', status: 'deposit_confirmed'});
+    console.log("🎯 Pixel ยิง Purchase สำเร็จ (browser)");
     popup.style.display = "none";
     alert("✅ ບັນທຶກເບີສຳເລັດ! ກຳລັງເຂົ້າ...");
     setTimeout(() => window.location.href = REDIRECT_URL, 800);
