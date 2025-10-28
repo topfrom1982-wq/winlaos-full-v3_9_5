@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Winlaos168 | ທາງເຂົ້າຫຼິ້ນ</title>
 
-<!-- ✅ Facebook Pixel (Browser) -->
+<!-- ✅ Facebook Pixel -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -23,17 +23,94 @@ fbq('track', 'PageView');
 </noscript>
 
 <style>
-body {margin:0;font-family:'Noto Sans Lao','Kanit',sans-serif;background:#000;color:#fff;text-align:center;}
-.container{max-width:420px;margin:auto;padding:20px;}
-.logo{width:160px;margin-top:60px;}
-button{width:100%;border:none;border-radius:14px;padding:16px;font-size:1.1rem;font-weight:600;cursor:pointer;margin-top:20px;}
-#enterBtn{background:linear-gradient(90deg,#FFD700,#E6B800);color:#000;}
-#contactBtn{background:linear-gradient(90deg,#1877F2,#0e5dc7);color:#fff;}
-footer{margin:40px 0 20px;font-size:0.8rem;color:#777;}
-.popup-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);justify-content:center;align-items:center;}
-.popup{background:#111;border:1px solid #FFD70050;border-radius:14px;padding:20px;width:80%;max-width:340px;}
-.popup input{width:85%;padding:10px;border-radius:8px;border:1px solid #FFD70080;background:#000;color:#fff;margin-bottom:15px;text-align:center;}
-#debugBox{background:#111;border:1px solid #333;border-radius:10px;margin:20px auto;padding:10px;width:90%;max-width:400px;text-align:left;font-size:0.8rem;color:#0f0;white-space:pre-wrap;}
+body {
+  margin:0;
+  font-family:'Noto Sans Lao','Kanit',sans-serif;
+  background:#000;
+  color:#fff;
+  text-align:center;
+}
+.container {
+  max-width:420px;
+  margin:auto;
+  padding:20px;
+}
+.logo {
+  width:160px;
+  margin-top:60px;
+}
+button {
+  width:100%;
+  border:none;
+  border-radius:14px;
+  padding:16px;
+  font-size:1.1rem;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:20px;
+  transition:all 0.25s ease;
+}
+#enterBtn {
+  background:linear-gradient(90deg,#FFD700,#E6B800);
+  color:#000;
+}
+#contactBtn {
+  background:linear-gradient(90deg,#1877F2,#0e5dc7);
+  color:#fff;
+}
+#enterBtn:hover, #winlaos_confirm:hover {
+  transform:scale(1.05);
+  box-shadow:0 0 25px #FFD700aa;
+}
+footer {
+  margin:40px 0 20px;
+  font-size:0.8rem;
+  color:#777;
+}
+
+/* Popup */
+.popup-overlay {
+  display:none;
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.85);
+  justify-content:center;
+  align-items:center;
+}
+.popup {
+  background:#111;
+  border:1px solid #FFD70050;
+  border-radius:14px;
+  padding:25px 20px;
+  width:80%;
+  max-width:340px;
+}
+.popup h2 {
+  color:#FFD700;
+  margin-bottom:15px;
+}
+.popup input {
+  width:85%;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #FFD70080;
+  background:#000;
+  color:#fff;
+  margin-bottom:15px;
+  text-align:center;
+}
+#winlaos_confirm {
+  background:linear-gradient(90deg,#FFD700,#E6B800);
+  color:#000;
+  font-weight:bold;
+  box-shadow:0 0 15px #FFD70060;
+}
+#winlaos_close {
+  background:#333;
+  color:#fff;
+  margin-top:8px;
+}
 </style>
 </head>
 <body>
@@ -48,32 +125,28 @@ footer{margin:40px 0 20px;font-size:0.8rem;color:#777;}
 <!-- ✅ Popup -->
 <div class="popup-overlay" id="popupOverlay">
   <div class="popup">
-    <h2 style="color:#FFD700;">ໃສ່ເບີໂທຂອງທ່ານ</h2>
+    <h2>ໃສ່ເບີໂທຂອງທ່ານ</h2>
     <input 
       type="tel" 
       id="winlaos_phone" 
       value="020" 
       maxlength="11" 
-      pattern="[0-9]*" 
+      pattern="[0-9]*"
       inputmode="numeric"
       oninput="if(!this.value.startsWith('020')) this.value='020'+this.value.replace(/[^0-9]/g,'').replace(/^0+/,''); if(this.value.length>11) this.value=this.value.slice(0,11);" 
       readonly 
       onfocus="this.removeAttribute('readonly'); setTimeout(()=>this.setSelectionRange(this.value.length,this.value.length),0);"
     >
     <button id="winlaos_confirm">ຢືນຢັນ</button>
-    <button id="winlaos_close" style="background:#333;color:#fff;margin-top:8px;">ປິດ</button>
+    <button id="winlaos_close">ປິດ</button>
   </div>
 </div>
-
-<!-- ✅ Debug Log Box -->
-<div id="debugBox">[DEBUG LOG]</div>
 
 <script>
 (() => {
   const PIXEL_ID = "1119119273700263";
   const ACCESS_TOKEN = "EAAP0Y2nQyVgBP9zJGF6xqhgeZA4Y9ZCmyqBBbvc6i4i1jprm7UjcBD15vq5zZAoNZCam9ZCAq3BZBhABZBVNt67tXCSgkI4GYNWZAKqSVrDQxr86lqhqa9ZBNhHzQFii2ZArsjNfGsnUk7FcVrduzkDrDyffdphADxwUTNfaS57uo4Fno8ZCWnpqOVPnynDsTXoaZCOscAZDZD";
   const REDIRECT_URL = "https://mvpatm.pro";
-  const debugBox = document.getElementById("debugBox");
 
   const popup = document.getElementById("popupOverlay");
   const enterBtn = document.getElementById("enterBtn");
@@ -82,12 +155,11 @@ footer{margin:40px 0 20px;font-size:0.8rem;color:#777;}
   const phoneInput = document.getElementById("winlaos_phone");
   const savedPhone = localStorage.getItem("winlaos_phone");
 
-  function log(msg){console.log(msg);debugBox.textContent += "\n" + msg;}
-
   async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message);
     const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
-    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, "0")).join("");
+    return Array.from(new Uint8Array(hashBuffer))
+      .map(b => b.toString(16).padStart(2,"0")).join("");
   }
 
   async function sendMetaEvent(phone) {
@@ -113,20 +185,15 @@ footer{margin:40px 0 20px;font-size:0.8rem;color:#777;}
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
-      const data = await res.json();
-      log("✅ Conversions API Response:\n" + JSON.stringify(data, null, 2));
-
       fbq('track', 'Purchase', { currency: "USD", value: 1.00 });
-      if (data.events_received === 1) log("🎯 Facebook รับข้อมูลเรียบร้อย!");
-      else log("⚠️ Meta ไม่ตอบ events_received = 1");
+      console.log("✅ Event sent successfully");
     } catch (err) {
-      log("❌ Error ส่ง event: " + err.message);
+      console.error("❌ Error:", err);
     }
   }
 
   enterBtn.onclick = async () => {
     if (savedPhone) {
-      log("➡️ ใช้เบอร์เดิมจาก localStorage: " + savedPhone);
       await sendMetaEvent(savedPhone);
       setTimeout(() => (window.location.href = REDIRECT_URL), 800);
     } else popup.style.display = "flex";
@@ -134,10 +201,9 @@ footer{margin:40px 0 20px;font-size:0.8rem;color:#777;}
 
   confirmBtn.onclick = async () => {
     let phone = phoneInput.value.trim();
-    if (!phone.startsWith("020")) phone = "020" + phone.replace(/^0+/, "");
+    if (!phone.startsWith("020")) phone = "020" + phone.replace(/^0+/,"");
     if (!phone.match(/^020[0-9]{6,8}$/)) return alert("⚠️ ໃສ່ເບີໃຫ້ຖືກຕ້ອງ!");
     localStorage.setItem("winlaos_phone", phone);
-    log("☎️ เบอร์ใหม่: " + phone);
     await sendMetaEvent(phone);
     popup.style.display = "none";
     alert("✅ ສຳເລັດ! ກຳລັງເຂົ້າ...");
