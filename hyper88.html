@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Winlaos168 | ທາງເຂົ້າຫຼິ້ນ</title>
+<title>Hyper88 | ທາງເຂົ້າຫຼິ້ນ</title>
 
 <!-- ✅ Facebook Pixel -->
 <script>
@@ -14,12 +14,12 @@ if(!f._fbq)n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1119119273700263');
+fbq('init', '1519822972491842');
 fbq('track', 'PageView');
 </script>
 <noscript>
   <img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=1119119273700263&ev=PageView&noscript=1"/>
+  src="https://www.facebook.com/tr?id=1519822972491842&ev=PageView&noscript=1"/>
 </noscript>
 
 <style>
@@ -115,11 +115,11 @@ footer {
 </head>
 <body>
 <div class="container">
-  <img src="images/logo.webp" alt="Winlaos168" class="logo">
-  <h1>ຍິນດີຕ້ອນຮັບສູ່ <span style="color:#FFD700">Winlaos168</span> 🎰</h1>
+  <img src="images/hyper88.jpg" alt="hyper88" class="logo">
+  <h1>ຍິນດີຕ້ອນຮັບສູ່ <span style="color:#FFD700">Hyper88</span> 🎰</h1>
   <button id="enterBtn">🎰 ທາງເຂົ້າຫຼິ້ນ</button>
-  <button id="contactBtn">💬 ຕິດຕໍ່ແອດມິນ</button>
-  <footer>© 2025 Winlaos168. All rights reserved.</footer>
+  <button id="contactBtn" onclick="window.open('https://m.me/840186929171670','_blank')">💬 ຕິດຕໍ່ແອດມິນ</button>
+  <footer>© 2025 Hyper88. All rights reserved.</footer>
 </div>
 
 <!-- ✅ Popup -->
@@ -144,8 +144,8 @@ footer {
 
 <script>
 (() => {
-  const PIXEL_ID = "1119119273700263";
-  const ACCESS_TOKEN = "EAAP0Y2nQyVgBP9zJGF6xqhgeZA4Y9ZCmyqBBbvc6i4i1jprm7UjcBD15vq5zZAoNZCam9ZCAq3BZBhABZBVNt67tXCSgkI4GYNWZAKqSVrDQxr86lqhqa9ZBNhHzQFii2ZArsjNfGsnUk7FcVrduzkDrDyffdphADxwUTNfaS57uo4Fno8ZCWnpqOVPnynDsTXoaZCOscAZDZD";
+  const PIXEL_ID = "1519822972491842";
+  const ACCESS_TOKEN = "EAARsThrgc2oBP6b5LegvS6KcILwjhy4hhQ1FrhqdOkwJABf9PsKIevpmhS2rXgoOTmc5u2omZBj0qloSmMQr32IrnHiKOEFZCmC20EdnBXFOBRfnTIErZAATT9sO2vucWXgU64ZCDiuuykWzmazbTQ8XJEWLIMz51LVuyHfeKbfzY8YkPpaKMI1bpNTapQZDZD";
   const REDIRECT_URL = "https://mvpatm.pro";
 
   const popup = document.getElementById("popupOverlay");
@@ -153,7 +153,7 @@ footer {
   const confirmBtn = document.getElementById("winlaos_confirm");
   const closeBtn = document.getElementById("winlaos_close");
   const phoneInput = document.getElementById("winlaos_phone");
-  const savedPhone = localStorage.getItem("winlaos_phone");
+  const savedPhone = localStorage.getItem("hyper88_phone");
 
   async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message);
@@ -163,7 +163,7 @@ footer {
   }
 
   async function sendMetaEvent(phone) {
-    // ✅ เพิ่มตรงนี้: แปลงเป็นเบอร์รหัสประเทศลาวก่อนส่ง
+    // ✅ เพิ่มรหัสประเทศลาว (856)
     if (phone.startsWith("020")) {
       phone = "856" + phone.substring(1);
     }
@@ -191,7 +191,7 @@ footer {
         body: JSON.stringify(payload)
       });
       fbq('track', 'Purchase', { currency: "USD", value: 1.00 });
-      console.log("✅ Event sent successfully");
+      console.log("✅ Event sent successfully (Hyper88)");
     } catch (err) {
       console.error("❌ Error:", err);
     }
@@ -208,7 +208,7 @@ footer {
     let phone = phoneInput.value.trim();
     if (!phone.startsWith("020")) phone = "020" + phone.replace(/^0+/,"");
     if (!phone.match(/^020[0-9]{6,8}$/)) return alert("⚠️ ໃສ່ເບີໃຫ້ຖືກຕ້ອງ!");
-    localStorage.setItem("winlaos_phone", phone);
+    localStorage.setItem("hyper88_phone", phone);
     await sendMetaEvent(phone);
     popup.style.display = "none";
     alert("✅ ສຳເລັດ! ກຳລັງເຂົ້າ...");
