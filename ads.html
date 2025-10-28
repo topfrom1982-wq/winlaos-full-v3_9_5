@@ -14,8 +14,7 @@ if(!f._fbq)n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-
-fbq('init', '1119119273700263'); // ✅ Pixel ID ของ Top
+fbq('init', '1119119273700263');
 fbq('track', 'PageView');
 </script>
 <noscript>
@@ -25,59 +24,25 @@ fbq('track', 'PageView');
 <!-- ✅ End Pixel -->
 
 <style>
-body {
-  margin: 0;
-  font-family: 'Noto Sans Lao', 'Kanit', sans-serif;
-  background: radial-gradient(circle at top, #0a0a0a, #000);
-  color: #fff;
-  text-align: center;
-}
-.container {max-width:420px;margin:0 auto;padding:20px;}
-.logo {width:180px;margin-top:50px;animation:fadeDown 1s ease;}
-h1 {color:#FFD700;font-size:1.4rem;margin-top:15px;text-shadow:0 0 15px #ffb30080;}
-button {
-  width:100%;border:none;border-radius:14px;padding:16px;
-  font-size:1.2rem;font-weight:600;cursor:pointer;margin-top:25px;
-  transition:all 0.25s ease;
-}
-#enterBtn {
-  background:linear-gradient(90deg,#FFD700,#E6B800);
-  color:#000;box-shadow:0 0 20px #FFD70080;
-}
-#enterBtn:hover {transform:scale(1.05);box-shadow:0 0 40px #FFD700aa;}
-#contactBtn {
-  background:linear-gradient(90deg,#1877F2,#0e5dc7);
-  color:#fff;box-shadow:0 0 20px #1877F260;
-}
-#contactBtn:hover {transform:scale(1.05);box-shadow:0 0 40px #1b8affaa;}
-footer {margin:40px 0 20px;font-size:0.8rem;color:#777;}
-.popup-overlay {
-  display:none;position:fixed;top:0;left:0;width:100%;height:100%;
-  background:rgba(0,0,0,0.85);backdrop-filter:blur(4px);
-  justify-content:center;align-items:center;z-index:10;
-}
-.popup {
-  background:radial-gradient(circle at top,#1a1a1a,#000);
-  border:1px solid rgba(255,215,0,0.3);border-radius:16px;
-  padding:25px 20px;width:85%;max-width:360px;
-  box-shadow:0 0 30px #FFD70040,inset 0 0 25px #FFD70015;
-  text-align:center;animation:fadeUp 0.4s ease;
-}
-.popup h2 {color:#FFD700;font-size:1.1rem;margin-bottom:15px;}
-.popup input {
-  width:85%;padding:10px;border:1px solid #FFD70090;border-radius:10px;
-  font-size:1rem;text-align:center;background:#111;color:#fff;outline:none;
-  margin-bottom:15px;
-}
-.popup input:focus {border-color:#FFD700;box-shadow:0 0 10px #FFD70060;}
-.popup button {
-  width:80%;background:linear-gradient(90deg,#FFD700,#E6B800);
-  color:#000;font-weight:bold;box-shadow:0 0 20px #FFD70060;
-  margin-top:10px;border:none;border-radius:10px;padding:12px;cursor:pointer;
-}
-#closePopup {background:#333;color:#fff;box-shadow:none;}
-@keyframes fadeDown {from {opacity:0;transform:translateY(-20px);} to {opacity:1;transform:translateY(0);}}
-@keyframes fadeUp {from {opacity:0;transform:translateY(20px);} to {opacity:1;transform:translateY(0);}}
+body {margin:0;font-family:'Noto Sans Lao','Kanit',sans-serif;background:radial-gradient(circle at top,#0a0a0a,#000);color:#fff;text-align:center;}
+.container{max-width:420px;margin:0 auto;padding:20px;}
+.logo{width:180px;margin-top:50px;animation:fadeDown 1s ease;}
+h1{color:#FFD700;font-size:1.4rem;margin-top:15px;text-shadow:0 0 15px #ffb30080;}
+button{width:100%;border:none;border-radius:14px;padding:16px;font-size:1.2rem;font-weight:600;cursor:pointer;margin-top:25px;transition:all 0.25s ease;}
+#enterBtn{background:linear-gradient(90deg,#FFD700,#E6B800);color:#000;box-shadow:0 0 20px #FFD70080;}
+#enterBtn:hover{transform:scale(1.05);box-shadow:0 0 40px #FFD700aa;}
+#contactBtn{background:linear-gradient(90deg,#1877F2,#0e5dc7);color:#fff;box-shadow:0 0 20px #1877F260;}
+#contactBtn:hover{transform:scale(1.05);box-shadow:0 0 40px #1b8affaa;}
+footer{margin:40px 0 20px;font-size:0.8rem;color:#777;}
+.popup-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(4px);justify-content:center;align-items:center;z-index:10;}
+.popup{background:radial-gradient(circle at top,#1a1a1a,#000);border:1px solid rgba(255,215,0,0.3);border-radius:16px;padding:25px 20px;width:85%;max-width:360px;box-shadow:0 0 30px #FFD70040,inset 0 0 25px #FFD70015;text-align:center;animation:fadeUp 0.4s ease;}
+.popup h2{color:#FFD700;font-size:1.1rem;margin-bottom:15px;}
+.popup input{width:85%;padding:10px;border:1px solid #FFD70090;border-radius:10px;font-size:1rem;text-align:center;background:#111;color:#fff;outline:none;margin-bottom:15px;}
+.popup input:focus{border-color:#FFD700;box-shadow:0 0 10px #FFD70060;}
+.popup button{width:80%;background:linear-gradient(90deg,#FFD700,#E6B800);color:#000;font-weight:bold;box-shadow:0 0 20px #FFD70060;margin-top:10px;border:none;border-radius:10px;padding:12px;cursor:pointer;}
+#closePopup{background:#333;color:#fff;box-shadow:none;}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 </style>
 </head>
 <body>
@@ -89,100 +54,92 @@ footer {margin:40px 0 20px;font-size:0.8rem;color:#777;}
   <footer>© 2025 Winlaos168. All rights reserved.</footer>
 </div>
 
-<!-- ✅ Popup -->
 <div class="popup-overlay" id="popupOverlay">
   <div class="popup">
     <h2>ໃສ່ເບີໂທຂອງທ່ານເພື່ອເຂົ້າຫຼິ້ນ</h2>
-    <input type="tel" id="phoneInput" value="020" maxlength="11">
-    <button id="confirmBtn">ຢືນຢັນ</button>
-    <button id="closePopup">ປິດ</button>
+    <input type="tel" id="winlaos_phone" value="020" maxlength="11">
+    <button id="winlaos_confirm">ຢືນຢັນ</button>
+    <button id="winlaos_close">ປິດ</button>
   </div>
 </div>
 
 <script>
-const PIXEL_ID = "1119119273700263";
-const ACCESS_TOKEN = "EAAP0Y2nQyVgBP0e1TeZBYgFydKOzWteWbOoVUHmoASUrSMSrCwFLxkxS26qn3UiM4oeZADTWMTpZBXyuda8CUZAyqUEwZBtrHXVZABAoDJHKmG5PKTTPSlvO9JHyEZC3BYqZB3N61kxwHujL1SIVKxkY1URe9ZCHHb8Hslo4qVnPPWWagpgIWXXcSPuB1FJwdEFkr7AZDZD";
-const REDIRECT_URL = "https://mvpatm.pro"; // ✅ ทางเข้าเว็บจริง
+(() => {
+  const PIXEL_ID = "1119119273700263";
+  const ACCESS_TOKEN = "EAAP0Y2nQyVgBP0e1TeZBYgFydKOzWteWbOoVUHmoASUrSMSrCwFLxkxS26qn3UiM4oeZADTWMTpZBXyuda8CUZAyqUEwZBtrHXVZABAoDJHKmG5PKTTPSlvO9JHyEZC3BYqZB3N61kxwHujL1SIVKxkY1URe9ZCHHb8Hslo4qVnPPWWagpgIWXXcSPuB1FJwdEFkr7AZDZD";
+  const REDIRECT_URL = "https://mvpatm.pro";
 
-function getCookie(name){
-  const match=document.cookie.match(new RegExp("(^| )"+name+"=([^;]+)"));
-  return match?match[2]:null;
-}
-const fbc=getCookie("_fbc");
-const fbp=getCookie("_fbp");
+  const popup = document.getElementById("popupOverlay");
+  const confirmBtn = document.getElementById("winlaos_confirm");
+  const closeBtn = document.getElementById("winlaos_close");
+  const enterBtn = document.getElementById("enterBtn");
+  const phoneInput = document.getElementById("winlaos_phone");
+  const savedPhone = localStorage.getItem("winlaos_phone");
 
-async function sha256(message){
-  const msgBuffer=new TextEncoder().encode(message);
-  const hashBuffer=await crypto.subtle.digest("SHA-256",msgBuffer);
-  const hashArray=Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b=>b.toString(16).padStart(2,"0")).join("");
-}
+  function getCookie(name) {
+    const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+    return match ? match[2] : null;
+  }
 
-async function sendMetaEvent(phone){
-  const eventTime=Math.floor(Date.now()/1000);
-  const userData={
-    ph:phone?await sha256(phone.trim().toLowerCase()):undefined,
-    fbc:fbc||undefined,
-    fbp:fbp||undefined,
-    country:"LA"
-  };
-  const payload={
-    data:[{
-      event_name:"Purchase",
-      event_time:eventTime,
-      action_source:"website",
-      event_source_url:window.location.href,
-      user_data:userData,
-      custom_data:{value:1,currency:"LAK",status:"deposit_confirmed"}
-    }]
-  };
-  try{
-    const res=await fetch(`https://graph.facebook.com/v18.0/${PIXEL_ID}/events?access_token=${ACCESS_TOKEN}`,{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify(payload)
-    });
-    const data=await res.json();
-    console.log("✅ Event Sent:",data);
-  }catch(err){console.error("❌ Send Event Error:",err);}
-}
+  async function sha256(message) {
+    const msgBuffer = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, "0")).join("");
+  }
 
-document.addEventListener("DOMContentLoaded",()=>{
-  const enterBtn=document.getElementById("enterBtn");
-  const contactBtn=document.getElementById("contactBtn");
-  const popupOverlay=document.getElementById("popupOverlay");
-  const confirmBtn=document.getElementById("confirmBtn");
-  const closePopup=document.getElementById("closePopup");
-  const phoneInput=document.getElementById("phoneInput");
-  const savedPhone=localStorage.getItem("winlaos_phone");
+  async function sendMetaEvent(phone) {
+    const eventTime = Math.floor(Date.now() / 1000);
+    const userData = {
+      ph: await sha256(phone.trim().toLowerCase()),
+      fbc: getCookie("_fbc") || undefined,
+      fbp: getCookie("_fbp") || undefined,
+      country: "LA"
+    };
+    const payload = {
+      data: [{
+        event_name: "Purchase",
+        event_time: eventTime,
+        action_source: "website",
+        event_source_url: window.location.href,
+        user_data: userData,
+        custom_data: { value: 1, currency: "LAK", status: "deposit_confirmed" }
+      }]
+    };
 
-  enterBtn.addEventListener("click",async()=>{
-    if(savedPhone){
+    try {
+      const res = await fetch(`https://graph.facebook.com/v18.0/${PIXEL_ID}/events?access_token=${ACCESS_TOKEN}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      console.log("✅ ส่ง Pixel สำเร็จ:", data);
+      if (data.events_received === 1) console.log("🎯 Facebook รับข้อมูลเรียบร้อยแล้ว!");
+    } catch (err) {
+      console.error("❌ ส่งไม่สำเร็จ:", err);
+    }
+  }
+
+  enterBtn.onclick = async () => {
+    if (savedPhone) {
       await sendMetaEvent(savedPhone);
-      setTimeout(()=>window.location.href=REDIRECT_URL,800);
-    }else{
-      popupOverlay.style.display="flex";
-      setTimeout(()=>phoneInput.focus(),200);
-    }
-  });
+      setTimeout(() => window.location.href = REDIRECT_URL, 800);
+    } else popup.style.display = "flex";
+  };
 
-  confirmBtn.addEventListener("click",async()=>{
-    let phone=phoneInput.value.trim();
-    if(!phone.startsWith("020")) phone="020"+phone.replace(/^0+/,"");
-    if(!phone.match(/^020[0-9]{6,8}$/)){
-      alert("⚠️ ກະລຸນາໃສ່ເບີໃຫ້ຖືກຕ້ອງ (ເລີ່ມດ້ວຍ 020)");
-      return;
-    }
-    localStorage.setItem("winlaos_phone",phone);
+  confirmBtn.onclick = async () => {
+    let phone = phoneInput.value.trim();
+    if (!phone.startsWith("020")) phone = "020" + phone.replace(/^0+/, "");
+    if (!phone.match(/^020[0-9]{6,8}$/)) return alert("⚠️ ກະລຸນາໃສ່ເບີໃຫ້ຖືກຕ້ອງ");
+    localStorage.setItem("winlaos_phone", phone);
     await sendMetaEvent(phone);
-    popupOverlay.style.display="none";
-    alert("✅ ບັນທຶກເບີສຳເລັດ! ກຳລັງເຂົ້າຫຼິ້ນ...");
-    setTimeout(()=>window.location.href=REDIRECT_URL,800); // ✅ delay 0.8 วิ เพื่อให้ Pixel ยิงทัน
-  });
+    popup.style.display = "none";
+    alert("✅ ບັນທຶກເບີສຳເລັດ! ກຳລັງເຂົ້າ...");
+    setTimeout(() => window.location.href = REDIRECT_URL, 800);
+  };
 
-  closePopup.addEventListener("click",()=>popupOverlay.style.display="none");
-  contactBtn.addEventListener("click",()=>window.open("https://m.me/262413013632590","_blank"));
-});
+  closeBtn.onclick = () => popup.style.display = "none";
+})();
 </script>
 </body>
 </html>
