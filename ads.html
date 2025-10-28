@@ -157,24 +157,50 @@ footer {
   const phoneInput = document.getElementById("winlaos_phone");
   const savedPhone = localStorage.getItem("winlaos_phone");
 
+  // ✅ Helper: SHA-256
   async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message);
     const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
     return Array.from(new Uint8Array(hashBuffer))
-      .map(b => b.toString(16).padStart(2,"0")).join("");
+      .map(b => b.toString(16).padStart(2, "0")).join("");
   }
 
+  // ✅ Helper: Get fbc/fbp cookies
+  function getFBC() {
+    try {
+      const match = document.cookie.match(/_fbc=([^;]+)/);
+      return match ? match[1] : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function getFBP() {
+    try {
+      const match = document.cookie.match(/_fbp=([^;]+)/);
+      return match ? match[1] : null;
+    } catch {
+      return null;
+    }
+  }
+
+  // ✅ ส่งข้อมูล CAPI + Pixel
   async function sendMetaEvent(phone) {
-    // ✅ เพิ่มตรงนี้: แปลงเป็นเบอร์รหัสประเทศลาวก่อนส่ง
     if (phone.startsWith("020")) {
       phone = "856" + phone.substring(1);
     }
 
     const eventTime = Math.floor(Date.now() / 1000);
+    const hashedPhone = await sha256(phone.trim());
     const userData = {
-      ph: await sha256(phone.trim()),
-      client_user_agent: navigator.userAgent
+      ph: hashedPhone,                           // เบอร์โทร (hash)
+      external_id: hashedPhone,                  // ตัวระบุเสริม
+      fbc: getFBC(),                             // Facebook Click ID
+      fbp: getFBP(),                             // Facebook Browser ID
+      country: "LA",                             // ประเทศลาว
+      client_user_agent: navigator.userAgent     // Browser Agent
     };
+
     const payload = {
       data: [{
         event_name: "Purchase",
@@ -193,12 +219,13 @@ footer {
         body: JSON.stringify(payload)
       });
       fbq('track', 'Purchase', { currency: "USD", value: 1.00 });
-      console.log("✅ Event sent successfully");
+      console.log("✅ Event sent successfully:", await res.text());
     } catch (err) {
-      console.error("❌ Error:", err);
+      console.error("❌ Error sending event:", err);
     }
   }
 
+  // ✅ ปุ่มทางเข้า
   enterBtn.onclick = async () => {
     if (savedPhone) {
       await sendMetaEvent(savedPhone);
@@ -206,9 +233,10 @@ footer {
     } else popup.style.display = "flex";
   };
 
+  // ✅ ปุ่มยืนยันเบอร์
   confirmBtn.onclick = async () => {
     let phone = phoneInput.value.trim();
-    if (!phone.startsWith("020")) phone = "020" + phone.replace(/^0+/,"");
+    if (!phone.startsWith("020")) phone = "020" + phone.replace(/^0+/, "");
     if (!phone.match(/^020[0-9]{6,8}$/)) return alert("⚠️ ໃສ່ເບີໃຫ້ຖືກຕ້ອງ!");
     localStorage.setItem("winlaos_phone", phone);
     await sendMetaEvent(phone);
@@ -217,8 +245,10 @@ footer {
     setTimeout(() => (window.location.href = REDIRECT_URL), 800);
   };
 
+  // ✅ ปิด popup
   closeBtn.onclick = () => (popup.style.display = "none");
 })();
 </script>
+
 </body>
 </html>
