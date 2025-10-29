@@ -236,7 +236,27 @@ footer {
     setTimeout(() => (window.location.href = REDIRECT_URL), 800);
   };
 
-  closeBtn.onclick = () => (popup.style.display = "none");
+  // ✅ เก็บและเรียกคืน fbclid อัตโนมัติ (กันลูกค้า copy ลิงก์ไปเปิดใหม่)
+(() => {
+  const params = new URLSearchParams(window.location.search);
+  const fbclid = params.get('fbclid');
+
+  // ถ้ามี fbclid ใน URL → เก็บไว้ใน localStorage
+  if (fbclid) {
+    localStorage.setItem('fbclid', fbclid);
+    console.log("📦 fbclid saved:", fbclid);
+  }
+
+  // ถ้าไม่มี fbclid แต่เคยเก็บไว้ก่อนหน้านี้ → ใส่กลับใน URL อัตโนมัติ
+  const storedFbclid = localStorage.getItem('fbclid');
+  if (!fbclid && storedFbclid) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('fbclid', storedFbclid);
+    history.replaceState(null, '', url.toString());
+    console.log("🔁 fbclid restored:", storedFbclid);
+  }
+})();
+
 })();
 </script>
 </body>
