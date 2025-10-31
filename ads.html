@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>Winlaos168 | ທາງເຂົ້າຫຼິ້ນ</title>
 
-<!-- ✅ Facebook Pixels (2 ตัวพร้อมกัน) -->
+<!-- ✅ Facebook Pixel -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -14,17 +15,10 @@ if(!f._fbq)n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-
-const PIXEL_IDS = ["1119119273700263", "1337520494718059"];
-
-// ✅ ยิง PageView ให้ทุก Pixel
-PIXEL_IDS.forEach(id => fbq('init', id));
+fbq('init', '1337520494718059');
 fbq('track', 'PageView');
 </script>
-
 <noscript>
-  <img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=1119119273700263&ev=PageView&noscript=1"/>
   <img height="1" width="1" style="display:none"
   src="https://www.facebook.com/tr?id=1337520494718059&ev=PageView&noscript=1"/>
 </noscript>
@@ -45,6 +39,11 @@ body {
 .logo {
   width:160px;
   margin-top:60px;
+  animation: glowLogo 2s infinite alternate;
+}
+@keyframes glowLogo {
+  from { filter: drop-shadow(0 0 2px #FFD700); }
+  to { filter: drop-shadow(0 0 15px #FFD700); }
 }
 button {
   width:100%;
@@ -60,14 +59,15 @@ button {
 #enterBtn {
   background:linear-gradient(90deg,#FFD700,#E6B800);
   color:#000;
+  box-shadow:0 0 10px #FFD70060;
 }
 #contactBtn {
   background:linear-gradient(90deg,#1877F2,#0e5dc7);
   color:#fff;
+  box-shadow:0 0 10px #1877F260;
 }
-#enterBtn:hover {
-  transform:scale(1.05);
-  box-shadow:0 0 25px #FFD700aa;
+#enterBtn:hover, #contactBtn:hover {
+  transform:scale(1.06);
 }
 footer {
   margin:40px 0 20px;
@@ -75,27 +75,40 @@ footer {
   color:#777;
 }
 
-/* Popup */
+/* ✅ Popup */
 .popup-overlay {
   display:none;
   position:fixed;
   top:0;left:0;
   width:100%;height:100%;
-  background:rgba(0,0,0,0.85);
+  background:rgba(0,0,0,0.8);
   justify-content:center;
   align-items:center;
+  z-index:999;
+  animation:fadeIn 0.4s ease forwards;
+}
+@keyframes fadeIn {
+  from {opacity:0;}
+  to {opacity:1;}
 }
 .popup {
   background:#111;
-  border:1px solid #FFD70050;
-  border-radius:14px;
+  border:1px solid #FFD70080;
+  border-radius:16px;
   padding:25px 20px;
   width:80%;
   max-width:340px;
+  box-shadow:0 0 25px #FFD70060;
+  animation:popupGlow 2s infinite alternate;
+}
+@keyframes popupGlow {
+  from { box-shadow:0 0 10px #FFD70040; }
+  to { box-shadow:0 0 25px #FFD700A0; }
 }
 .popup h2 {
   color:#FFD700;
   margin-bottom:15px;
+  font-weight:600;
 }
 .popup input {
   width:85%;
@@ -111,12 +124,14 @@ footer {
   background:linear-gradient(90deg,#FFD700,#E6B800);
   color:#000;
   font-weight:bold;
-  box-shadow:0 0 15px #FFD70060;
+  box-shadow:0 0 15px #FFD70080;
+  cursor:pointer;
 }
 #winlaos_close {
   background:#333;
   color:#fff;
   margin-top:8px;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -124,35 +139,59 @@ footer {
 <div class="container">
   <img src="images/logo.webp" alt="Winlaos168" class="logo">
   <h1>ຍິນດີຕ້ອນຮັບສູ່ <span style="color:#FFD700">Winlaos168</span> 🎰</h1>
-  <button id="enterBtn">🎰 ທາງເຂົ້າຫຼິ້ນ</button>
-  <button id="contactBtn" onclick="window.open('https://m.me/262413013632590', '_blank')">💬 ຕິດຕໍ່ແອດມິນ</button>
+  <button id="enterBtn" data-click-sound>🎰 ທາງເຂົ້າຫຼິ້ນ</button>
+  <button id="contactBtn" data-click-sound onclick="window.open('https://m.me/262413013632590', '_blank')">💬 ຕິດຕໍ່ແອດມິນ</button>
   <footer>© 2025 Winlaos168. All rights reserved.</footer>
 </div>
 
 <!-- ✅ Popup -->
 <div class="popup-overlay" id="popupOverlay">
   <div class="popup">
-    <h2>ໃສ່ເບີໂທຂອງທ່ານ</h2>
+    <h2>ໃສ່ເບີໂທ ແລະ ຈຳນວນຝາກຄັ້ງທຳອິດ</h2>
     <input 
       type="tel" 
       id="winlaos_phone" 
       value="020" 
-      maxlength="11" 
-      pattern="[0-9]*"
+      maxlength="11"
       inputmode="numeric"
-      oninput="if(!this.value.startsWith('020')) this.value='020'+this.value.replace(/[^0-9]/g,'').replace(/^0+/,''); if(this.value.length>11) this.value=this.value.slice(0,11);" 
-      readonly 
+      oninput="if(!this.value.startsWith('020')) this.value='020'+this.value.replace(/[^0-9]/g,'').replace(/^0+/,''); if(this.value.length>11) this.value=this.value.slice(0,11);"
+      readonly
       onfocus="this.removeAttribute('readonly'); setTimeout(()=>this.setSelectionRange(this.value.length,this.value.length),0);"
+      placeholder="ເບີໂທລະສັບ"
     >
-    <button id="winlaos_confirm">ຢືນຢັນ</button>
-    <button id="winlaos_close">ປິດ</button>
+    <input 
+      type="number" 
+      id="winlaos_deposit" 
+      placeholder="ຈຳນວນຝາກຄັ້ງທຳອິດ (ກີບ)"
+      min="10000" step="1000"
+    >
+    <button id="winlaos_confirm" data-click-sound>ຢືນຢັນ</button>
+    <button id="winlaos_close" data-click-sound>ປິດ</button>
   </div>
 </div>
 
 <script>
+// ✅ Global click sound
+(function () {
+  const sound = new Audio("/sounds/click.mp3");
+  sound.preload = "auto";
+  function playClickSound() {
+    try {
+      const clone = sound.cloneNode();
+      clone.volume = 0.9;
+      clone.play().catch(() => {});
+    } catch (err) {
+      console.warn("Click sound error:", err);
+    }
+  }
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-click-sound]");
+    if (btn) playClickSound();
+  });
+})();
+
 (() => {
-  const PIXEL_IDS = ["1119119273700263", "1337520494718059"];
-  const ACCESS_TOKEN = "EAAP0Y2nQyVgBP9zJGF6xqhgeZA4Y9ZCmyqBBbvc6i4i1jprm7UjcBD15vq5zZAoNZCam9ZCAq3BZBhABZBVNt67tXCSgkI4GYNWZAKqSVrDQxr86lqhqa9ZBNhHzQFii2ZArsjNfGsnUk7FcVrduzkDrDyffdphADxwUTNfaS57uo4Fno8ZCWnpqOVPnynDsTXoaZCOscAZDZD";
+  const PIXEL_ID = "1337520494718059";
   const REDIRECT_URL = "https://mvpatm.pro";
 
   const popup = document.getElementById("popupOverlay");
@@ -161,17 +200,10 @@ footer {
   const closeBtn = document.getElementById("winlaos_close");
   const phoneInput = document.getElementById("winlaos_phone");
 
-  // ✅ กันยิงซ้ำ
-  if (!sessionStorage.getItem("pageview_sent")) {
-    fbq('track', 'PageView');
-    sessionStorage.setItem("pageview_sent", "1");
-  }
-
   async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message);
     const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
-    return Array.from(new Uint8Array(hashBuffer))
-      .map(b => b.toString(16).padStart(2, "0")).join("");
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2,"0")).join("");
   }
 
   function getCookie(name) {
@@ -179,86 +211,49 @@ footer {
     return match ? match[1] : null;
   }
 
-  async function sendMetaEvent(phone) {
-    if (sessionStorage.getItem("event_sent") === "1") {
-      console.log("⚠️ Duplicate prevented");
-      return;
-    }
+  async function sendMetaEvent(phone, depositAmount) {
+    if (sessionStorage.getItem("event_sent") === "1") return;
     sessionStorage.setItem("event_sent", "1");
 
-    if (phone.startsWith("020")) {
-      phone = "856" + phone.substring(1);
-    }
-
-    const eventTime = Math.floor(Date.now() / 1000);
+    if (phone.startsWith("020")) phone = "856" + phone.substring(1);
+    const eventTime = Math.floor(Date.now()/1000);
     const hashedPhone = await sha256(phone.trim());
     const fbp = getCookie('_fbp');
     const fbc = getCookie('_fbc');
-    const eventId = 'evt_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+    const eventId = 'evt_'+Date.now()+'_'+Math.random().toString(36).substring(2,8);
 
-    const userData = {
-      ph: hashedPhone,
-      external_id: hashedPhone,
-      fbc, fbp,
-      client_user_agent: navigator.userAgent
-    };
-
-    const payload = {
-      data: [{
-        event_name: "Purchase",
-        event_time: eventTime,
-        event_id: eventId,
-        action_source: "website",
-        event_source_url: window.location.href,
-        user_data: userData,
-        custom_data: { currency: "USD", value: 1.00 }
-      }]
-    };
+    const userData = { ph:hashedPhone, external_id:hashedPhone, fbc, fbp, client_user_agent:navigator.userAgent };
+    const payload = { data:[{ event_name:"Purchase", event_time:eventTime, event_id:eventId, action_source:"website", event_source_url:window.location.href, user_data:userData, custom_data:{ currency:"USD", value:parseFloat(depositAmount) } }] };
 
     try {
-      for (const id of PIXEL_IDS) {
-        const res = await fetch(`https://graph.facebook.com/v20.0/${id}/events?access_token=${ACCESS_TOKEN}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-        fbq('track', 'Purchase', { currency: "USD", value: 1.00, event_id: eventId });
-        console.log(`✅ Sent to Meta Pixel ${id}:`, await res.text());
-      }
-    } catch (err) {
-      console.error("❌ Error sending event:", err);
-    }
+      const res = await fetch("https://winlaos-capi-proxy.click18up.workers.dev", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({ pixel: PIXEL_ID, payload })
+      });
+      fbq('track','Purchase',{ currency:"USD", value:parseFloat(depositAmount), event_id:eventId });
+      console.log(`✅ Sent to Worker Proxy → Pixel ${PIXEL_ID}:`, await res.text());
+    } catch(err) { console.error("❌ Error sending event:", err); }
   }
 
-  enterBtn.onclick = () => {
-    popup.style.display = "flex";
-  };
+  enterBtn.onclick = ()=> popup.style.display="flex";
+  closeBtn.onclick = ()=> popup.style.display="none";
 
-  confirmBtn.onclick = async () => {
+  confirmBtn.onclick = async ()=>{
     let phone = phoneInput.value.trim();
-    if (!phone.startsWith("020")) phone = "020" + phone.replace(/^0+/, "");
+    let deposit = document.getElementById("winlaos_deposit").value.trim();
+    if (!phone.startsWith("020")) phone="020"+phone.replace(/^0+/,"");
     if (!phone.match(/^020[0-9]{6,8}$/)) return alert("⚠️ ໃສ່ເບີໃຫ້ຖືກຕ້ອງ!");
-    localStorage.setItem("winlaos_phone", phone);
-    popup.style.display = "none";
-    confirmBtn.disabled = true;
-    confirmBtn.innerText = "ກຳລັງເຂົ້າ...";
-    await sendMetaEvent(phone);
-    setTimeout(() => (window.location.href = REDIRECT_URL), 1500);
+    if (!deposit || isNaN(deposit) || deposit<10000) return alert("⚠️ ກະລຸນາໃສ່ຈຳນວນຝາກທີ່ຖືກຕ້ອງ!");
+
+    popup.style.display="none";
+    confirmBtn.disabled=true;
+    confirmBtn.innerText="ກຳລັງເຂົ້າ...";
+
+    const depositAmount=(deposit/20000).toFixed(2); // 💰 ແປງຈາກກີບເປັນ USD
+    await sendMetaEvent(phone, depositAmount);
+    setTimeout(()=>window.location.href=REDIRECT_URL,1500);
   };
-
-  // ✅ เก็บและเรียกคืน fbclid อัตโนมัติ
-  (() => {
-    const params = new URLSearchParams(window.location.search);
-    const fbclid = params.get('fbclid');
-    if (fbclid) localStorage.setItem('fbclid', fbclid);
-    const storedFbclid = localStorage.getItem('fbclid');
-    if (!fbclid && storedFbclid) {
-      const url = new URL(window.location.href);
-      url.searchParams.set('fbclid', storedFbclid);
-      history.replaceState(null, '', url.toString());
-    }
-  })();
-
 })();
 </script>
 </body>
