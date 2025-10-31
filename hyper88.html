@@ -38,6 +38,11 @@ body {
 .logo {
   width:160px;
   margin-top:60px;
+  animation:glow 2s infinite alternate;
+}
+@keyframes glow {
+  from { filter: drop-shadow(0 0 3px #FFD700); }
+  to { filter: drop-shadow(0 0 15px #FFD700); }
 }
 button {
   width:100%;
@@ -58,9 +63,8 @@ button {
   background:linear-gradient(90deg,#1877F2,#0e5dc7);
   color:#fff;
 }
-#enterBtn:hover {
+#enterBtn:hover, #contactBtn:hover {
   transform:scale(1.05);
-  box-shadow:0 0 25px #FFD700aa;
 }
 footer {
   margin:40px 0 20px;
@@ -68,7 +72,7 @@ footer {
   color:#777;
 }
 
-/* Popup */
+/* ✅ Popup */
 .popup-overlay {
   display:none;
   position:fixed;
@@ -77,18 +81,21 @@ footer {
   background:rgba(0,0,0,0.85);
   justify-content:center;
   align-items:center;
+  z-index:999;
 }
 .popup {
   background:#111;
-  border:1px solid #FFD70050;
-  border-radius:14px;
+  border:1px solid #FFD70080;
+  border-radius:16px;
   padding:25px 20px;
   width:80%;
   max-width:340px;
+  box-shadow:0 0 25px #FFD70060;
 }
 .popup h2 {
   color:#FFD700;
   margin-bottom:15px;
+  font-weight:600;
 }
 .popup input {
   width:85%;
@@ -100,13 +107,13 @@ footer {
   margin-bottom:15px;
   text-align:center;
 }
-#winlaos_confirm {
+#hyper88_confirm {
   background:linear-gradient(90deg,#FFD700,#E6B800);
   color:#000;
   font-weight:bold;
-  box-shadow:0 0 15px #FFD70060;
+  box-shadow:0 0 15px #FFD70080;
 }
-#winlaos_close {
+#hyper88_close {
   background:#333;
   color:#fff;
   margin-top:8px;
@@ -125,18 +132,23 @@ footer {
 <!-- ✅ Popup -->
 <div class="popup-overlay" id="popupOverlay">
   <div class="popup">
-    <h2>ໃສ່ເບີໂທຂອງທ່ານ</h2>
+    <h2>ໃສ່ເບີໂທ ແລະ ຈຳນວນຝາກຄັ້ງທຳອິດ</h2>
     <input 
       type="tel" 
       id="hyper88_phone" 
       value="020" 
       maxlength="11" 
-      pattern="[0-9]*"
       inputmode="numeric"
-      oninput="if(!this.value.startsWith('020')) this.value='020'+this.value.replace(/[^0-9]/g,'').replace(/^0+/,''); if(this.value.length>11) this.value=this.value.slice(0,11);" 
-      readonly 
+      oninput="if(!this.value.startsWith('020')) this.value='020'+this.value.replace(/[^0-9]/g,'').replace(/^0+/,''); if(this.value.length>11) this.value=this.value.slice(0,11);"
+      readonly
       onfocus="this.removeAttribute('readonly'); setTimeout(()=>this.setSelectionRange(this.value.length,this.value.length),0);"
+      placeholder="ເບີໂທລະສັບ"
     >
+    <input 
+      type="number" 
+      id="hyper88_deposit" 
+      placeholder="ຈຳນວນຝາກຄັ້ງທຳອິດ (ກີບ)"
+      min="10000" step="1000">
     <button id="hyper88_confirm">ຢືນຢັນ</button>
     <button id="hyper88_close">ປິດ</button>
   </div>
@@ -145,27 +157,28 @@ footer {
 <script>
 (() => {
   const PIXEL_ID = "1519822972491842";
-  const ACCESS_TOKEN = "EAARsThrgc2oBP6b5LegvS6KcILwjhy4hhQ1FrhqdOkwJABf9PsKIevpmhS2rXgoOTmc5u2omZBj0qloSmMQr32IrnHiKOEFZCmC20EdnBXFOBRfnTIErZAATT9sO2vucWXgU64ZCDiuuykWzmazbTQ8XJEWLIMz51LVuyHfeKbfzY8YkPpaKMI1bpNTapQZDZD";
   const REDIRECT_URL = "https://mvpatm.pro";
-
   const popup = document.getElementById("popupOverlay");
   const enterBtn = document.getElementById("enterBtn");
   const confirmBtn = document.getElementById("hyper88_confirm");
   const closeBtn = document.getElementById("hyper88_close");
   const phoneInput = document.getElementById("hyper88_phone");
-  const savedPhone = localStorage.getItem("hyper88_phone");
 
-  // ✅ ป้องกันยิง PageView ซ้ำ
-  if (!sessionStorage.getItem("pageview_sent")) {
-    fbq('track', 'PageView');
-    sessionStorage.setItem("pageview_sent", "1");
-  }
+  // ✅ แสดง popup แค่ครั้งแรก
+  const hasEntered = localStorage.getItem("hyper88_entered");
+  enterBtn.onclick = () => {
+    if (hasEntered === "1") {
+      window.location.href = REDIRECT_URL;
+    } else {
+      popup.style.display = "flex";
+    }
+  };
+  closeBtn.onclick = () => popup.style.display = "none";
 
   async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message);
     const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
-    return Array.from(new Uint8Array(hashBuffer))
-      .map(b => b.toString(16).padStart(2, "0")).join("");
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2,"0")).join("");
   }
 
   function getCookie(name) {
@@ -173,90 +186,47 @@ footer {
     return match ? match[1] : null;
   }
 
-  async function sendMetaEvent(phone) {
-    if (sessionStorage.getItem("event_sent") === "1") {
-      console.log("⚠️ Duplicate prevented");
-      return;
-    }
+  async function sendMetaEvent(phone, depositAmount) {
+    if (sessionStorage.getItem("event_sent") === "1") return;
     sessionStorage.setItem("event_sent", "1");
 
     if (phone.startsWith("020")) phone = "856" + phone.substring(1);
-
-    const eventTime = Math.floor(Date.now() / 1000);
+    const eventTime = Math.floor(Date.now()/1000);
     const hashedPhone = await sha256(phone.trim());
     const fbp = getCookie('_fbp');
     const fbc = getCookie('_fbc');
-    const eventId = 'evt_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+    const eventId = 'evt_'+Date.now()+'_'+Math.random().toString(36).substring(2,8);
 
-    const userData = {
-      ph: hashedPhone,
-      external_id: hashedPhone,
-      fbc, fbp,
-      client_user_agent: navigator.userAgent
-    };
-
-    const payload = {
-      data: [{
-        event_name: "Purchase",
-        event_time: eventTime,
-        event_id: eventId,
-        action_source: "website",
-        event_source_url: window.location.href,
-        user_data: userData,
-        custom_data: { currency: "USD", value: 1.00 }
-      }]
-    };
+    const userData = { ph:hashedPhone, external_id:hashedPhone, fbc, fbp, client_user_agent:navigator.userAgent };
+    const payload = { data:[{ event_name:"Purchase", event_time:eventTime, event_id:eventId, action_source:"website", event_source_url:window.location.href, user_data:userData, custom_data:{ currency:"USD", value:parseFloat(depositAmount) } }] };
 
     try {
-      const res = await fetch(`https://graph.facebook.com/v20.0/${PIXEL_ID}/events?access_token=${ACCESS_TOKEN}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+      const res = await fetch("https://winlaos-capi-proxy.click18up.workers.dev", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({ pixel: PIXEL_ID, payload })
       });
-      fbq('track', 'Purchase', { currency: "USD", value: 1.00, event_id: eventId });
-      console.log("✅ Sent to Meta:", await res.text());
-    } catch (err) {
-      console.error("❌ Error sending event:", err);
-    }
+      fbq('track','Purchase',{ currency:"USD", value:parseFloat(depositAmount), event_id:eventId });
+      console.log(`✅ Sent to Worker Proxy → Pixel ${PIXEL_ID}:`, await res.text());
+    } catch(err) { console.error("❌ Error sending event:", err); }
   }
 
-  // ✅ เปิด popup กรอกเบอร์ก่อนเข้า
-  enterBtn.onclick = () => {
-    popup.style.display = "flex";
-  };
-
-  confirmBtn.onclick = async () => {
+  confirmBtn.onclick = async ()=>{
     let phone = phoneInput.value.trim();
-    if (!phone.startsWith("020")) phone = "020" + phone.replace(/^0+/, "");
+    let deposit = document.getElementById("hyper88_deposit").value.trim();
+
+    if (!phone.startsWith("020")) phone="020"+phone.replace(/^0+/,"");
     if (!phone.match(/^020[0-9]{6,8}$/)) return alert("⚠️ ໃສ່ເບີໃຫ້ຖືກຕ້ອງ!");
-    localStorage.setItem("hyper88_phone", phone);
-    popup.style.display = "none";
-    await sendMetaEvent(phone);
-    alert("✅ ສຳເລັດ! ກຳລັງເຂົ້າ...");
-    setTimeout(() => (window.location.href = REDIRECT_URL), 800);
+    if (!deposit || isNaN(deposit) || deposit < 10000) return alert("⚠️ ກະລຸນາໃສ່ຈຳນວນຝາກທີ່ຖືກຕ້ອງ!");
+
+    const depositAmount = (deposit / 20000).toFixed(2); // 💰 แปลงກີບ → USD
+    localStorage.setItem("hyper88_entered","1");
+    popup.style.display="none";
+    confirmBtn.disabled=true;
+    confirmBtn.innerText="ກຳລັງເຂົ້າ...";
+    await sendMetaEvent(phone, depositAmount);
+    setTimeout(()=>window.location.href=REDIRECT_URL,1200);
   };
-
-  // ✅ เก็บและเรียกคืน fbclid อัตโนมัติ (กันลูกค้า copy ลิงก์ไปเปิดใหม่)
-(() => {
-  const params = new URLSearchParams(window.location.search);
-  const fbclid = params.get('fbclid');
-
-  // ถ้ามี fbclid ใน URL → เก็บไว้ใน localStorage
-  if (fbclid) {
-    localStorage.setItem('fbclid', fbclid);
-    console.log("📦 fbclid saved:", fbclid);
-  }
-
-  // ถ้าไม่มี fbclid แต่เคยเก็บไว้ก่อนหน้านี้ → ใส่กลับใน URL อัตโนมัติ
-  const storedFbclid = localStorage.getItem('fbclid');
-  if (!fbclid && storedFbclid) {
-    const url = new URL(window.location.href);
-    url.searchParams.set('fbclid', storedFbclid);
-    history.replaceState(null, '', url.toString());
-    console.log("🔁 fbclid restored:", storedFbclid);
-  }
-})();
-
 })();
 </script>
 </body>
