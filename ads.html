@@ -6,17 +6,17 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Winlaos168 | ທາງເຂົ້າຫຼິ້ນ</title>
 
-<!-- ✅ Facebook Pixel -->
+<!-- ✅ Facebook Pixel (มีแค่ 1 ตัวเท่านั้น) -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
 if(!f._fbq)n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
+s.parentNode.insertBefore(t,s)}(window,document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1337520494718059');
-fbq('track', 'PageView');
+fbq('init','1337520494718059');
+fbq('track','PageView');
 </script>
 <noscript>
   <img height="1" width="1" style="display:none"
@@ -39,11 +39,11 @@ body {
 .logo {
   width:160px;
   margin-top:60px;
-  animation: glowLogo 2s infinite alternate;
+  animation:glowLogo 2s infinite alternate;
 }
 @keyframes glowLogo {
-  from { filter: drop-shadow(0 0 2px #FFD700); }
-  to { filter: drop-shadow(0 0 15px #FFD700); }
+  from{filter:drop-shadow(0 0 2px #FFD700);}
+  to{filter:drop-shadow(0 0 15px #FFD700);}
 }
 button {
   width:100%;
@@ -66,7 +66,7 @@ button {
   color:#fff;
   box-shadow:0 0 10px #1877F260;
 }
-#enterBtn:hover, #contactBtn:hover {
+#enterBtn:hover,#contactBtn:hover {
   transform:scale(1.06);
 }
 footer {
@@ -74,8 +74,6 @@ footer {
   font-size:0.8rem;
   color:#777;
 }
-
-/* ✅ Popup */
 .popup-overlay {
   display:none;
   position:fixed;
@@ -87,10 +85,7 @@ footer {
   z-index:999;
   animation:fadeIn 0.4s ease forwards;
 }
-@keyframes fadeIn {
-  from {opacity:0;}
-  to {opacity:1;}
-}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 .popup {
   background:#111;
   border:1px solid #FFD70080;
@@ -101,16 +96,12 @@ footer {
   box-shadow:0 0 25px #FFD70060;
   animation:popupGlow 2s infinite alternate;
 }
-@keyframes popupGlow {
-  from { box-shadow:0 0 10px #FFD70040; }
-  to { box-shadow:0 0 25px #FFD700A0; }
+@keyframes popupGlow{
+  from{box-shadow:0 0 10px #FFD70040;}
+  to{box-shadow:0 0 25px #FFD700A0;}
 }
-.popup h2 {
-  color:#FFD700;
-  margin-bottom:15px;
-  font-weight:600;
-}
-.popup input {
+.popup h2{color:#FFD700;margin-bottom:15px;font-weight:600;}
+.popup input{
   width:85%;
   padding:10px;
   border-radius:8px;
@@ -120,14 +111,14 @@ footer {
   margin-bottom:15px;
   text-align:center;
 }
-#winlaos_confirm {
+#winlaos_confirm{
   background:linear-gradient(90deg,#FFD700,#E6B800);
   color:#000;
   font-weight:bold;
   box-shadow:0 0 15px #FFD70080;
   cursor:pointer;
 }
-#winlaos_close {
+#winlaos_close{
   background:#333;
   color:#fff;
   margin-top:8px;
@@ -140,11 +131,10 @@ footer {
   <img src="images/logo.webp" alt="Winlaos168" class="logo">
   <h1>ຍິນດີຕ້ອນຮັບສູ່ <span style="color:#FFD700">Winlaos168</span> 🎰</h1>
   <button id="enterBtn" data-click-sound>🎰 ທາງເຂົ້າຫຼິ້ນ</button>
-  <button id="contactBtn" data-click-sound onclick="window.open('https://m.me/262413013632590', '_blank')">💬 ຕິດຕໍ່ແອດມິນ</button>
+  <button id="contactBtn" data-click-sound onclick="window.open('https://m.me/262413013632590','_blank')">💬 ຕິດຕໍ່ແອດມິນ</button>
   <footer>© 2025 Winlaos168. All rights reserved.</footer>
 </div>
 
-<!-- ✅ Popup -->
 <div class="popup-overlay" id="popupOverlay">
   <div class="popup">
     <h2>ໃສ່ເບີໂທ ແລະ ຈຳນວນຝາກຄັ້ງທຳອິດ</h2>
@@ -154,16 +144,17 @@ footer {
       value="020" 
       maxlength="11"
       inputmode="numeric"
-      oninput="if(!this.value.startsWith('020')) this.value='020'+this.value.replace(/[^0-9]/g,'').replace(/^0+/,''); if(this.value.length>11) this.value=this.value.slice(0,11);"
-      readonly
-      onfocus="this.removeAttribute('readonly'); setTimeout(()=>this.setSelectionRange(this.value.length,this.value.length),0);"
-      placeholder="ເບີໂທລະສັບ"
+      pattern="[0-9]*"
+      oninput="this.value=this.value.replace(/[^0-9]/g,''); if(!this.value.startsWith('020')) this.value='020'+this.value.replace(/^0+/,''); if(this.value.length>11) this.value=this.value.slice(0,11);"
+      placeholder="ເບີໂທລະສັບ (ເລີ່ມ 020)"
     >
     <input 
-      type="number" 
+      type="text" 
       id="winlaos_deposit" 
+      inputmode="numeric"
+      pattern="[0-9]*"
       placeholder="ຈຳນວນຝາກຄັ້ງທຳອິດ (ກີບ)"
-      min="10000" step="1000"
+      oninput="this.value=this.value.replace(/[^0-9]/g,'');"
     >
     <button id="winlaos_confirm" data-click-sound>ຢືນຢັນ</button>
     <button id="winlaos_close" data-click-sound>ປິດ</button>
@@ -171,101 +162,88 @@ footer {
 </div>
 
 <script>
-// ✅ Global click sound
-(function () {
-  const sound = new Audio("/sounds/click.mp3");
-  sound.preload = "auto";
-  function playClickSound() {
-    try {
-      const clone = sound.cloneNode();
-      clone.volume = 0.9;
-      clone.play().catch(() => {});
-    } catch (err) {
-      console.warn("Click sound error:", err);
-    }
-  }
-  document.addEventListener("click", (e) => {
-    const btn = e.target.closest("[data-click-sound]");
-    if (btn) playClickSound();
-  });
+(function(){
+  const sound=new Audio("/sounds/click.mp3");
+  sound.preload="auto";
+  function playClick(){try{const s=sound.cloneNode();s.volume=0.9;s.play().catch(()=>{});}catch(e){console.warn("Sound error:",e);}}
+  document.addEventListener("click",e=>{if(e.target.closest("[data-click-sound]"))playClick();});
 })();
 
 (() => {
-  const PIXEL_ID = "1337520494718059";
-  const REDIRECT_URL = "https://mvpatm.pro";
+  const PIXEL_ID="1337520494718059";
+  const REDIRECT_URL="https://mvpatm.pro";
 
-  const popup = document.getElementById("popupOverlay");
-  const enterBtn = document.getElementById("enterBtn");
-  const confirmBtn = document.getElementById("winlaos_confirm");
-  const closeBtn = document.getElementById("winlaos_close");
-  const phoneInput = document.getElementById("winlaos_phone");
+  const popup=document.getElementById("popupOverlay");
+  const enterBtn=document.getElementById("enterBtn");
+  const confirmBtn=document.getElementById("winlaos_confirm");
+  const closeBtn=document.getElementById("winlaos_close");
+  const phoneInput=document.getElementById("winlaos_phone");
+  const depositInput=document.getElementById("winlaos_deposit");
 
-  // ✅ แสดง popup แค่ครั้งแรกเท่านั้น
-  const POPUP_KEY = "winlaos_popup_shown";
-  const hasSeenPopup = localStorage.getItem(POPUP_KEY) === "1";
+  const POPUP_KEY="winlaos_popup_shown";
+  const hasSeenPopup=localStorage.getItem(POPUP_KEY)==="1";
 
-  enterBtn.onclick = ()=> {
-    if (!hasSeenPopup) {
-      popup.style.display="flex";
-    } else {
-      window.location.href = REDIRECT_URL;
-    }
-  };
-  closeBtn.onclick = ()=> popup.style.display="none";
+  enterBtn.onclick=()=>{if(!hasSeenPopup){popup.style.display="flex";}else{window.location.href=REDIRECT_URL;}};
+  closeBtn.onclick=()=>popup.style.display="none";
 
-  async function sha256(message) {
-    const msgBuffer = new TextEncoder().encode(message);
-    const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
-    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2,"0")).join("");
+  async function sha256(msg){
+    const buf=new TextEncoder().encode(msg);
+    const hash=await crypto.subtle.digest("SHA-256",buf);
+    return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");
   }
 
-  function getCookie(name) {
-    const match = document.cookie.match(new RegExp(name + '=([^;]+)'));
-    return match ? match[1] : null;
+  function getCookie(name){
+    const m=document.cookie.match(new RegExp(name+'=([^;]+)'));
+    return m?m[1]:null;
   }
 
-  async function sendMetaEvent(phone, depositAmount) {
-    if (sessionStorage.getItem("event_sent") === "1") return;
-    sessionStorage.setItem("event_sent", "1");
+  async function sendMetaEvent(phone,depositAmount){
+    console.log("🚀 เริ่มส่ง Meta Event...");
+    if(sessionStorage.getItem("event_sent")==="1"){console.log("⚠️ Event นี้ถูกส่งแล้ว");return;}
+    sessionStorage.setItem("event_sent","1");
 
-    if (phone.startsWith("020")) phone = "856" + phone.substring(1);
-    const eventTime = Math.floor(Date.now()/1000);
-    const hashedPhone = await sha256(phone.trim());
-    const fbp = getCookie('_fbp');
-    const fbc = getCookie('_fbc');
-    const eventId = 'evt_'+Date.now()+'_'+Math.random().toString(36).substring(2,8);
+    if(phone.startsWith("020"))phone="856"+phone.substring(1);
+    const eventTime=Math.floor(Date.now()/1000);
+    const hashedPhone=await sha256(phone.trim());
+    const fbp=getCookie('_fbp');
+    const fbc=getCookie('_fbc');
+    const eventId='evt_'+Date.now()+'_'+Math.random().toString(36).substring(2,8);
 
-    const userData = { ph:hashedPhone, external_id:hashedPhone, fbc, fbp, client_user_agent:navigator.userAgent };
-    const payload = { data:[{ event_name:"Purchase", event_time:eventTime, event_id:eventId, action_source:"website", event_source_url:window.location.href, user_data:userData, custom_data:{ currency:"USD", value:parseFloat(depositAmount) } }] };
+    const payload={data:[{event_name:"Purchase",event_time:eventTime,event_id:eventId,action_source:"website",event_source_url:window.location.href,user_data:{ph:hashedPhone,external_id:hashedPhone,fbc,fbp,client_user_agent:navigator.userAgent},custom_data:{currency:"USD",value:parseFloat(depositAmount)}}]};
+    console.log("📦 Payload:",payload);
 
-    try {
-      const res = await fetch("https://winlaos-capi-proxy.click18up.workers.dev", {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({ pixel: PIXEL_ID, payload })
+    try{
+      const res=await fetch("https://winlaos-capi-proxy.click18up.workers.dev",{
+        method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({pixel:PIXEL_ID,payload})
       });
-      fbq('track','Purchase',{ currency:"USD", value:parseFloat(depositAmount), event_id:eventId });
-      console.log(`✅ Sent to Worker Proxy → Pixel ${PIXEL_ID}:`, await res.text());
-    } catch(err) { console.error("❌ Error sending event:", err); }
+      const text=await res.text();
+      console.log("✅ Worker ตอบกลับ:",text);
+      fbq('track','Purchase',{currency:"USD",value:parseFloat(depositAmount),event_id:eventId});
+      console.log("🎯 Pixel Track สำเร็จ → ID:",eventId);
+    }catch(err){
+      console.error("❌ Error ส่ง event:",err);
+      alert("❌ Error ส่ง event: "+err.message);
+    }
   }
 
-  confirmBtn.onclick = async ()=>{
-    let phone = phoneInput.value.trim();
-    let deposit = document.getElementById("winlaos_deposit").value.trim();
-    if (!phone.startsWith("020")) phone="020"+phone.replace(/^0+/,"");
-    if (!phone.match(/^020[0-9]{6,8}$/)) return alert("⚠️ ໃສ່ເບີໃຫ້ຖືກຕ້ອງ!");
-    if (!deposit || isNaN(deposit) || deposit<10000) return alert("⚠️ ກະລຸນາໃສ່ຈຳນວນຝາກທີ່ຖືກຕ້ອງ!");
+  confirmBtn.onclick=async()=>{
+    let phone=phoneInput.value.trim();
+    let deposit=depositInput.value.trim();
+
+    if(!phone.match(/^020[0-9]{6,8}$/))return alert("⚠️ ໃສ່ເບີໃຫ້ຖືກຕ້ອງ (ເລີ່ມ 020 ແລະ 8–11 ຫຼັກ)");
+    if(!deposit||isNaN(deposit)||deposit<10000)return alert("⚠️ ກະລຸນາໃສ່ຈຳນວນຝາກ ≥ 10,000 ກີບ");
 
     popup.style.display="none";
     confirmBtn.disabled=true;
     confirmBtn.innerText="ກຳລັງເຂົ້າ...";
 
     const depositAmount=(deposit/20000).toFixed(2);
-    await sendMetaEvent(phone, depositAmount);
+    console.log(`📱 ເບີ: ${phone}, 💰 ฝาก: ${depositAmount} USD`);
+    await sendMetaEvent(phone,depositAmount);
 
-    // ✅ บันทึกว่า popup แสดงแล้ว
-    localStorage.setItem(POPUP_KEY, "1");
-
+    localStorage.setItem(POPUP_KEY,"1");
+    console.log("✅ popup แสดงแล้ว → redirect ใน 1.5 วิ");
     setTimeout(()=>window.location.href=REDIRECT_URL,1500);
   };
 })();

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>Hyper88 | ທາງເຂົ້າຫຼິ້ນ</title>
 
 <!-- ✅ Facebook Pixel -->
@@ -12,10 +13,10 @@
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
 if(!f._fbq)n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
+s.parentNode.insertBefore(t,s)}(window,document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1519822972491842');
-fbq('track', 'PageView');
+fbq('init','1519822972491842');
+fbq('track','PageView');
 </script>
 <noscript>
   <img height="1" width="1" style="display:none"
@@ -23,101 +24,21 @@ fbq('track', 'PageView');
 </noscript>
 
 <style>
-body {
-  margin:0;
-  font-family:'Noto Sans Lao','Kanit',sans-serif;
-  background:#000;
-  color:#fff;
-  text-align:center;
-}
-.container {
-  max-width:420px;
-  margin:auto;
-  padding:20px;
-}
-.logo {
-  width:160px;
-  margin-top:60px;
-  animation:glow 2s infinite alternate;
-}
-@keyframes glow {
-  from { filter: drop-shadow(0 0 3px #FFD700); }
-  to { filter: drop-shadow(0 0 15px #FFD700); }
-}
-button {
-  width:100%;
-  border:none;
-  border-radius:14px;
-  padding:16px;
-  font-size:1.1rem;
-  font-weight:600;
-  cursor:pointer;
-  margin-top:20px;
-  transition:all 0.25s ease;
-}
-#enterBtn {
-  background:linear-gradient(90deg,#FFD700,#E6B800);
-  color:#000;
-}
-#contactBtn {
-  background:linear-gradient(90deg,#1877F2,#0e5dc7);
-  color:#fff;
-}
-#enterBtn:hover, #contactBtn:hover {
-  transform:scale(1.05);
-}
-footer {
-  margin:40px 0 20px;
-  font-size:0.8rem;
-  color:#777;
-}
-
-/* ✅ Popup */
-.popup-overlay {
-  display:none;
-  position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
-  background:rgba(0,0,0,0.85);
-  justify-content:center;
-  align-items:center;
-  z-index:999;
-}
-.popup {
-  background:#111;
-  border:1px solid #FFD70080;
-  border-radius:16px;
-  padding:25px 20px;
-  width:80%;
-  max-width:340px;
-  box-shadow:0 0 25px #FFD70060;
-}
-.popup h2 {
-  color:#FFD700;
-  margin-bottom:15px;
-  font-weight:600;
-}
-.popup input {
-  width:85%;
-  padding:10px;
-  border-radius:8px;
-  border:1px solid #FFD70080;
-  background:#000;
-  color:#fff;
-  margin-bottom:15px;
-  text-align:center;
-}
-#hyper88_confirm {
-  background:linear-gradient(90deg,#FFD700,#E6B800);
-  color:#000;
-  font-weight:bold;
-  box-shadow:0 0 15px #FFD70080;
-}
-#hyper88_close {
-  background:#333;
-  color:#fff;
-  margin-top:8px;
-}
+body{margin:0;font-family:'Noto Sans Lao','Kanit',sans-serif;background:#000;color:#fff;text-align:center;}
+.container{max-width:420px;margin:auto;padding:20px;}
+.logo{width:160px;margin-top:60px;animation:glow 2s infinite alternate;}
+@keyframes glow{from{filter:drop-shadow(0 0 3px #FFD700);}to{filter:drop-shadow(0 0 15px #FFD700);}}
+button{width:100%;border:none;border-radius:14px;padding:16px;font-size:1.1rem;font-weight:600;cursor:pointer;margin-top:20px;transition:all .25s ease;}
+#enterBtn{background:linear-gradient(90deg,#FFD700,#E6B800);color:#000;}
+#contactBtn{background:linear-gradient(90deg,#1877F2,#0e5dc7);color:#fff;}
+#enterBtn:hover,#contactBtn:hover{transform:scale(1.06);}
+footer{margin:40px 0 20px;font-size:.8rem;color:#777;}
+.popup-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);justify-content:center;align-items:center;z-index:999;}
+.popup{background:#111;border:1px solid #FFD70080;border-radius:16px;padding:25px 20px;width:80%;max-width:340px;box-shadow:0 0 25px #FFD70060;}
+.popup h2{color:#FFD700;margin-bottom:15px;font-weight:600;}
+.popup input{width:85%;padding:10px;border-radius:8px;border:1px solid #FFD70080;background:#000;color:#fff;margin-bottom:15px;text-align:center;}
+#hyper88_confirm{background:linear-gradient(90deg,#FFD700,#E6B800);color:#000;font-weight:bold;box-shadow:0 0 15px #FFD70080;}
+#hyper88_close{background:#333;color:#fff;margin-top:8px;}
 </style>
 </head>
 <body>
@@ -134,21 +55,14 @@ footer {
   <div class="popup">
     <h2>ໃສ່ເບີໂທ ແລະ ຈຳນວນຝາກຄັ້ງທຳອິດ</h2>
     <input 
-      type="tel" 
-      id="hyper88_phone" 
-      value="020" 
-      maxlength="11" 
-      inputmode="numeric"
-      oninput="if(!this.value.startsWith('020')) this.value='020'+this.value.replace(/[^0-9]/g,'').replace(/^0+/,''); if(this.value.length>11) this.value=this.value.slice(0,11);"
-      readonly
-      onfocus="this.removeAttribute('readonly'); setTimeout(()=>this.setSelectionRange(this.value.length,this.value.length),0);"
-      placeholder="ເບີໂທລະສັບ"
-    >
+      type="tel" id="hyper88_phone" value="020" maxlength="11"
+      inputmode="numeric" pattern="[0-9]*"
+      oninput="this.value=this.value.replace(/[^0-9]/g,'');if(!this.value.startsWith('020'))this.value='020'+this.value.replace(/^0+/,'');if(this.value.length>11)this.value=this.value.slice(0,11);"
+      placeholder="ເບີໂທລະສັບ (ເລີ່ມ 020)">
     <input 
-      type="number" 
-      id="hyper88_deposit" 
+      type="text" id="hyper88_deposit" inputmode="numeric" pattern="[0-9]*"
       placeholder="ຈຳນວນຝາກຄັ້ງທຳອິດ (ກີບ)"
-      min="10000" step="1000">
+      oninput="this.value=this.value.replace(/[^0-9]/g,'');">
     <button id="hyper88_confirm">ຢືນຢັນ</button>
     <button id="hyper88_close">ປິດ</button>
   </div>
@@ -156,76 +70,65 @@ footer {
 
 <script>
 (() => {
-  const PIXEL_ID = "1519822972491842";
-  const REDIRECT_URL = "https://mvpatm.pro";
-  const popup = document.getElementById("popupOverlay");
-  const enterBtn = document.getElementById("enterBtn");
-  const confirmBtn = document.getElementById("hyper88_confirm");
-  const closeBtn = document.getElementById("hyper88_close");
-  const phoneInput = document.getElementById("hyper88_phone");
+  const PIXEL_ID="1519822972491842";
+  const REDIRECT_URL="https://mvpatm.pro";
+  const popup=document.getElementById("popupOverlay");
+  const enterBtn=document.getElementById("enterBtn");
+  const confirmBtn=document.getElementById("hyper88_confirm");
+  const closeBtn=document.getElementById("hyper88_close");
+  const phoneInput=document.getElementById("hyper88_phone");
+  const depositInput=document.getElementById("hyper88_deposit");
 
-  // ✅ แสดง popup แค่ครั้งแรก
-  const hasEntered = localStorage.getItem("hyper88_entered");
-  enterBtn.onclick = () => {
-    if (hasEntered === "1") {
-      window.location.href = REDIRECT_URL;
-    } else {
-      popup.style.display = "flex";
-    }
-  };
-  closeBtn.onclick = () => popup.style.display = "none";
+  const POPUP_KEY="hyper88_popup_shown";
+  const seen=localStorage.getItem(POPUP_KEY)==="1";
 
-  async function sha256(message) {
-    const msgBuffer = new TextEncoder().encode(message);
-    const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
-    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2,"0")).join("");
+  enterBtn.onclick=()=>{if(!seen){popup.style.display="flex";}else{window.location.href=REDIRECT_URL;}};
+  closeBtn.onclick=()=>popup.style.display="none";
+
+  async function sha256(msg){
+    const buf=new TextEncoder().encode(msg);
+    const hash=await crypto.subtle.digest("SHA-256",buf);
+    return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");
+  }
+  function getCookie(name){const m=document.cookie.match(new RegExp(name+'=([^;]+)'));return m?m[1]:null;}
+
+  async function sendMetaEvent(phone,depositAmount){
+    console.log("🚀 เริ่มส่ง Meta Event...");
+    if(sessionStorage.getItem("event_sent")==="1"){console.log("⚠️ Event ซ้ำ");return;}
+    sessionStorage.setItem("event_sent","1");
+    if(phone.startsWith("020"))phone="856"+phone.substring(1);
+
+    const eventTime=Math.floor(Date.now()/1000);
+    const hashedPhone=await sha256(phone.trim());
+    const fbp=getCookie('_fbp');
+    const fbc=getCookie('_fbc');
+    const eventId='evt_'+Date.now()+'_'+Math.random().toString(36).substring(2,8);
+    const payload={data:[{event_name:"Purchase",event_time:eventTime,event_id:eventId,action_source:"website",event_source_url:window.location.href,user_data:{ph:hashedPhone,external_id:hashedPhone,fbc,fbp,client_user_agent:navigator.userAgent},custom_data:{currency:"USD",value:parseFloat(depositAmount)}}]};
+    console.log("📦 Payload:",payload);
+    try{
+      const res=await fetch("https://winlaos-capi-proxy.click18up.workers.dev",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({pixel:PIXEL_ID,payload})});
+      const text=await res.text();
+      console.log("✅ Worker ตอบ:",text);
+      fbq('track','Purchase',{currency:"USD",value:parseFloat(depositAmount),event_id:eventId});
+      console.log("🎯 Pixel Track → ID:",eventId);
+    }catch(err){console.error("❌ Error:",err);}
   }
 
-  function getCookie(name) {
-    const match = document.cookie.match(new RegExp(name + '=([^;]+)'));
-    return match ? match[1] : null;
-  }
+  confirmBtn.onclick=async()=>{
+    let phone=phoneInput.value.trim();
+    let deposit=depositInput.value.trim();
+    if(!phone.match(/^020[0-9]{6,8}$/))return alert("⚠️ ໃສ່ເບີໃຫ້ຖືກຕ້ອງ (ເລີ່ມ 020)");
+    if(!deposit||isNaN(deposit)||deposit<10000)return alert("⚠️ ກະລຸນາໃສ່ຝາກ ≥ 10,000 ກີບ");
 
-  async function sendMetaEvent(phone, depositAmount) {
-    if (sessionStorage.getItem("event_sent") === "1") return;
-    sessionStorage.setItem("event_sent", "1");
-
-    if (phone.startsWith("020")) phone = "856" + phone.substring(1);
-    const eventTime = Math.floor(Date.now()/1000);
-    const hashedPhone = await sha256(phone.trim());
-    const fbp = getCookie('_fbp');
-    const fbc = getCookie('_fbc');
-    const eventId = 'evt_'+Date.now()+'_'+Math.random().toString(36).substring(2,8);
-
-    const userData = { ph:hashedPhone, external_id:hashedPhone, fbc, fbp, client_user_agent:navigator.userAgent };
-    const payload = { data:[{ event_name:"Purchase", event_time:eventTime, event_id:eventId, action_source:"website", event_source_url:window.location.href, user_data:userData, custom_data:{ currency:"USD", value:parseFloat(depositAmount) } }] };
-
-    try {
-      const res = await fetch("https://winlaos-capi-proxy.click18up.workers.dev", {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({ pixel: PIXEL_ID, payload })
-      });
-      fbq('track','Purchase',{ currency:"USD", value:parseFloat(depositAmount), event_id:eventId });
-      console.log(`✅ Sent to Worker Proxy → Pixel ${PIXEL_ID}:`, await res.text());
-    } catch(err) { console.error("❌ Error sending event:", err); }
-  }
-
-  confirmBtn.onclick = async ()=>{
-    let phone = phoneInput.value.trim();
-    let deposit = document.getElementById("hyper88_deposit").value.trim();
-
-    if (!phone.startsWith("020")) phone="020"+phone.replace(/^0+/,"");
-    if (!phone.match(/^020[0-9]{6,8}$/)) return alert("⚠️ ໃສ່ເບີໃຫ້ຖືກຕ້ອງ!");
-    if (!deposit || isNaN(deposit) || deposit < 10000) return alert("⚠️ ກະລຸນາໃສ່ຈຳນວນຝາກທີ່ຖືກຕ້ອງ!");
-
-    const depositAmount = (deposit / 20000).toFixed(2); // 💰 แปลงກີບ → USD
-    localStorage.setItem("hyper88_entered","1");
     popup.style.display="none";
     confirmBtn.disabled=true;
     confirmBtn.innerText="ກຳລັງເຂົ້າ...";
-    await sendMetaEvent(phone, depositAmount);
-    setTimeout(()=>window.location.href=REDIRECT_URL,1200);
+    const depositAmount=(deposit/20000).toFixed(2);
+    console.log(`📱 ເບີ: ${phone}, 💰 ฝาก: ${depositAmount} USD`);
+    await sendMetaEvent(phone,depositAmount);
+    localStorage.setItem(POPUP_KEY,"1");
+    console.log("✅ popup แสดงแล้ว → redirect 1.5 วิ");
+    setTimeout(()=>window.location.href=REDIRECT_URL,1500);
   };
 })();
 </script>
