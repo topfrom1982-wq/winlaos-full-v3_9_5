@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Winlaos168 | ທາງເຂົ້າຫຼິ້ນ</title>
 
-<!-- ✅ Facebook Pixel (มีแค่ 1 ตัวเท่านั้น) -->
+<!-- ✅ Facebook Pixel -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -135,13 +135,14 @@ footer {
   <footer>© 2025 Winlaos168. All rights reserved.</footer>
 </div>
 
+<!-- ✅ Popup -->
 <div class="popup-overlay" id="popupOverlay">
   <div class="popup">
     <h2>ໃສ່ເບີໂທ ແລະ ຈຳນວນຝາກຄັ້ງທຳອິດ</h2>
     <input 
-      type="tel" 
-      id="winlaos_phone" 
-      value="020" 
+      type="tel"
+      id="winlaos_phone"
+      value="020"
       maxlength="11"
       inputmode="numeric"
       pattern="[0-9]*"
@@ -149,8 +150,8 @@ footer {
       placeholder="ເບີໂທລະສັບ (ເລີ່ມ 020)"
     >
     <input 
-      type="text" 
-      id="winlaos_deposit" 
+      type="text"
+      id="winlaos_deposit"
       inputmode="numeric"
       pattern="[0-9]*"
       placeholder="ຈຳນວນຝາກຄັ້ງທຳອິດ (ກີບ)"
@@ -162,11 +163,16 @@ footer {
 </div>
 
 <script>
+// ✅ Global click sound
 (function(){
   const sound=new Audio("/sounds/click.mp3");
   sound.preload="auto";
-  function playClick(){try{const s=sound.cloneNode();s.volume=0.9;s.play().catch(()=>{});}catch(e){console.warn("Sound error:",e);}}
-  document.addEventListener("click",e=>{if(e.target.closest("[data-click-sound]"))playClick();});
+  function playClick(){
+    try{const s=sound.cloneNode();s.volume=0.9;s.play().catch(()=>{});}catch(e){console.warn("Sound error:",e);}
+  }
+  document.addEventListener("click",e=>{
+    if(e.target.closest("[data-click-sound]"))playClick();
+  });
 })();
 
 (() => {
@@ -179,7 +185,6 @@ footer {
   const closeBtn=document.getElementById("winlaos_close");
   const phoneInput=document.getElementById("winlaos_phone");
   const depositInput=document.getElementById("winlaos_deposit");
-
   const POPUP_KEY="winlaos_popup_shown";
   const hasSeenPopup=localStorage.getItem(POPUP_KEY)==="1";
 
