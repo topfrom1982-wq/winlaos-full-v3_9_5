@@ -212,7 +212,9 @@ footer {
     const hashedPhone=await sha256(phone.trim());
     const fbp=getCookie('_fbp');
     const fbc=getCookie('_fbc');
-    const eventId='evt_'+Date.now()+'_'+Math.random().toString(36).substring(2,8);
+
+    // ✅ ใช้ event_id เดียวกันทั้ง Pixel และ CAPI
+    const eventId=await sha256(phone+depositAmount+eventTime);
 
     const payload={data:[{event_name:"Purchase",event_time:eventTime,event_id:eventId,action_source:"website",event_source_url:window.location.href,user_data:{ph:hashedPhone,external_id:hashedPhone,fbc,fbp,client_user_agent:navigator.userAgent},custom_data:{currency:"USD",value:parseFloat(depositAmount)}}]};
     console.log("📦 Payload:",payload);
@@ -224,6 +226,8 @@ footer {
       });
       const text=await res.text();
       console.log("✅ Worker ตอบกลับ:",text);
+
+      // ✅ ยิง Pixel ด้วย event_id เดียวกัน
       fbq('track','Purchase',{currency:"USD",value:parseFloat(depositAmount),event_id:eventId});
       console.log("🎯 Pixel Track สำเร็จ → ID:",eventId);
     }catch(err){
