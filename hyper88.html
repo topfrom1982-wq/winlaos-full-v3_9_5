@@ -153,15 +153,14 @@ footer {
 </div>
 
 <script>
-// ✅ Global click sound
+// ✅ เสียงคลิก
 (function(){
   const sound=new Audio("/sounds/click.mp3");
   sound.preload="auto";
-  function playClick(){
-    try{const s=sound.cloneNode();s.volume=0.9;s.play().catch(()=>{});}catch(e){console.warn("Sound error:",e);}
-  }
   document.addEventListener("click",e=>{
-    if(e.target.closest("[data-click-sound]"))playClick();
+    if(e.target.closest("[data-click-sound]")){
+      const s=sound.cloneNode();s.volume=0.9;s.play().catch(()=>{});
+    }
   });
 })();
 
@@ -175,9 +174,10 @@ footer {
   const phoneInput=document.getElementById("hyper88_phone");
   const depositInput=document.getElementById("hyper88_deposit");
   const POPUP_KEY="hyper88_popup_shown";
-  const seen=localStorage.getItem(POPUP_KEY)==="1";
+  const EVENT_KEY="hyper88_event_sent";
+  let sendingLock=false;
 
-  enterBtn.onclick=()=>{if(!seen){popup.style.display="flex";}else{window.location.href=REDIRECT_URL;}};
+  enterBtn.onclick=()=>{if(localStorage.getItem(POPUP_KEY)==="1"){window.location.href=REDIRECT_URL;}else{popup.style.display="flex";}};
   closeBtn.onclick=()=>popup.style.display="none";
 
   async function sha256(msg){
@@ -187,71 +187,49 @@ footer {
   }
   function getCookie(name){const m=document.cookie.match(new RegExp(name+'=([^;]+)'));return m?m[1]:null;}
 
-  // ✅ ส่งเข้า Worker พร้อม kip value
-  async function sendMetaEvent(phone,depositAmountUSD,kipValue){
-    console.log("🚀 เริ่มส่ง Meta Event...");
-    if(sessionStorage.getItem("event_sent")==="1"){console.log("⚠️ Event ซ้ำ");return;}
-    sessionStorage.setItem("event_sent","1");
+  async function sendMetaEvent(phone,depositUSD,kipValue){
+    if(sendingLock){console.log("⚠️ Duplicate Blocked");return;}
+    sendingLock=true;
+    if(sessionStorage.getItem("event_sent")==="1"||localStorage.getItem(EVENT_KEY)==="1"){console.log("⚠️ Already Sent");return;}
+    sessionStorage.setItem("event_sent","1");localStorage.setItem(EVENT_KEY,"1");
+
     if(phone.startsWith("020"))phone="856"+phone.substring(1);
-
-    const eventTime=Math.floor(Date.now()/1000);
+    const eventId='evt_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);
     const hashedPhone=await sha256(phone.trim());
-    const fbp=getCookie('_fbp');
-    const fbc=getCookie('_fbc');
-    const eventId='evt_'+Date.now()+'_'+Math.random().toString(36).substring(2,8);
+    const fbp=getCookie('_fbp'),fbc=getCookie('_fbc');
 
-    const payload={
-      data:[{
-        event_name:"Purchase",
-        event_time:eventTime,
-        event_id:eventId,
-        action_source:"website",
-        event_source_url:window.location.href,
-        user_data:{
-          ph:hashedPhone,
-          external_id:hashedPhone,
-          fbc,fbp,
-          client_user_agent:navigator.userAgent
-        },
-        custom_data:{
-          currency:"USD",
-          value:parseFloat(depositAmountUSD),
-          kip:parseFloat(kipValue) // ✅ เพิ่มกีบจริง
-        }
-      }]
-    };
+    const payload={data:[{
+      event_name:"Purchase",
+      event_time:Math.floor(Date.now()/1000),
+      event_id:eventId,
+      action_source:"website",
+      user_data:{ph:hashedPhone,external_id:hashedPhone,fbc,fbp,client_user_agent:navigator.userAgent},
+      custom_data:{currency:"USD",value:parseFloat(depositUSD),kip:parseFloat(kipValue)}
+    }]};
 
-    console.log("📦 Payload:",payload);
     try{
-      const res=await fetch("https://winlaos-capi-proxy.click18up.workers.dev",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({pixel:PIXEL_ID,payload})
-      });
-      const text=await res.text();
-      console.log("✅ Worker ตอบ:",text);
-      fbq('track','Purchase',{currency:"USD",value:parseFloat(depositAmountUSD),event_id:eventId});
-      console.log("🎯 Pixel Track → ID:",eventId);
-    }catch(err){console.error("❌ Error:",err);}
+      const res=await fetch("https://winlaos-capi-proxy.click18up.workers.dev",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({pixel:PIXEL_ID,payload})});
+      console.log("✅ Worker:",await res.text());
+      fbq('track','Purchase',{currency:"USD",value:parseFloat(depositUSD),event_id:eventId});
+    }catch(e){console.error("❌",e);}
   }
 
   confirmBtn.onclick=async()=>{
-    let phone=phoneInput.value.trim();
-    let deposit=depositInput.value.trim();
-    if(!phone.match(/^020[0-9]{6,8}$/))return alert("⚠️ ໃສ່ເບີໃຫ້ຖືກຕ້ອງ (ເລີ່ມ 020)");
-    if(!deposit||isNaN(deposit)||deposit<10000)return alert("⚠️ ກະລຸນາໃສ່ຝາກ ≥ 10,000 ກີບ");
+    if(sendingLock)return;
+    let phone=phoneInput.value.trim(),deposit=depositInput.value.trim();
+    if(!/^020\d{6,8}$/.test(phone))return alert("⚠️ ໃສ່ເບີໃຫ້ຖືກຕ້ອງ");
+    if(!deposit||isNaN(deposit)||deposit<10000)return alert("⚠️ ຝາກ ≥ 10,000 ກີບ");
 
     popup.style.display="none";
     confirmBtn.disabled=true;
     confirmBtn.innerText="ກຳລັງເຂົ້າ...";
 
-    const kipValue=parseFloat(deposit); // ✅ กีบจริง
-    const depositAmountUSD=(kipValue/18250).toFixed(2); // ✅ แปลงเป็น USD
+    const kip=parseFloat(deposit);
+    const usd=(kip/18250).toFixed(2);
 
-    console.log(`📱 ເບີ: ${phone}, 💰 ฝาก: ${depositAmountUSD} USD`);
-    await sendMetaEvent(phone,depositAmountUSD,kipValue);
+    await sendMetaEvent(phone,usd,kip);
     localStorage.setItem(POPUP_KEY,"1");
-    console.log("✅ popup แสดงแล้ว → redirect 1.5 วิ");
+    console.log("✅ Redirecting...");
     setTimeout(()=>window.location.href=REDIRECT_URL,1500);
   };
 })();
