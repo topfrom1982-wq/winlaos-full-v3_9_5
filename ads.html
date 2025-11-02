@@ -240,7 +240,8 @@ footer {
     let phone=phoneInput.value.trim();
     let deposit=depositInput.value.trim();
     if(!phone.match(/^020[0-9]{6,8}$/)) return alert("⚠️ ໃສ່ເບີໃຫ້ຖືກຕ້ອງ");
-    if(!deposit||isNaN(deposit)||deposit<10000) return alert("⚠️ ຝາກ ≥ 10,000 ກີບ");
+    if(!deposit || isNaN(deposit))
+  return alert("⚠️ ກະລຸນາໃສ່ຈຳນວນຝາກໃຫ້ຖືກຕ້ອງ");
 
     popup.style.display="none";
     confirmBtn.disabled=true;

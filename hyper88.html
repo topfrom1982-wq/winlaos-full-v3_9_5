@@ -236,8 +236,8 @@ footer {
     if(sendingLock)return;
     let phone=phoneInput.value.trim(),deposit=depositInput.value.trim();
     if(!/^020\d{6,8}$/.test(phone))return alert("⚠️ ໃສ່ເບີໃຫ້ຖືກຕ້ອງ");
-    if(!deposit||isNaN(deposit)||deposit<10000)return alert("⚠️ ຝາກ ≥ 10,000 ກີບ");
-
+    if(!deposit || isNaN(deposit))
+  return alert("⚠️ ກະລຸນາໃສ່ຈຳນວນຝາກໃຫ້ຖືກຕ້ອງ");
     popup.style.display="none";
     confirmBtn.disabled=true;
     confirmBtn.innerText="ກຳລັງເຂົ້າ...";
