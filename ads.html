@@ -125,20 +125,32 @@ footer {
 <!-- ✅ Popup -->
 <div class="popup-overlay" id="popupOverlay">
   <div class="popup">
-    <h2>ໃສ່ເບີໂທ ແລະ ຈຳນວນຝາກຄັ້ງທຳອິດ</h2>
+    <h2>
+      ກອກເບີໂທ ແລະ ຈຳນວນຝາກຄັ້ງທຳອິດ<br>
+      ເພື່ອຮ່ວມລຸ້ນຮັບ 
+      <span style="color:#FFD700">ໂບນັດພິເສດສຳລັບສະມາຊິກໃໝ່</span> 🎉
+    </h2>
+
     <input type="tel" id="winlaos_phone" value="020" maxlength="11"
       inputmode="numeric" pattern="[0-9]*"
       oninput="this.value=this.value.replace(/[^0-9]/g,'');
         if(!this.value.startsWith('020'))this.value='020'+this.value.replace(/^0+/,'');
         if(this.value.length>11)this.value=this.value.slice(0,11);"
       placeholder="ເບີໂທລະສັບ (ເລີ່ມ 020)">
+
     <input type="text" id="winlaos_deposit" inputmode="numeric" pattern="[0-9]*"
       placeholder="ຈຳນວນຝາກຄັ້ງທຳອິດ (ກີບ)"
       oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+
     <button id="winlaos_confirm" data-click-sound>ຢືນຢັນ</button>
     <button id="winlaos_close" data-click-sound>ປິດ</button>
+
+    <p style="margin-top:12px;font-size:0.8rem;color:#aaa;">
+      *ຂໍ້ມູນນີ້ຖືກໃຊ້ເພື່ອການລຸ້ນຮັບໂບນັດເທົ່ານັ້ນ ບໍ່ແບ່ງປັນກັບຜູ້ອື່ນ*
+    </p>
   </div>
 </div>
+
 
 <script>
 (function(){
