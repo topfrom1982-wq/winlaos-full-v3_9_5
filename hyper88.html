@@ -18,10 +18,6 @@ s.parentNode.insertBefore(t,s)}(window,document,'script',
 fbq('init','1519822972491842');
 fbq('track','PageView');
 </script>
-<noscript>
-  <img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=1519822972491842&ev=PageView&noscript=1"/>
-</noscript>
 
 <style>
 body {
@@ -142,7 +138,6 @@ footer {
       ເພື່ອຮ່ວມລຸ້ນຮັບ 
       <span style="color:#FFD700">ໂບນັດພິເສດຈາກ Hyper88</span> 🎁
     </h2>
-
     <input 
       type="tel" id="hyper88_phone" value="020" maxlength="11"
       inputmode="numeric" pattern="[0-9]*"
@@ -150,21 +145,17 @@ footer {
         if(!this.value.startsWith('020'))this.value='020'+this.value.replace(/^0+/,'');
         if(this.value.length>11)this.value=this.value.slice(0,11);"
       placeholder="ເບີໂທລະສັບ (ເລີ່ມ 020)">
-
     <input 
       type="text" id="hyper88_deposit" inputmode="numeric" pattern="[0-9]*"
       placeholder="ຈຳນວນຝາກຄັ້ງທຳອິດ (ກີບ)"
       oninput="this.value=this.value.replace(/[^0-9]/g,'');">
-
     <button id="hyper88_confirm" data-click-sound>ຢືນຢັນ</button>
     <button id="hyper88_close" data-click-sound>ປິດ</button>
-
     <p style="margin-top:12px;font-size:0.8rem;color:#aaa;">
       *ຂໍ້ມູນນີ້ຖືກໃຊ້ເພື່ອການລຸ້ນໂບນັດເທົ່ານັ້ນ ບໍ່ແບ່ງປັນກັບຜູ້ອື່ນ*
     </p>
   </div>
 </div>
-
 
 <script>
 // ✅ เสียงคลิก
@@ -181,17 +172,18 @@ footer {
 (() => {
   const PIXEL_ID="1519822972491842";
   const REDIRECT_URL="https://mvpatm.pro";
+  const POPUP_KEY="hyper88_popup_shown";
+  const EVENT_KEY="hyper88_event_sent";
+  let sendingLock=false;
+
   const popup=document.getElementById("popupOverlay");
   const enterBtn=document.getElementById("enterBtn");
   const confirmBtn=document.getElementById("hyper88_confirm");
   const closeBtn=document.getElementById("hyper88_close");
   const phoneInput=document.getElementById("hyper88_phone");
   const depositInput=document.getElementById("hyper88_deposit");
-  const POPUP_KEY="hyper88_popup_shown";
-  const EVENT_KEY="hyper88_event_sent";
-  let sendingLock=false;
 
-  enterBtn.onclick=()=>{if(localStorage.getItem(POPUP_KEY)==="1"){window.location.href=REDIRECT_URL;}else{popup.style.display="flex";}};
+  enterBtn.onclick=()=>{if(localStorage.getItem(POPUP_KEY)==="1"){redirectNow();}else{popup.style.display="flex";}};
   closeBtn.onclick=()=>popup.style.display="none";
 
   async function sha256(msg){
@@ -199,12 +191,15 @@ footer {
     const hash=await crypto.subtle.digest("SHA-256",buf);
     return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");
   }
-  function getCookie(name){const m=document.cookie.match(new RegExp(name+'=([^;]+)'));return m?m[1]:null;}
+  function getCookie(name){
+    const m=document.cookie.match(new RegExp(name+'=([^;]+)'));
+    return m?m[1]:null;
+  }
 
   async function sendMetaEvent(phone,depositUSD,kipValue){
-    if(sendingLock){console.log("⚠️ Duplicate Blocked");return;}
+    if(sendingLock)return console.log("⚠️ Duplicate Blocked");
     sendingLock=true;
-    if(sessionStorage.getItem("event_sent")==="1"||localStorage.getItem(EVENT_KEY)==="1"){console.log("⚠️ Already Sent");return;}
+    if(sessionStorage.getItem("event_sent")==="1"||localStorage.getItem(EVENT_KEY)==="1")return console.log("⚠️ Already Sent");
     sessionStorage.setItem("event_sent","1");localStorage.setItem(EVENT_KEY,"1");
 
     if(phone.startsWith("020"))phone="856"+phone.substring(1);
@@ -228,6 +223,15 @@ footer {
     }catch(e){console.error("❌",e);}
   }
 
+  function redirectNow(){
+    const url="https://mvpatm.pro";
+    if(/Android/i.test(navigator.userAgent)){
+      window.location.href=`intent://${url.replace(/^https?:\/\//,'')}#Intent;scheme=https;package=com.android.chrome;end`;
+    }else{
+      window.location.href=url;
+    }
+  }
+
   confirmBtn.onclick=async()=>{
     if(sendingLock)return;
     let phone=phoneInput.value.trim(),deposit=depositInput.value.trim();
@@ -243,8 +247,9 @@ footer {
 
     await sendMetaEvent(phone,usd,kip);
     localStorage.setItem(POPUP_KEY,"1");
-    console.log("✅ Redirecting...");
-    setTimeout(()=>window.location.href=REDIRECT_URL,1500);
+
+    console.log("✅ Redirect ภายใน 1.5 วิ");
+    setTimeout(()=>redirectNow(),1500);
   };
 })();
 </script>

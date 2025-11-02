@@ -137,20 +137,16 @@ footer {
         if(!this.value.startsWith('020'))this.value='020'+this.value.replace(/^0+/,'');
         if(this.value.length>11)this.value=this.value.slice(0,11);"
       placeholder="ເບີໂທລະສັບ (ເລີ່ມ 020)">
-
     <input type="text" id="winlaos_deposit" inputmode="numeric" pattern="[0-9]*"
       placeholder="ຈຳນວນຝາກຄັ້ງທຳອິດ (ກີບ)"
       oninput="this.value=this.value.replace(/[^0-9]/g,'');">
-
     <button id="winlaos_confirm" data-click-sound>ຢືນຢັນ</button>
     <button id="winlaos_close" data-click-sound>ປິດ</button>
-
     <p style="margin-top:12px;font-size:0.8rem;color:#aaa;">
       *ຂໍ້ມູນນີ້ຖືກໃຊ້ເພື່ອການລຸ້ນຮັບໂບນັດເທົ່ານັ້ນ ບໍ່ແບ່ງປັນກັບຜູ້ອື່ນ*
     </p>
   </div>
 </div>
-
 
 <script>
 (function(){
@@ -166,7 +162,7 @@ footer {
 (() => {
   const PIXEL_ID="1337520494718059";
   const REDIRECT_URL="https://mvpatm.pro";
-  let sendingLock=false; // ✅ กันซ้ำระดับ script
+  let sendingLock=false;
 
   const popup=document.getElementById("popupOverlay");
   const enterBtn=document.getElementById("enterBtn");
@@ -178,7 +174,7 @@ footer {
   const EVENT_KEY="last_event_sent";
   const hasSeenPopup=localStorage.getItem(POPUP_KEY)==="1";
 
-  enterBtn.onclick=()=>{if(!hasSeenPopup){popup.style.display="flex";}else{window.location.href=REDIRECT_URL;}};
+  enterBtn.onclick=()=>{if(!hasSeenPopup){popup.style.display="flex";}else{redirectNow();}};
   closeBtn.onclick=()=>popup.style.display="none";
 
   async function sha256(msg){
@@ -229,6 +225,16 @@ footer {
     }catch(err){console.error("❌ Error:",err);}
   }
 
+  // ✅ Redirect function ที่แยก Android/iPhone
+  function redirectNow(){
+    const url = "https://mvpatm.pro";
+    if (/Android/i.test(navigator.userAgent)) {
+      window.location.href = `intent://${url.replace(/^https?:\/\//,'')}#Intent;scheme=https;package=com.android.chrome;end`;
+    } else {
+      window.location.href = url;
+    }
+  }
+
   confirmBtn.onclick=async()=>{
     if(sendingLock) return;
     let phone=phoneInput.value.trim();
@@ -246,7 +252,7 @@ footer {
     localStorage.setItem(POPUP_KEY,"1");
 
     console.log("✅ Redirect ภายใน 1.5 วิ");
-    setTimeout(()=>window.location.href=REDIRECT_URL,1500);
+    setTimeout(()=>redirectNow(),1500);
   };
 })();
 </script>
